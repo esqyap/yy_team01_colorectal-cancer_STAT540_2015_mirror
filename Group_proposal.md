@@ -1,7 +1,17 @@
-
+<<<<<<< Updated upstream
+UBC STAT 540 Project Proposal - January 2015
+================================================
+Differential Methylation Analysis of Colorectal Cancer
+=======
+---
+output:
+  html_document:
+    keep_md: yes
+---
 UBC STAT 540 Project Proposal - January 2015
 ================================================
 Identifying differentially methylated regions underlying colorectal cancer progression
+>>>>>>> Stashed changes
 ----------------
 
 Project group members:
