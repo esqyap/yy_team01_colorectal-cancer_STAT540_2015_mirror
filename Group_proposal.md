@@ -1,6 +1,17 @@
+<<<<<<< Updated upstream
 UBC STAT 540 Project Proposal - January 2015
 ================================================
 Differential Methylation Analysis of Colorectal Cancer
+=======
+---
+output:
+  html_document:
+    keep_md: yes
+---
+UBC STAT 540 Project Proposal - January 2015
+================================================
+Identifying differentially methylated regions underlying colorectal cancer progression
+>>>>>>> Stashed changes
 ----------------
 
 Project group members:
@@ -11,7 +22,9 @@ Project group members:
 * Beryl Zhuang
 
 ## Introduction: 
-__(Eva can put the intro in here)__
+**Colorectal cancer (CRC) initiation and step-wise progression are associated with the accumulation of genetic and epigenetic alterations. Epigenetic mechanisms are processes that can change gene expression without modifying the primary sequence of DNA. The best-characterized epigenetic process is DNA methylation, which regulates gene transcription by covalent addition of a methyl group at the 5-carbon position of cytosine within cytosine-guanine dinucleotides (CpG). Aberrant DNA methylation can lead to malignancy by hypermethylation of CpG islands resulting in transcriptional silencing of tumour suppressor genes. CpG islands are sequences with high CpG ratios located within gene promoters and methylation at these sites promotes association of methyl-binding proteins (MBPs) and subsequent recruitment of transcriptional repressors.**
+
+**Changes in DNA methylation is one of the early molecular events involved in CRC initiation and many studies have identified these epigenetic abnormalities in precursor lesions such as aberrant crypt foci and adenomas. For our project, we selected *blah blah blah***
 
 * What's CRC (colorectal cancer) 
 * DNA methylation
