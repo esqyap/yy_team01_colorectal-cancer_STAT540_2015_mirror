@@ -13,7 +13,7 @@ __(Eva can put the intro in here)__
 * other justification 
 
 ## Part 2: About the data 
-__(maybe Rashduel can edit this part?)__
+__(maybe Rashedul can edit this part?)__
 
 * Description of the dataset 
     - the three groups (normal ,adenoma, CRC) 
