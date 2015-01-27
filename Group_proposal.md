@@ -24,8 +24,8 @@ __(maybe Rashedul can edit this part?)__
 * Can we identify differential DNA methylation patterns that underlie the progression of CRC? 
 
 ## Part 4: Our Approach 
-* there are ~ 500K probes, so we will need to limit that
-    - looking at important genes + some randomly selected locations 
+As revealed by the corresponding GEO Platform GPL13534, 485577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes into a manageable size (~10000). We will survey the literature to compile a list of genes known to be correlated with CRC. Then, we will select probes that hybridize to these genes with a flanking window of 1000 bp. The remaining probes are selected arbitrarily to meet our targeted number of probes.
+
 * other things we might need to do
    - reformatting and cleaning data
    - build a pipeline
