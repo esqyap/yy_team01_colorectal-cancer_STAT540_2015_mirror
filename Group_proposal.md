@@ -36,8 +36,8 @@ and 64 cancers
     - details about data files 
 
 ## Part 2: Research Question(s)
-* Can we identify differential DNA methylation patterns that underlie the progression of CRC?
-* What are the genes that are differentially methylated in the three groups?
+
+Can we identify differential DNA methylation patterns that underlie the progression of CRC? If so, what are the genes that are differentially methylated in the three groups?
 
 ## Part 3: Proposed Work 
 As revealed by the corresponding GEO Platform GPL13534, 485577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes into a manageable size (~10000). We will survey the literature to compile a list of genes known to be correlated with CRC and select probes that hybridize to these genes. To identify novel genes that could be involved in the tumour progression, we will also include probes that are found on or near CpG islands, regions that are some associated with promoters. Therefore, we could infer what genes are downregulated or upregulated at the level of transcription of we identify any significant changes in methylation. To explore the data more throughly, we could also include some randomly selected probes in our analysis or consider looking through all the probes if we successfully built a automated analysis pipieline. 
