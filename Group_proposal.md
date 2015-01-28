@@ -40,25 +40,12 @@ and 64 cancers
 * What are the genes that are differentially methylated in the three groups?
 
 ## Part 3: Proposed Work 
-As revealed by the corresponding GEO Platform GPL13534, 485577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes into a manageable size (~10000). We will survey the literature to compile a list of genes known to be correlated with CRC. Then, we will select probes that hybridize to these genes with a flanking window of 1000 bp **[we definitely need citation for this window size]**. The remaining probes are selected arbitrarily to meet our targeted number of probes.
+As revealed by the corresponding GEO Platform GPL13534, 485577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes into a manageable size (~10000). We will survey the literature to compile a list of genes known to be correlated with CRC and select probes that hybridize to these genes. To identify novel genes that could be involved in the tumour progression, we will also include probes that are found on or near CpG islands, regions that are some associated with promoters. Therefore, we could infer what genes are downregulated or upregulated at the level of transcription of we identify any significant changes in methylation. To explore the data more throughly, we could also include some randomly selected probes in our analysis or consider looking through all the probes if we successfully built a automated analysis pipieline. 
 
-* Proposed workflow/pipeline
-  * 1. Downsize dataset
-      - Select probes targeting gene of interest and randomly select the rest of the probes
-      - select probes near CPG islands
-  * 2. Data reshaping and exploratory analysis of raw data
-      - Perform data cleaning and reformatting as needed
-      - Exploratory analysis of raw data such as mapping missing values(NAs), missing probes (if any), outliers etc. Do sanity check on the samples.
-        - clustering analysis for data exploration
-  * 3. Statistical analysis that can answer the research questions.
-      - Statistical testing to identify differential DNA methylation regions
-        * t-test (?__does this work?__), ANOVA, linear model
-      - Multiple testing
-      - Cluster analysis to identify subgroups
-      - (check the course syllabus)
-      
+At the start of the project, we want to perform some data cleaning and reformatting to ensure that we work with high-quality data. We would first to a exploratory analysis to see whether there are missing values or missing probes in some samples to see how consistent our data are and decide how we want to account for the discrepancy among each sample. We would also do clustering analysis on data from three different patient groups to see if data from the same group would cluster together. Not only these initial check could help us in designing our analysis steps, but also give us a sense of what the raw data look like. 
 
-(__may be add more, or be more specific__)
+In order to do group comparison among the data of the three different tumour progression stages, we will perform several statistical tests, such as ANOVA and t-test as covered in this class. Depending on the remaining time and resource, we could also build prediction models based on our data to see if we could do prediction on the tumour progression based on the methylation data in early stages of colorectal cancer. 
+
 
 ## References
 * blah (need to fill in)
