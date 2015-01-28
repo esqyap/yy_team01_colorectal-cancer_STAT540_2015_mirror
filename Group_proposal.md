@@ -53,6 +53,7 @@ As revealed by the corresponding GEO Platform GPL13534, 485577 HumanMethylation4
         * t-test (?__does this work?__), ANOVA, linear model
       - Multiple testing
       - Cluster analysis to identify subgroups
+      - (check the course syllabus)
 
 (__may be add more, or be more specific__)
 
