@@ -48,6 +48,7 @@ As revealed by the corresponding GEO Platform GPL13534, 485577 HumanMethylation4
   * 2. Data reshaping and exploratory analysis of raw data
       - Perform data cleaning and reformatting as needed
       - Exploratory analysis of raw data such as mapping missing values(NAs), missing probes (if any), outliers etc. Do sanity check on the samples.
+        - clustering analysis for data exploration
   * 3. Statistical analysis that can answer the research questions.
       - Statistical testing to identify differential DNA methylation regions
         * t-test (?__does this work?__), ANOVA, linear model
