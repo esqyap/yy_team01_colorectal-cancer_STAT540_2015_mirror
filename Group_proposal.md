@@ -39,9 +39,15 @@ __(maybe Rashedul can edit this part?)__
 ## Part 4: Proposed Work 
 As revealed by the corresponding GEO Platform GPL13534, 485577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes into a manageable size (~10000). We will survey the literature to compile a list of genes known to be correlated with CRC. Then, we will select probes that hybridize to these genes with a flanking window of 1000 bp **[we definitely need citation for this window size]**. The remaining probes are selected arbitrarily to meet our targeted number of probes.
 
-* other things we might need to do
-   - reformatting and cleaning data
-   - build a pipeline
+* Proposed workflow/pipeline
+  * 1. Downsize dataset
+      - Select probes targeting gene of interest and randomly select the rest of the probes
+  * 2. Data reshaping and exploratory analysis of raw data
+      - Perform data cleaning and reformatting as needed
+      - Exploratory analysis of raw data such as mapping missing values(NAs), missing probes (if any), outliers etc. Do sanity check on the samples.
+  * 3. Statistical analysis that can answer the research questions.
+
+
 
 ## References
-* blah
+* blah (need to fill in)
