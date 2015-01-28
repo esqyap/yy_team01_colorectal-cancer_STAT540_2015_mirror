@@ -45,6 +45,7 @@ As revealed by the corresponding GEO Platform GPL13534, 485577 HumanMethylation4
 * Proposed workflow/pipeline
   * 1. Downsize dataset
       - Select probes targeting gene of interest and randomly select the rest of the probes
+      - select probes near CPG islands
   * 2. Data reshaping and exploratory analysis of raw data
       - Perform data cleaning and reformatting as needed
       - Exploratory analysis of raw data such as mapping missing values(NAs), missing probes (if any), outliers etc. Do sanity check on the samples.
@@ -55,6 +56,7 @@ As revealed by the corresponding GEO Platform GPL13534, 485577 HumanMethylation4
       - Multiple testing
       - Cluster analysis to identify subgroups
       - (check the course syllabus)
+      
 
 (__may be add more, or be more specific__)
 
