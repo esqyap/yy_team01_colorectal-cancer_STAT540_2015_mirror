@@ -32,12 +32,7 @@ Illumina Infinium HumanMethylation450 (HM450) Bead- Chips (Illumina, San Diego, 
 The data we collected were already normalized by previous authors **(3)**. At first they removed untrustworthy probes using a detection P value >.05. They used carried out normalization using a subset-quantile within array normalization (SWAN) which is a newly developed normalization method specifically designed for Illumina Infinium HM450 array data. SWAN also reduces technical variations within and between arrays. SWAN is a Bioconductor minfi package **(7)**. Batch effects across all array runs were assessed and corrected using the ComBat algorithm **(8)**. 
 
 ##### Data description
-The data we will use has 3 columns and has few thousands rows. First column represent the probe name, second column for normalization value and third column for detection P-value. Each row shows single probe. [I will add an example table of data]
-
-__(things to add?)__
-- the three groups (normal ,adenoma, CRC) :41 normal colon tissue, 42 colon adenomas, and 64 cancers"
-- details about data files __(important)__
-- the types of data (probes, samples,  how it's generated generated from the array) 
+The data we will use has 3 columns and has few thousands rows. First column represent the probe name, second column for normalization value and third column for detection P-value. Each row shows single probe. *I will add an example table of data*
 
 #### Proposed Methods
 As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those that only hybridize to CpG islands, which is widely studied and shown to be biologically relevant in cancer progression. 
