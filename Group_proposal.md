@@ -14,9 +14,6 @@ Project group members:
 #### Background
 Colorectal cancer (CRC) initiation and step-wise progression are associated with the accumulation of genetic and epigenetic alterations **(Figure 1)**. The best-characterized epigenetic process is DNA methylation, which regulates gene transcription by covalent addition of a methyl group at the 5-carbon position of cytosine within cytosine-guanine dinucleotides (CpG). Aberrant DNA methylation can lead to malignancy by hypermethylation of CpG islands resulting in transcriptional silencing of tumour suppressor genes. CpG islands are sequences with high CpG fraction (>50%) located within gene promoters and methylation at these sites promotes association of methyl-binding proteins (MBPs) and subsequent recruitment of transcriptional repressors **(1,2)**.
 
-![Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (5)](http://www.hindawi.com/journals/pri/2012/509348.fig.001b.jpg)
-Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (5)
-
 Changes in DNA methylation is one of the early molecular events involved in CRC progression and many studies have identified these epigenetic abnormalities in precursor lesions such as aberrant crypt foci and adenomas **(3,4,5)**. Methylation aberrations can also mediate field defect, a phenomenon in which histologically normal tissues are predisposed to malignant transformation due to the presence of molecular alterations. For example, cancer-specific promoter methylation of the O<sup>6</sup>-methylguanine DNA methyltransferase (*MGMT*) gene which encodes for a DNA repair protein was detected in normal intestinal tissues adjacent to tumours and distant normal tissues 10 cm away from tumours in CRC patients **(6)**. 
 
 Therefore, comparison of DNA methylation patterns at the whole methylome level between normal tissues, precursor lesions, and colorectal tumours as well as comparison of tumours with paired normal tissues from CRC patients could provide further insights on the biology of CRC initiation and progression. Ultimately, these information could be translated into a clinically applicable tool which applies DNA methylation markers in early detection, risk assessment, disease monitoring, and therapeutic intervention of CRC. 
@@ -40,9 +37,7 @@ The datasets we will use has 3 columns. First column represent the probe name, s
 #### Proposed Methods
 As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those (150,254) that hybridize to CpG islands, which is widely studied and shown to be biologically relevant in cancer progression.
 
-
-
-In the first phase of our project, we must ensure that we work with high-quality data. We would perform clustering analysis on data to see if clusters agree with their designated patient group. This step is very important because it can reveal sample-swaps. In addition, it also gives us a sense of the variability of our data. 
+In the first phase of our project, we must ensure that we work with high-quality data. We would perform clustering analysis on data to see if clusters agree with their designated patient group. This step is very important because it can reveal sample-swaps. In addition, it also gives us a sense of the variability of our data.
 
 In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform several statistical tests, such as ANOVA and t-test as covered recently in the lectures. We will also perform this statistical model for comparison between tumours with paired normal tissues in CRC patients. Depending on the remaining time and resource, we could also build prediction models based on our data to see if we could predict tumour progression based on the methylation data in early stages of CRC. 
 
@@ -58,6 +53,11 @@ In order to do group comparison between the methylation data of the normal tissu
 9. Pancione, M. et al. Pathology Res. Int. 2012 Jul 24; 2012:509348
 
 #### Supplementary information
-[Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (5)](http://www.hindawi.com/journals/pri/2012/509348.fig.001b.jpg)
+![Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (5)](http://www.hindawi.com/journals/pri/2012/509348.fig.001b.jpg)
 
-[Figure 2: Illumina Infinium HumanMethylation450 assay (7)](http://genomebiology.com/2012/13/6/R44/figure/F1?highres=y)
+Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (5)
+
+![Figure 2: Illumina Infinium HumanMethylation450 assay (7)](http://genomebiology.com/content/figures/gb-2012-13-6-r44-1-l.jpg)
+
+Figure 2: Illumina Infinium HumanMethylation450 assay (7)
+
