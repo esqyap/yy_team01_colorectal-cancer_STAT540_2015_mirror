@@ -37,6 +37,7 @@ The data we collected were already normalized by previous authors **(1)**. At fi
 The data we will use has 3 columns and has few thousands rows. First column represent the probe name, second column for normalization value and third column for detection P-value. Each row shows single probe. [I will add an example table of data]
 
 __(things to add?)__
+- the three groups (normal ,adenoma, CRC) :41 normal colon tissue, 42 colon adenomas, and 64 cancers"
 - details about data files __(important)__
 - the types of data (probes, samples,  how it's generated generated from the array) 
 
