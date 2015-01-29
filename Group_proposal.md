@@ -37,25 +37,9 @@ The data we will use has 3 columns and has few thousands rows. First column repr
 #### Proposed Methods
 As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those that only hybridize to CpG islands, which is widely studied and shown to be biologically relevant in cancer progression. 
 
-*I think if we focus on CpG islands only, we should be able to downsize the probes enough. At least, that was what Alice's group did and What do you guys think?*
 
-```
-I have just verified. The GPL13534 data table has a column for 'Relation_to_UCSC_CpG_Island'.
-- 150254 Island
--   24844 N_Shelf
--   62870 N_Shore
--   22300 S_Shelf
--   49197 S_Shore
-- 176112 *blank*
 
-~36% reduction if we remove blanks.
-Relationship to Canonical CpG Island: Shores - 0-2 kb from CpG island; Shelves - 2-4 kb from CpG island.
-~70% reduction if we focus on canonical CpGs only!!!
-```
-
-In the first phase of our project, we must ensure that we work with high-quality data. We would perform clustering analysis on data to see if clusters agree with their designated patient group. This step is very important because it can reveal sample-swaps. In addition, it also gives us a sense of the variability of our data. *Second step is to perform normalization of beta values, mention why and how? Or we can just leave it as perform data normalization. Third step is to perform clustering again post normalization and filtering.*
-
-**TODO: we need to look into how those beta values were generated**
+In the first phase of our project, we must ensure that we work with high-quality data. We would perform clustering analysis on data to see if clusters agree with their designated patient group. This step is very important because it can reveal sample-swaps. In addition, it also gives us a sense of the variability of our data. 
 
 In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform several statistical tests, such as ANOVA and t-test as covered recently in the lectures. We will also perform this statistical model for comparison between paired normal tissues with tumours in CRC patients. Depending on the remaining time and resource, we could also build prediction models based on our data to see if we could do prediction on the tumour progression based on the methylation data in early stages of colorectal cancer. 
 
