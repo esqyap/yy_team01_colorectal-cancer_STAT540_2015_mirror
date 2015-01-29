@@ -37,11 +37,21 @@ and 64 cancers
 - the types of data (probes, samples,  how it's generated generated from the array) 
 
 #### Proposed Methods
-As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those that only hybridize to CpG islands, which are widely studied and aberrant methylation has been shown to be biologically relevant in cancer progression. 
+As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those that only hybridize to CpG islands, which is widely studied and shown to be biologically relevant in cancer progression. 
 
 *I think if we focus on CpG islands only, we should be able to downsize the probes enough. At least, that was what Alice's group did and What do you guys think?*
 
-**TODO: We will have to overlap the probe coodinates with the liftover track for cpg islands and  see.**
+```
+I have just verified. The GPL13534 data table has a column for 'Relation_to_UCSC_CpG_Island'.
+- 150254 Island
+-   24844 N_Shelf
+-   62870 N_Shore
+-  22300 S_Shelf
+-  49197 S_Shore
+- 176112 *blank*
+
+This is ~37% reduction if we remove blanks.
+```
 
 In the first phase of our project, we must ensure that we work with high-quality data. We would perform clustering analysis on data to see if clusters agree with their designated patient group. This step is very important because it can reveal sample-swaps. In addition, it also gives us a sense of the variability of our data. *Second step is to perform normalization of beta values, mention why and how? Or we can just leave it as perform data normalization. Third step is to perform clustering again post normalization and filtering.*
 
@@ -54,5 +64,3 @@ In order to do group comparison between the methylation data of the normal tissu
 2.	Vaiopoulos, A. G. et al. Biochim. Biophys. Acta. 2014 Feb 20; 1842(7):971–80.
 3.	Shen, L. et al. J. Natl. Cancer Inst. 2005 Sept 21; 97(18):1330–8.
 
-#### Supplementary information
-[Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC.](http://www.ncc.go.jp/en/nccri/divisions/14carc/image/14carc004_3.gif)
