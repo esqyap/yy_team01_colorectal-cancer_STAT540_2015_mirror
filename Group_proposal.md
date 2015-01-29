@@ -35,16 +35,16 @@ and 64 cancers
     - the types of data (probes, samples,  how it's generated generated from the array) 
     - details about data files 
 
-## Part 2: Research Question(s)
+Research Question(s)
 
 Can we identify differential DNA methylation patterns that underlie the progression of CRC? If so, what are the genes that are differentially methylated in the three groups?
 
-## Part 3: Proposed Work 
+Proposed Work 
 As revealed by the corresponding GEO Platform GPL13534, 485577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes into a manageable size (~10000). We will survey the literature to compile a list of genes known to be correlated with CRC and select probes that hybridize to these genes. To identify novel genes that could be involved in the tumour progression, we will also include probes that are found on or near CpG islands, regions that are some associated with promoters. Therefore, we could infer what genes are downregulated or upregulated at the level of transcription of we identify any significant changes in methylation. To explore the data more throughly, we could also include some randomly selected probes in our analysis or consider looking through all the probes if we successfully built a automated analysis pipieline. 
 
-At the start of the project, we want to perform some data cleaning and reformatting to ensure that we work with high-quality data. We would first to a exploratory analysis to see whether there are missing values or missing probes in some samples to see how consistent our data are and decide how we want to account for the discrepancy among each sample. We would also do clustering analysis on data from three different patient groups to see if data from the same group would cluster together. Not only these initial check could help us in designing our analysis steps, but also give us a sense of what the raw data look like. 
+In the first phase of our project, we must ensure that we work with high-quality data. We would perform clustering analysis on data to see if clusters agree with their designated patient group. This step is very important because it can reveal sample-swaps. In addition, it also give us a sense of the variability of our data. 
 
-In order to do group comparison among the data of the three different tumour progression stages, we will perform several statistical tests, such as ANOVA and t-test as covered in this class. Depending on the remaining time and resource, we could also build prediction models based on our data to see if we could do prediction on the tumour progression based on the methylation data in early stages of colorectal cancer. 
+In order to do group comparison among the data of the three different tumour progression stages, we will perform several statistical tests, such as ANOVA and t-test as covered recently in the lectures. Depending on the remaining time and resource, we could also build prediction models based on our data to see if we could do prediction on the tumour progression based on the methylation data in early stages of colorectal cancer. 
 
 
 ## References
