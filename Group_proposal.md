@@ -28,7 +28,7 @@ For our group project, we will analyze DNA methylation array data from [Series G
 Data for each sample consists of 
 
 ##### Technology used to generate the data
-The Infinium assay can detects methylation at a single base resolution. The length of methylation probe is 50 bp. The probes query a C to T conversion created by bisulfite treatment of unmethylated cytosines in the genome. The Infinium 450k methylation platform uses a combination of two distinct probe types, Infinium I and II **Figure 2a,b** **(4)**.
+Illumina Infinium HumanMethylation450 (HM450) Bead- Chips (Illumina, San Diego, CA) were used to generate all data we will be using. The Infinium assay can detects methylation at a single base resolution. The length of methylation probe is 50 bp. The probes query a C to T conversion created by bisulfite treatment of unmethylated cytosines in the genome. The Infinium 450k methylation platform uses a combination of two distinct probe types, Infinium I and II **Figure 2a,b** **(4)**.
 
 ##### Data Filtering and Normalization
 The data we collected were already normalized by previous authors **(1)**. At first they removed untrustworthy probes using a detection P value >.05. They used carried out normalization using a subset-quantile within array normalization (SWAN) which is a newly developed normalization method specifically designed for Illumina Infinium HM450 array data. SWAN also reduces technical variations within and between arrays. SWAN is a Bioconductor minfi package **(4)**. Batch effects across all array runs were assessed and corrected using the ComBat algorithm **(5)**. 
