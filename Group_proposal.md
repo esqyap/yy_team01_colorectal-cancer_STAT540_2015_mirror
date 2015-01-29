@@ -37,7 +37,7 @@ and 64 cancers
 - the types of data (probes, samples,  how it's generated generated from the array) 
 
 #### Proposed Methods
-As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those that only hybridize to CpG islands, which is widely studied and shown to be biologically relevant in cancer progression. 
+As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those that only hybridize to CpG islands, which are widely studied and aberrant methylation has been shown to be biologically relevant in cancer progression. 
 
 *I think if we focus on CpG islands only, we should be able to downsize the probes enough. At least, that was what Alice's group did and What do you guys think?*
 
@@ -54,3 +54,5 @@ In order to do group comparison between the methylation data of the normal tissu
 2.	Vaiopoulos, A. G. et al. Biochim. Biophys. Acta. 2014 Feb 20; 1842(7):971–80.
 3.	Shen, L. et al. J. Natl. Cancer Inst. 2005 Sept 21; 97(18):1330–8.
 
+#### Supplementary information
+[Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC.](http://www.ncc.go.jp/en/nccri/divisions/14carc/image/14carc004_3.gif)
