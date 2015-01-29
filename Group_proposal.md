@@ -41,7 +41,7 @@ As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih
 
 In the first phase of our project, we must ensure that we work with high-quality data. We would perform clustering analysis on data to see if clusters agree with their designated patient group. This step is very important because it can reveal sample-swaps. In addition, it also gives us a sense of the variability of our data. 
 
-In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform several statistical tests, such as ANOVA and t-test as covered recently in the lectures. We will also perform this statistical model for comparison between paired normal tissues with tumours in CRC patients. Depending on the remaining time and resource, we could also build prediction models based on our data to see if we could do prediction on the tumour progression based on the methylation data in early stages of colorectal cancer. 
+In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform several statistical tests, such as ANOVA and t-test as covered recently in the lectures. We will also perform this statistical model for comparison between tumours with paired normal tissues in CRC patients. Depending on the remaining time and resource, we could also build prediction models based on our data to see if we could predict tumour progression based on the methylation data in early stages of CRC. 
 
 #### References
 1. Li, J. et al. ISRN Gastroenterol. 2014 Mar 6; 2014:464015.
