@@ -28,24 +28,32 @@ For our group project, we will analyze DNA methylation array data from [Series G
 Data for each sample consists of 
 
 ##### Technology used to generate the data
-The Infinium assay can detects methylation at a single base resolution. The length of methylation probe is 50 bp. The probes query a C to T conversion created by bisulfite treatment of unmethylated cytosines in the genome. The Infinium 450k methylation platform uses a combination of two distinct probe types, Infinium I and II **Figure 2a,b** **(4)**.
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+The Infinium assay can detects methylation at a single base resolution. The length of methylation probe is 50 bp. The probes query a C to T conversion created by bisulfite treatment of unmethylated cytosines in the genome. The Infinium 450k methylation platform uses a combination of two distinct probe types, Infinium I and II **Figure 2a,b** **(7)**.
+
+##### Data Filtering and Normalization
+The data we collected were already normalized by previous authors **(3)**. At first they removed untrustworthy probes using a detection P value >.05. They used carried out normalization using a subset-quantile within array normalization (SWAN) which is a newly developed normalization method specifically designed for Illumina Infinium HM450 array data. SWAN also reduces technical variations within and between arrays. SWAN is a Bioconductor minfi package **(7)**. Batch effects across all array runs were assessed and corrected using the ComBat algorithm **(8)**. 
+=======
+=======
+>>>>>>> FETCH_HEAD
+=======
+>>>>>>> FETCH_HEAD
+=======
+>>>>>>> FETCH_HEAD
+Illumina Infinium HumanMethylation450 (HM450) Bead- Chips (Illumina, San Diego, CA) were used to generate all data we will be using. The Infinium assay can detects methylation at a single base resolution. The length of methylation probe is 50 bp. The probes query a C to T conversion created by bisulfite treatment of unmethylated cytosines in the genome. The Infinium 450k methylation platform uses a combination of two distinct probe types, Infinium I and II **Figure 2a,b** **(4)**.
 
 ##### Data Filtering and Normalization
 The data we collected were already normalized by previous authors **(1)**. At first they removed untrustworthy probes using a detection P value >.05. They used carried out normalization using a subset-quantile within array normalization (SWAN) which is a newly developed normalization method specifically designed for Illumina Infinium HM450 array data. SWAN also reduces technical variations within and between arrays. SWAN is a Bioconductor minfi package **(4)**. Batch effects across all array runs were assessed and corrected using the ComBat algorithm **(5)**. 
-
-##### Data description
-The data we will use has 3 columns and has few thousands rows. First column represent the probe name, second column for normalization value and third column for detection P-value. Each row shows single probe. [I will add an example table of data]
-
-##### Technology used to generate the data
-The Infinium assay can detects methylation at a single base resolution. The length of methylation probe is 50 bp. The probes query a C to T conversion created by bisulfite treatment of unmethylated cytosines in the genome. The Infinium 450k methylation platform uses a combination of two distinct probe types, Infinium I and II **Figure 2a,b** **(4)**.
-
-##### Data Filtering and Normalization
-The data we collected were already normalized by previous authors **(1)**. At first they removed untrustworthy probes using a detection P value >.05. They used carried out normalization using a subset-quantile within array normalization (SWAN) which is a newly developed normalization method specifically designed for Illumina Infinium HM450 array data. SWAN also reduces technical variations within and between arrays. SWAN is a Bioconductor minfi package **(4)**. Batch effects across all array runs were assessed and corrected using the ComBat algorithm **(5)**. 
+>>>>>>> FETCH_HEAD
 
 ##### Data description
 The data we will use has 3 columns and has few thousands rows. First column represent the probe name, second column for normalization value and third column for detection P-value. Each row shows single probe. [I will add an example table of data]
 
 __(things to add?)__
+- the three groups (normal ,adenoma, CRC) :41 normal colon tissue, 42 colon adenomas, and 64 cancers"
 - details about data files __(important)__
 - the types of data (probes, samples,  how it's generated generated from the array) 
 
@@ -75,25 +83,15 @@ In the first phase of our project, we must ensure that we work with high-quality
 In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform several statistical tests, such as ANOVA and t-test as covered recently in the lectures. We will also perform this statistical model for comparison between paired normal tissues with tumours in CRC patients. Depending on the remaining time and resource, we could also build prediction models based on our data to see if we could do prediction on the tumour progression based on the methylation data in early stages of colorectal cancer. 
 
 #### References
-<<<<<<< HEAD
 1. Li, J. et al. ISRN Gastroenterol. 2014 Mar 6; 2014:464015.
 2. Vaiopoulos, A. G. et al. Biochim. Biophys. Acta. 2014 Feb 20; 1842(7):971–80.
 3. Luo, Y. et al. Gastroenterol. 2014 Apr 23; 147(2):418–29.e8.
 4. Chan, A. et al. Am. J. Pathol. 2002 Jan 24; 160(5):1823–30.
 5. Muto, Y. et al. BMC Cancer. 2014 Jun 25; 14:466
 6. Shen, L. et al. J. Natl. Cancer Inst. 2005 Sept 21; 97(18):1330–8.
-7. Pancione, M. et al. Pathology Res. Int. 2012 Jul 24; 2012:509348
+7. Maksimovic J et al. Genome Biol 2012; 13:R44.
+8. Johnson WE et al. Biostatistics 2007;8:118–127.
+9. Pancione, M. et al. Pathology Res. Int. 2012 Jul 24; 2012:509348
 
 #### Supplementary information
-[Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (5)](http://www.hindawi.com/journals/pri/2012/509348.fig.001b.jpg)
-=======
-1.  Li, J. et al. ISRN Gastroenterol. 2014 Mar 6; 2014:464015.
-2.	Vaiopoulos, A. G. et al. Biochim. Biophys. Acta. 2014 Feb 20; 1842(7):971–80.
-3.	Shen, L. et al. J. Natl. Cancer Inst. 2005 Sept 21; 97(18):1330–8.
-4.	Maksimovic J et al. Genome Biol 2012; 13:R44.
-5.	Johnson WE et al. Biostatistics 2007;8:118–127.
-
-<<<<<<< Updated upstream
-=======
->>>>>>> FETCH_HEAD
->>>>>>> Stashed changes
+[Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (9)](http://www.hindawi.com/journals/pri/2012/509348.fig.001b.jpg)
