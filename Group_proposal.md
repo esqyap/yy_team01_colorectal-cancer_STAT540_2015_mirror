@@ -77,4 +77,5 @@ In order to do group comparison between the methylation data of the normal tissu
 
 #### Supplementary information
 [Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (5)](http://www.hindawi.com/journals/pri/2012/509348.fig.001b.jpg)
-[Figure 2: Illumina Infinium HumanMethylation450 assay (5)](http://genomebiology.com/2012/13/6/R44/figure/F1?highres=y)
+
+[Figure 2: Illumina Infinium HumanMethylation450 assay (7)](http://genomebiology.com/2012/13/6/R44/figure/F1?highres=y)
