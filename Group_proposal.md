@@ -24,7 +24,7 @@ Changes in DNA methylation is one of the early molecular events involved in CRC 
 For our project, we selected *blah blah blah***
 
 * Why we pick this dataset 
-- 2014 - recent 
+- 2014 - recent ... __(<-- Ka Ming: Uh-oh, the data are not recent (2011/2012). Only the paper is recent (2014)!!!)__
 * other justification 
 
 __(maybe Rashedul can edit this part?)__
@@ -41,7 +41,7 @@ Can we identify differential DNA methylation patterns that underlie the progress
 
 ##Proposed Work
 
-As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), 485577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes into a manageable size (~10000). We will survey the literature to compile a list of genes known to be correlated with CRC and select probes that hybridize to these genes. To identify novel genes potentially involved in the tumour progression, we will also include probes that are found on or near CpG islands, regions that are some associated with promoters. Therefore, we could infer what genes are downregulated or upregulated at the level of transcription of we identify any significant changes in methylation. To explore the data more throughly, we could also include some arbitrarily selected probes in our analysis or consider looking through all the probes if we successfully built a automated analysis pipieline. 
+As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes into a manageable size (~10000). We will survey the literature to compile a list of genes known to be correlated with CRC and select probes that hybridize to these genes. To identify novel genes potentially involved in the tumour progression, we will also include probes that are found on or near CpG islands, regions that are some associated with promoters. Therefore, we could infer what genes are downregulated or upregulated at the level of transcription of we identify any significant changes in methylation. To explore the data more throughly, we could also include some arbitrarily selected probes in our analysis or consider looking through all the probes if we successfully built a automated analysis pipieline. 
 
 In the first phase of our project, we must ensure that we work with high-quality data. We would perform clustering analysis on data to see if clusters agree with their designated patient group. This step is very important because it can reveal sample-swaps. In addition, it also gives us a sense of the variability of our data. 
 
