@@ -76,16 +76,16 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Data for each sample consists of</p>
 <div id="technology-used-to-generate-the-data" class="section level5">
 <h5>Technology used to generate the data</h5>
-<p>The Infinium assay can detects methylation at a single base resolution. The length of methylation probe is 50 bp. The probes query a C to T conversion created by bisulfite treatment of unmethylated cytosines in the genome. The Infinium 450k methylation platform uses a combination of two distinct probe types, Infinium I and II <strong>Figure 2a,b</strong> <strong>(7)</strong>.</p>
+<p>Illumina Infinium HumanMethylation450 (HM450) Bead- Chips (Illumina, San Diego, CA) were used to generate all data we will be using. The Infinium assay can detects methylation at a single base resolution. The length of methylation probe is 50 bp. The probes query a C to T conversion created by bisulfite treatment of unmethylated cytosines in the genome. The Infinium 450k methylation platform uses a combination of two distinct probe types, Infinium I and II <strong>Figure 2a,b</strong> <strong>(4)</strong>.</p>
 </div>
 <div id="data-filtering-and-normalization" class="section level5">
 <h5>Data Filtering and Normalization</h5>
-<p>The data we collected were already normalized by previous authors <strong>(3)</strong>. At first they removed untrustworthy probes using a detection P value &gt;.05. They used carried out normalization using a subset-quantile within array normalization (SWAN) which is a newly developed normalization method specifically designed for Illumina Infinium HM450 array data. SWAN also reduces technical variations within and between arrays. SWAN is a Bioconductor minfi package <strong>(7)</strong>. Batch effects across all array runs were assessed and corrected using the ComBat algorithm <strong>(8)</strong>.</p>
+<p>The data we collected were already normalized by previous authors <strong>(1)</strong>. At first they removed untrustworthy probes using a detection P value &gt;.05. They used carried out normalization using a subset-quantile within array normalization (SWAN) which is a newly developed normalization method specifically designed for Illumina Infinium HM450 array data. SWAN also reduces technical variations within and between arrays. SWAN is a Bioconductor minfi package <strong>(4)</strong>. Batch effects across all array runs were assessed and corrected using the ComBat algorithm <strong>(5)</strong>.</p>
 </div>
 <div id="data-description" class="section level5">
 <h5>Data description</h5>
 <p>The data we will use has 3 columns and has few thousands rows. First column represent the probe name, second column for normalization value and third column for detection P-value. Each row shows single probe. [I will add an example table of data]</p>
-<p><strong>(things to add?)</strong> - details about data files <strong>(important)</strong> - the types of data (probes, samples, how it’s generated generated from the array)</p>
+<p><strong>(things to add?)</strong> - the three groups (normal ,adenoma, CRC) :41 normal colon tissue, 42 colon adenomas, and 64 cancers&quot; - details about data files <strong>(important)</strong> - the types of data (probes, samples, how it’s generated generated from the array)</p>
 </div>
 </div>
 <div id="proposed-methods" class="section level4">
@@ -109,23 +109,40 @@ Relationship to Canonical CpG Island: Shores - 0-2 kb from CpG island; Shelves -
 </div>
 <div id="references" class="section level4">
 <h4>References</h4>
-<ol style="list-style-type: decimal">
-<li>Li, J. et al. ISRN Gastroenterol. 2014 Mar 6; 2014:464015.</li>
-<li>Vaiopoulos, A. G. et al. Biochim. Biophys. Acta. 2014 Feb 20; 1842(7):971–80.</li>
-<li>Luo, Y. et al. Gastroenterol. 2014 Apr 23; 147(2):418–29.e8.</li>
-<li>Chan, A. et al. Am. J. Pathol. 2002 Jan 24; 160(5):1823–30.</li>
-<li>Muto, Y. et al. BMC Cancer. 2014 Jun 25; 14:466</li>
-<li>Shen, L. et al. J. Natl. Cancer Inst. 2005 Sept 21; 97(18):1330–8.</li>
-<li>Maksimovic J et al. Genome Biol 2012; 13:R44.</li>
-<li>Johnson WE et al. Biostatistics 2007;8:118–127.</li>
-<li>Pancione, M. et al. Pathology Res. Int. 2012 Jul 24; 2012:509348</li>
-</ol>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD 1. Li, J. et al. ISRN Gastroenterol. 2014 Mar 6; 2014:464015. 2. Vaiopoulos, A. G. et al. Biochim. Biophys. Acta. 2014 Feb 20; 1842(7):971–80. 3. Luo, Y. et al. Gastroenterol. 2014 Apr 23; 147(2):418–29.e8. 4. Chan, A. et al. Am. J. Pathol. 2002 Jan 24; 160(5):1823–30. 5. Muto, Y. et al. BMC Cancer. 2014 Jun 25; 14:466 6. Shen, L. et al. J. Natl. Cancer Inst. 2005 Sept 21; 97(18):1330–8. 7. Pancione, M. et al. Pathology Res. Int. 2012 Jul 24; 2012:509348</p>
 </div>
 <div id="supplementary-information" class="section level4">
 <h4>Supplementary information</h4>
-<p><a href="http://www.hindawi.com/journals/pri/2012/509348.fig.001b.jpg">Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (9)</a></p>
 </div>
 </div>
+</div>
+<div id="figure-1-accumulation-of-genetic-and-epigenetic-alterations-during-multistep-progression-of-crc.-5" class="section level1">
+<h1><a href="http://www.hindawi.com/journals/pri/2012/509348.fig.001b.jpg">Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (5)</a></h1>
+<ol style="list-style-type: decimal">
+<li>Li, J. et al. ISRN Gastroenterol. 2014 Mar 6; 2014:464015.</li>
+<li>Vaiopoulos, A. G. et al. Biochim. Biophys. Acta. 2014 Feb 20; 1842(7):971–80.</li>
+<li>Shen, L. et al. J. Natl. Cancer Inst. 2005 Sept 21; 97(18):1330–8.</li>
+<li>Maksimovic J et al. Genome Biol 2012; 13:R44.</li>
+<li>Johnson WE et al. Biostatistics 2007;8:118–127.</li>
+</ol>
+</div>
+<div id="updated-upstream" class="section level1">
+<h1>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream</h1>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>FETCH_HEAD Stashed changes</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 </div>
 
 
