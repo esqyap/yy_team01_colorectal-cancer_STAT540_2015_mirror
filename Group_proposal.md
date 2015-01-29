@@ -46,11 +46,13 @@ I have just verified. The GPL13534 data table has a column for 'Relation_to_UCSC
 - 150254 Island
 -   24844 N_Shelf
 -   62870 N_Shore
--  22300 S_Shelf
--  49197 S_Shore
+-   22300 S_Shelf
+-   49197 S_Shore
 - 176112 *blank*
 
-This is ~37% reduction if we remove blanks.
+~36% reduction if we remove blanks.
+Relationship to Canonical CpG Island: Shores - 0-2 kb from CpG island; Shelves - 2-4 kb from CpG island.
+~70% reduction if we focus on canonical CpGs only!!!
 ```
 
 In the first phase of our project, we must ensure that we work with high-quality data. We would perform clustering analysis on data to see if clusters agree with their designated patient group. This step is very important because it can reveal sample-swaps. In addition, it also gives us a sense of the variability of our data. *Second step is to perform normalization of beta values, mention why and how? Or we can just leave it as perform data normalization. Third step is to perform clustering again post normalization and filtering.*
