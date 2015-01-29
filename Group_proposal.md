@@ -35,7 +35,7 @@ The data we collected were already normalized by previous authors **(3)**. At fi
 The data we will use has 3 columns and has few thousands rows. First column represent the probe name, second column for normalization value and third column for detection P-value. Each row shows single probe. *I will add an example table of data*
 
 #### Proposed Methods
-As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those that only hybridize to CpG islands, which is widely studied and shown to be biologically relevant in cancer progression. 
+As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those (150,254) that hybridize to CpG islands, which is widely studied and shown to be biologically relevant in cancer progression.
 
 
 
