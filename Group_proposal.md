@@ -57,7 +57,7 @@ In order to do group comparison between the methylation data of the normal tissu
 10. Pancione, M. et al. Pathology Res. Int. 2012 Jul 24; 2012:509348
 
 #### Supplementary information
-![Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (5)](http://www.hindawi.com/journals/pri/2012/509348.fig.001b.jpg)
+![Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (10)](http://www.hindawi.com/journals/pri/2012/509348.fig.001b.jpg)
 
-Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (5)
+Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (10)
 
