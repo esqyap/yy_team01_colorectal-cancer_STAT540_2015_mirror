@@ -12,7 +12,7 @@ Rashedul Islam	|Bioinformatics Training Program| Awesome lab | Being awesome |
 Santina Lin  |Bioinformatics Training Program| Awesome lab | Being awesome |
 Ka Ming Nip	|Bioinformatics Training Program| Awesome lab | Being awesome |
 Eva Yap	|Experimental Medicine|	Karsan Lab | Biochemistry |
-Beryl Zhuang	|Bioinformatics Training Program| Awesome lab | Being awesome |
+Beryl Zhuang	|Bioinformatics Training Program| Dr. William Hsiao (BC Centre for Disease Control) | Genetics, Application of Bioninformatics tools |
 
 #### Project proposal
 Blah blah blah
