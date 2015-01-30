@@ -29,7 +29,7 @@ For our group project, we will analyze DNA methylation array data from [Series G
 Illumina Infinium HumanMethylation450 (HM450) Bead- Chips (Illumina, San Diego, CA) were used to generate all data we will be using. The Infinium assay can detects methylation at a single base resolution. The length of methylation probe is 50 bp. The probes query a C to T conversion created by bisulfite treatment of unmethylated cytosines in the genome. The Infinium 450k methylation platform uses a combination of two distinct probe types, Infinium I and II **(Figure 2a,b)** **(7)**.
 
 ##### Data filtering and normalization
-The data we collected were already normalized by previous authors **(3)**. At first they removed untrustworthy probes using a detection P value >.05. They carried out normalization using a subset-quantile within array normalization (SWAN) which is a newly developed normalization method specifically designed for Illumina Infinium HM450 array data. SWAN also reduces technical variations within and between arrays. SWAN is a Bioconductor minfi package **(7)**. Batch effects across all array runs were assessed and corrected using the ComBat algorithm **(8)**. 
+The data we collected were already normalized by previous authors **(3)**. At first they removed untrustworthy probes using a detection P value >.05. The detection P-values estimate the difference of the signal intensities of CpG site compared with negative control probes embedded in the assay **(7)**. The data we use for analysis were normalized for technical variations with the SWAN package from BioConducted and analyzed for batch effects with COMBAT **(8,9)**.
 
 ##### Data description
 The datasets we will use has 3 columns. First column represent the probe name, second column for normalization value and third column for detection P-value. Each row shows single probe. __*I will add an example table of data*__
@@ -60,9 +60,10 @@ In order to do group comparison between the methylation data of the normal tissu
 4. Chan, A. et al. Am. J. Pathol. 2002 Jan 24; 160(5):1823–30.
 5. Muto, Y. et al. BMC Cancer. 2014 Jun 25; 14:466
 6. Shen, L. et al. J. Natl. Cancer Inst. 2005 Sept 21; 97(18):1330–8.
-7. Maksimovic J et al. Genome Biol 2012; 13:R44.
-8. Johnson WE et al. Biostatistics 2007;8:118–127.
-9. Pancione, M. et al. Pathology Res. Int. 2012 Jul 24; 2012:509348
+7. Hinoue T et al. Genome Res 2012;22:271–282.
+8. Maksimovic J et al. Genome Biol 2012; 13:R44.
+9. Johnson WE et al. Biostatistics 2007;8:118–127.
+10. Pancione, M. et al. Pathology Res. Int. 2012 Jul 24; 2012:509348
 
 #### Supplementary information
 ![Figure 1: Accumulation of genetic and epigenetic alterations during multistep progression of CRC. (5)](http://www.hindawi.com/journals/pri/2012/509348.fig.001b.jpg)
