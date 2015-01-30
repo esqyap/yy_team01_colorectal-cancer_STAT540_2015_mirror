@@ -9,10 +9,13 @@
 Members	| Graduate Program |	Lab Group | Interest/Expertise |
 ------------- | -------------|------------- |------------- |
 Rashedul Islam	|Bioinformatics Training Program| Awesome lab | Being awesome |
-Santina Lin  |Bioinformatics Training Program| Awesome lab | Being awesome |
-Ka Ming Nip	|Bioinformatics Training Program| Awesome lab | Being awesome |
-Eva Yap	|Experimental Medicine|	Karsan Lab | Biochemistry |
-Beryl Zhuang	|Bioinformatics Training Program| Awesome lab | Being awesome |
+-Santina Lin  |Bioinformatics Training Program| Dr. Steven Jones (BCGSC) | Being awesome |		+Santina Lin  |Bioinformatics Training Program| Awesome lab | Being awesome |
+-Ka Ming Nip	|Bioinformatics| Dr. Inanc Birol (BCGSC) | Data Visualization, RNA-seq Assembly, Structural Variation Analyses, Virology, Pathogenomics|		+Ka Ming Nip	|Bioinformatics Training Program| Awesome lab | Being awesome |
+-Eva Yap	|Experimental Medicine|	Dr. Aly Karsan (BCGSC) | Biochemistry |		+Eva Yap	|Experimental Medicine|	Karsan Lab | Biochemistry |
+-Beryl Zhuang	|Bioinformatics Training Program| Dr. William Hsiao (BCCDC) | Genetics, Application of Bioninformatics tools |		+Beryl Zhuang	|Bioinformatics Training Program| Awesome lab | Being awesome |
+-- BCGSC = Canada's Michael Smith Genome Sciences Centre		
+-- BCCDC = BC Centre for Disease Control
+
 
 #### Project proposal
 Colorectal cancer (CRC) initiation and step-wise progression are associated with the accumulation of genetic and epigenetic alterations. The best-characterized epigenetic process is DNA methylation, which regulates gene transcription by covalent addition of a methyl group at the 5-carbon position of cytosine within cytosine-guanine dinucleotides (CpG). Aberrant DNA methylation can lead to malignancy by hypermethylation of CpG islands which are sequences with high CpG fraction (>50%) located within gene promoters and this results in transcriptional silencing of tumour suppressor genes **(1,2)**. Changes in DNA methylation is one of the early molecular events involved in CRC progression and many studies have identified these epigenetic abnormalities in precursor lesions such as aberrant crypt foci and adenomas **(3,4,5)**. Methylation aberrations can also mediate field defect, a phenomenon in which histologically normal tissues are predisposed to malignant transformation due to the presence of molecular alterations. For example, cancer-specific promoter methylation of the O<sup>6</sup>-methylguanine DNA methyltransferase (*MGMT*) gene which encodes for a DNA repair protein was detected in normal intestinal tissues adjacent to tumours and distant normal tissues 10 cm away from tumours in CRC patients **(6)**. 
