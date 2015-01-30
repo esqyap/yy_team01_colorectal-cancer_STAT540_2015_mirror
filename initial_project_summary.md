@@ -10,7 +10,7 @@ Members	| Graduate Program |	Lab Group | Interest/Expertise |
 ------------- | -------------|------------- |------------- |
 Rashedul Islam	|Bioinformatics Training Program| Awesome lab | Being awesome |
 Santina Lin  |Bioinformatics Training Program| Awesome lab | Being awesome |
-Ka Ming Nip	|Bioinformatics| Dr. Inanc Birol lab | Data Visualization, RNA-seq Assembly and Structural Variant Analyses, Virology, Pathogenomics|
+Ka Ming Nip	|Bioinformatics| Dr. Inanc Birol lab (Canada's Michael Smith Genome Sciences Centre) | Data Visualization, RNA-seq Assembly, Structural Variant Analyses, Virology, Pathogenomics|
 Eva Yap	|Experimental Medicine|	Karsan Lab | Biochemistry |
 Beryl Zhuang	|Bioinformatics Training Program| Dr. William Hsiao (BC Centre for Disease Control) | Genetics, Application of Bioninformatics tools |
 
