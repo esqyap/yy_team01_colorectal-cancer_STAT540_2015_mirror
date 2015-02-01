@@ -8,10 +8,10 @@
 Member	| Graduate Program |	Lab Group | Interest/Expertise |
 ------------- | -------------|------------- |------------- |
 Rashedul Islam @Rashedul	|Bioinformatics Training Program| Dr. Martin Hirst (CHiBi) | Biostatistics |
-Santina Lin @Santina  |Bioinformatics Training Program| Dr. Steven Jones (BCGSC) | Data visualization, data analysis, data mining  |	
+Santina Lin @Santina  |Bioinformatics Training Program| Dr. Steven Jones (BCGSC) | Data Visualization, Data Analysis, Data Mining  |	
 Ka Ming Nip @kmnip	|Bioinformatics| Dr. Inanc Birol (BCGSC) | Data Visualization, Sequence Assembly, Structural Variation Analyses, Pathogenomics|
 Eva Yap	@evayap|Experimental Medicine|	Dr. Aly Karsan (BCGSC) | Biochemistry |
-Beryl Zhuang @BerylZhuang	|Bioinformatics Training Program| Dr. William Hsiao (BCCDC) | Genetics, Application of Bioninformatics tools |	
+Beryl Zhuang @BerylZhuang	|Bioinformatics Training Program| Dr. William Hsiao (BCCDC) | Genetics, Application of Bioinformatics tools |	
 - CHiBi = Centre for High-Throughput Biology
 - BCGSC = Canada's Michael Smith Genome Sciences Centre		
 - BCCDC = BC Centre for Disease Control
