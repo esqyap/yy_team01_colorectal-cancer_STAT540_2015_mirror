@@ -8,7 +8,7 @@
 
 Member	| Graduate Program |	Lab Group | Interest/Expertise |
 ------------- | -------------|------------- |------------- |
-Rashedul Islam @Rashedul	|Bioinformatics Training Program| Dr. Martin Hirst (CHiBi) | Being awesome |
+Rashedul Islam @Rashedul	|Bioinformatics Training Program| Dr. Martin Hirst (CHiBi) | Bioinformatics |
 Santina Lin @Santina  |Bioinformatics Training Program| Dr. Steven Jones (BCGSC) | Data visualization, data analysis, data mining  |	
 Ka Ming Nip @kmnip	|Bioinformatics| Dr. Inanc Birol (BCGSC) | Data Visualization, RNA-seq Assembly, Structural Variation Analyses, Virology, Pathogenomics|
 Eva Yap	@evayap|Experimental Medicine|	Dr. Aly Karsan (BCGSC) | Biochemistry |
