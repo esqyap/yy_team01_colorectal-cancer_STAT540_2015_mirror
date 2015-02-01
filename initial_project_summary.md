@@ -4,15 +4,15 @@
 ----------------
 #### Deadline: Feb 2, 2015
 
-#### Project group members
+#### Group Members
 
-Members	| Graduate Program |	Lab Group | Interest/Expertise |
+Member	| Graduate Program |	Lab Group | Interest/Expertise |
 ------------- | -------------|------------- |------------- |
-Rashedul Islam	|Bioinformatics Training Program| Awesome lab | Being awesome |
-Santina Lin  |Bioinformatics Training Program| Dr. Steven Jones (BCGSC) | Data visualization, data analysis, data mining  |		+Santina Lin  |Bioinformatics Training Program| Awesome lab | Being awesome |
-Ka Ming Nip	|Bioinformatics| Dr. Inanc Birol (BCGSC) | Data Visualization, RNA-seq Assembly, Structural Variation Analyses, Virology, Pathogenomics|		+Ka Ming Nip	|Bioinformatics Training Program| Awesome lab | Being awesome |
-Eva Yap	|Experimental Medicine|	Dr. Aly Karsan (BCGSC) | Biochemistry |		+Eva Yap	|Experimental Medicine|	Karsan Lab | Biochemistry |
-Beryl Zhuang	|Bioinformatics Training Program| Dr. William Hsiao (BCCDC) | Genetics, Application of Bioninformatics tools |		+Beryl Zhuang	|Bioinformatics Training Program| Awesome lab | Being awesome |
+Rashedul Islam @Rashedul	|Bioinformatics Training Program| Dr. Martin Hirst (BCGSC) | Being awesome |
+Santina Lin @Santina  |Bioinformatics Training Program| Dr. Steven Jones (BCGSC) | Data visualization, data analysis, data mining  |	
+Ka Ming Nip @kmnip	|Bioinformatics| Dr. Inanc Birol (BCGSC) | Data Visualization, RNA-seq Assembly, Structural Variation Analyses, Virology, Pathogenomics|		+Ka Ming Nip	|Bioinformatics Training Program| Awesome lab | Being awesome |
+Eva Yap	@evayap|Experimental Medicine|	Dr. Aly Karsan (BCGSC) | Biochemistry |		+Eva Yap	|Experimental Medicine|	Karsan Lab | Biochemistry |
+Beryl Zhuang @BerylZhuang	|Bioinformatics Training Program| Dr. William Hsiao (BCCDC) | Genetics, Application of Bioninformatics tools |	
 - BCGSC = Canada's Michael Smith Genome Sciences Centre		
 - BCCDC = BC Centre for Disease Control
 
