@@ -1,6 +1,9 @@
 # CrystalMethylation
-A big data analysis project: We're analyzing methylation data from GEO to identify changes in gene regulation in the progression of colorectal cancer. 
+We're analyzing methylation data from GEO to identify changes in gene regulation in the progression of colorectal cancer. 
 
+# Project Proposal
+- [initial information](https://github.com/santina/CrystalMethylation/blob/master/initial_project_summary.md)
+- [detailed proposal (WIP)](https://github.com/santina/CrystalMethylation/blob/master/Group_proposal.md)
 
 # Wiki Page
 [Wiki Page](https://github.com/santina/CrystalMethylation/wiki) for references and resources.
