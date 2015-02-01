@@ -7,7 +7,7 @@
 
 Member	| Graduate Program |	Lab Group | Interest/Expertise |
 ------------- | -------------|------------- |------------- |
-Rashedul Islam @Rashedul	|Bioinformatics Training Program| Dr. Martin Hirst (CHiBi) | Sequence Assembly and Annotation, Genetics and Molecular Biology, NGS data of RNA-seq and ChIP-seq Data  Analysis |
+Rashedul Islam @Rashedul	|Bioinformatics Training Program| Dr. Martin Hirst (CHiBi) | *De novo* Sequence Assembly, Genetics and Molecular Biology, RNA-seq and ChIP-seq Data  Analysis |
 Santina Lin @Santina  |Bioinformatics Training Program| Dr. Steven Jones (BCGSC) | Data Visualization, Data Analysis, Data Mining  |	
 Ka Ming Nip @kmnip	|Bioinformatics| Dr. Inanc Birol (BCGSC) | Data Visualization, Sequence Assembly, Structural Variation Analyses, Pathogenomics|
 Eva Yap	@evayap|Experimental Medicine|	Dr. Aly Karsan (BCGSC) | Biochemistry |
