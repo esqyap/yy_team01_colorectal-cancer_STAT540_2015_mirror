@@ -49,11 +49,12 @@ As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih
 
 In the first phase of our project, we want to do a sanity check on the on the quality of the data. We will perform unsupervised hierarchical clustering analysis on our data to see if samples from the same patient groups are clustered together. If the majority of the samples are correctly clustered in the same patient groups, the analysis could suggest that the few ones that are incorrectly clustered might be sample-swaps or outliers. If our clustering analysis fails to correctly group the samples from the same groups together, it would suggest that the beta values of a large numbers of our probes do not significnatly differ between groups. To further examine the data prior to the group comparison analysis, we will also examine covariance across the samples, assuming that samples in the same patient groups have strong co-variance. 
 
-In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform several statistical tests, including ANOVA and limma as covered in the recent lectures. To examine the different stages of CRC progression, We will do two group comparisons for the following pair:
-- CRCnormal and normal 
-- normal and adenoma 
-- adenoma and CRC 
+In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform several statistical tests, including ANOVA and limma as covered in the recent lectures. To examine the different stages of CRC progression, we will do two group comparisons for the following pairs:
+- CRCnormal and normal : to see, if any, regions in the genome that are differently methylated. This could reveal whether patients with CRC have different epigenomics in their normal tissues. 
+- normal and adenoma : to see if any regions become differently methylated in the progression from normal tissue to development of adenoma.  
+- adenoma and CRC : to see, if any, which probes indicate different methylation levels between the two groups. This information could reveal possible epigenomics changes as adenoma progresses to CRC. 
 
+We will then find the genes that are associated with our top-hit probes and then do functional enrichement analysis on this list of genes, as part of our Aim #1. By examining the pathways these genes are part of, it could help us evaluate our analysis results and whether epigenomics play an important role in CRC. 
 
 #### References
 1. Li, J. et al. ISRN Gastroenterol. 2014 Mar 6; 2014:464015.
