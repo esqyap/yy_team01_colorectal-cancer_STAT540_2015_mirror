@@ -27,9 +27,9 @@ For our group project, we will analyze DNA methylation array data from [Series G
 
 | Full name |  shorthand| size |
 | ------------- |:-------------:| -----:|
-| Genomic DNA from normal individual      | normal | 17 |
-| Genomic DNA of normal colon sample from CRC patient  | CRCnormal  |    24  |
-| Genomic DNA from adenoma patient |    adenoma   |   42  |
+| Genomic DNA from normal individuals      | normal | 17 |
+| Genomic DNA of normal colon sample from CRC patients  | CRCnormal  |    24  |
+| Genomic DNA from adenoma patients |    adenoma   |   42  |
 | Genomic DNA from CRC patients | CRC |   64  |
 
 The dataset we chose to analyze has been normalized by Luo *et al*. (2014). As mentioned under Supplementary Methods of the paper **(3)**, untrustworthy probes using a detection P value >.05 were removed. The detection P-values estimate the difference of the signal intensities of CpG site compared with negative control probes embedded in the assay **(7)**. This step is followed by normalization for technical variations with the SWAN package from BioConductor. Lastly, correction for batch effects was performed using the ComBat algorithm **(8,9)**. The datasets we will use have three columns. First column represents the probe name, second column for average beta value and third column for detection P-value. Each row shows result from a single probe. Here is an example of the 3 column dataset:
@@ -45,11 +45,15 @@ cg00000165	|0.248589|	0.00
 ...|...|...
 
 #### Proposed Methods
-As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those (150,254) that hybridize to CpG islands, which is widely studied and shown to be biologically relevant in cancer progression. We also plan to filter out probes that contain single nucleotide polymorphisms (SNPs), that hybridize to non-CpG sites, that contain a SNP within 10 bp from the query sites and that are associated with chromosome X. 
+As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those (150,254) that hybridize to CpG islands, which are widely studied and shown to be biologically relevant in cancer progression as discussed earlier. We also plan to filter out probes that contain single nucleotide polymorphisms (SNPs), that hybridize to non-CpG sites, that contain a SNP within 10 bp from the query sites and that are associated with chromosome X. 
 
-In the first phase of our project, we must ensure that we work with high-quality data. We would perform clustering analysis on data to see if clusters agree with their designated patient group. This step is very important because it can reveal sample-swaps. In addition, it also gives us a sense of the variability of our data. 
+In the first phase of our project, we want to do a sanity check on the on the quality of the data. We will perform unsupervised hierarchical clustering analysis on our data to see if samples from the same patient groups are clustered together. If the majority of the samples are correctly clustered in the same patient groups, the analysis could suggest that the few ones that are incorrectly clustered might be sample-swaps or outliers. If our clustering analysis fails to correctly group the samples from the same groups together, it would suggest that the beta values of a large numbers of our probes do not significnatly differ between groups. To further examine the data prior to the group comparison analysis, we will also examine covariance across the samples, assuming that samples in the same patient groups have strong co-variance. 
 
-In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform several statistical tests, such as ANOVA and t-test as covered recently in the lectures. We will also perform this statistical model for comparison between tumours with paired normal tissues in CRC patients. Depending on the remaining time and resource, we could also build prediction models based on our data to see if we could predict tumour progression based on the methylation data in early stages of CRC. 
+In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform several statistical tests, including ANOVA and limma as covered in the recent lectures. To examine the different stages of CRC progression, We will do two group comparisons for the following pair:
+- CRCnormal and normal 
+- normal and adenoma 
+- adenoma and CRC 
+
 
 #### References
 1. Li, J. et al. ISRN Gastroenterol. 2014 Mar 6; 2014:464015.
