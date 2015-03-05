@@ -43,12 +43,12 @@ In the first phase of our project, we want to do a sanity check on the on the qu
 
 We will then perform normalization on our data and then clustering analysis to see if the results differ. To further examine the data prior to the group comparison analysis, we will also examine covariance across the samples, assuming that samples in the same patient groups have strong co-variance.
 
-In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform several statistical tests, including ANOVA and limma as covered in the recent lectures. To examine the different stages of CRC progression, we will do two group comparisons for the following pairs:
-- CRCnormal and normal : to see, if any, regions in the genome that are differently methylated. This could reveal whether patients with CRC have different epigenomics in their normal tissues. 
-- normal and adenoma : to see if any regions become differently methylated in the progression from normal tissue to development of adenoma.  
-- adenoma and CRC : to see, if any, which probes indicate different methylation levels between the two groups. This information could reveal possible epigenomics changes as adenoma progresses to CRC. 
+In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform several statistical tests, including ANOVA and differential expression analysis by the Bioconductor package limma**(12)** and extract differentially methylated genes for further analysis. To examine the different stages of CRC progression, we will do two group comparisons for the following pairs:
+- normal-C  and normal-H: to investigate whether the two groups are differentially methylated, and what are the regions. This could reveal whether normal tissue from patients with CRC have different epigenomics compared to normal tissues from healthy individuals. 
+- normal-H+nomal-C and adenoma : to investigate if any regions become differently methylated in the progression from normal tissue to development of adenoma.  
+- adenoma and cancer : to see, if any, which probes indicate different methylation levels between the two groups. This information could reveal possible epigenomics changes as adenoma progresses to CRC. 
 
-We will then find the genes that are associated with our top-hit probes and then do functional enrichement analysis on this list of genes, as part of our Aim #1. By examining the pathways these genes are part of, it could help us evaluate our analysis results and whether epigenomics play an important role in CRC.
+We will do functional enrichment analysis on the top-hit candidate genes as part of our Aim #1. By examining the pathways these genes are part of, it could help us evaluate our analysis results and whether epigenomics play an important role in CRC.
 
 #### References
 1. Li, Jiaqiu, Hongchuan Jin, and Xian Wang. "Epigenetic Biomarkers: Potential Applications in Gastrointestinal Cancers." ISRN gastroenterology 2014 (2014).
@@ -63,3 +63,4 @@ APA
 9. Johnson, W. Evan, Cheng Li, and Ariel Rabinovic. "Adjusting batch effects in microarray expression data using empirical Bayes methods." Biostatistics 8.1 (2007): 118-127.
 10. Pancione, Massimo, Andrea Remo, and Vittorio Colantuoni. "Genetic and epigenetic events generate multiple pathways in colorectal cancer progression." Pathology research international 2012 (2012).
 11. Andrew J. Sharp, Elisavet Stathaki, Eugenia Migliavacca, Manisha Brahmachary, Stephen B. Montgomery, Yann Dupre, and Stylianos E. Antonarakis. "DNA methylation profiles of human active and inactive X chromosomes." Genome Res. 2011 Oct; 21(10): 1592–1600.
+12. Smyth, Gordon K. "Linear models and empirical bayes methods for assessing differential expression in microarray experiments." Statistical applications in genetics and molecular biology 3.1 (2004): 1-25.
