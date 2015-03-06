@@ -13,8 +13,10 @@ library(ggplot2)
 library(dplyr)
 
 myGseId <- 'GSE48684'
-rawDumpFileName <- "raw.Rdata"
-mBetaNormCgiFileName <- "norm.Rdata"
+dataDir <- "../data"
+rawDumpFileName <- paste(dataDir, "raw.Rdata", sep="/")
+mBetaNormCgiFileName <- paste(dataDir, "norm.Rdata", sep="/")
+
 
 
 if(file.exists(rawDumpFileName)){ # if previously downloaded
@@ -25,7 +27,7 @@ if(file.exists(rawDumpFileName)){ # if previously downloaded
   # https://support.rstudio.com/hc/communities/public/questions/201327633-Bug-report-RStudio-causes-download-file-to-fail-with-FTP-downloads
   setInternet2(use=FALSE)
   
-  system.time( myGse <- getGEO(myGseId, destdir="./") )
+  system.time( myGse <- getGEO(myGseId, destdir=dataDir) )
   system.time( show(myGse) )
   
   # Extract expression matrices (turn into data frames at once) 
@@ -69,6 +71,6 @@ M.CGI <- subset(M.CGI, select = - Group.1)
 str(M.CGI, max.level = 0)
 
 # save the raw meta data, normalized/aggregated beta and M values to file
-save(raw.meta, beta.CGI, M.CGI, file = mBetaNormCgiFileName)
+save(raw.meta, beta.CGI, M.CGI, file = mBetaNormCgiFileName, compress="gzip", compression_level=9)
 
 # EOF

@@ -2,7 +2,7 @@ library(GEOquery)
 library(wateRmelon)
 library(IlluminaHumanMethylation450k.db)
 
-GSE48684 <- getGEO("GSE48684", destdir="./") # get data save to home dir
+GSE48684 <- getGEO("GSE48684", destdir="../data") # get data save to "data" dir
 show(GSE48684)
 
 
@@ -14,5 +14,5 @@ methyl_metadata <- pData(phenoData(GSE48684))
 
 
 #save Rdata
-save(methyl_data, methyl_metadata, file = "GSE48684_head.Rdata")
+save(methyl_data, methyl_metadata, file = "../data/GSE48684_head.Rdata")
 
