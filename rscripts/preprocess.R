@@ -15,7 +15,7 @@ library(dplyr)
 myGseId <- 'GSE48684'
 dataDir <- "../data"
 rawDumpFileName <- paste(dataDir, "raw.Rdata", sep="/")
-mBetaNormCgiFileName <- paste(dataDir, "norm.Rdata", sep="/")
+mBetaNormCgiFileName <- paste(dataDir, "norm.Rdata.xz, sep="/")
 
 
 
