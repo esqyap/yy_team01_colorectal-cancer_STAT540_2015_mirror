@@ -71,6 +71,6 @@ M.CGI <- subset(M.CGI, select = - Group.1)
 str(M.CGI, max.level = 0)
 
 # save the raw meta data, normalized/aggregated beta and M values to file
-save(raw.meta, beta.CGI, M.CGI, file = mBetaNormCgiFileName, compress="gzip", compression_level=9)
+save(raw.meta, beta.CGI, M.CGI, file = mBetaNormCgiFileName, compress="xz", compression_level=9)
 
 # EOF
