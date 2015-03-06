@@ -14,5 +14,5 @@ methyl_metadata <- pData(phenoData(GSE48684))
 
 
 #save Rdata
-save(methyl_data, methyl_metadata, file = "GSE48684.Rdata")
+save(methyl_data, methyl_metadata, file = "GSE48684_head.Rdata")
 
