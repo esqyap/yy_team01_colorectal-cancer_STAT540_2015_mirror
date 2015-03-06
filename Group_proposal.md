@@ -69,7 +69,7 @@ We will do functional enrichment analysis on the top-hit candidate genes as part
 4. **Functional enrichment analysis** - Beryl, Eva, Rashedul 
 	- Research on gene functions and pathways 
 
-5. Prepare poster - all group members
+5. **Prepare poster** - all group members
 
 #### References
 1. Li, Jiaqiu, Hongchuan Jin, and Xian Wang. "Epigenetic Biomarkers: Potential Applications in Gastrointestinal Cancers." ISRN gastroenterology 2014 (2014).
