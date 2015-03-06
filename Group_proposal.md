@@ -50,6 +50,27 @@ In order to do group comparison between the methylation data of the normal tissu
 
 We will do functional enrichment analysis on the top-hit candidate genes as part of our Aim #1. By examining the pathways these genes are part of, it could help us evaluate our analysis results and whether epigenomics play an important role in CRC.
 
+#### Tentative work and assignments 
+
+1. **Data processing and prefiltering** - Ka Ming and Beryl
+	- Prepare scripts to download data and filtering data
+	- Describe data structures and sizes 
+	- Create metadata and aggregating data
+	- Data normalization and transformation 
+
+2. **Clustering analysis for before and after data processing** - Santina and Eva
+	- Research on different clustering methods in R 
+	- Summarize and analyze clustering analysis 
+
+3. **Limma and differential expression analysis** - Ka Ming, Rashedul, Santina
+	- Perform differential expression analysis by doing different group comparisons
+	- Literature research on top hit genes suggested by Limma 
+
+4. **Functional enrichment analysis** - Beryl, Eva, Rashedul 
+	- Research on gene functions and pathways 
+
+5. Prepare poster - all group members
+
 #### References
 1. Li, Jiaqiu, Hongchuan Jin, and Xian Wang. "Epigenetic Biomarkers: Potential Applications in Gastrointestinal Cancers." ISRN gastroenterology 2014 (2014).
 APA	
