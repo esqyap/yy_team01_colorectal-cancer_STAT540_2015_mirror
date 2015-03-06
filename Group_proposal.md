@@ -62,8 +62,8 @@ We will do functional enrichment analysis on the top-hit candidate genes as part
 	- Research on different clustering methods in R 
 	- Summarize and analyze clustering analysis 
 
-3. **Limma and differential expression analysis** - Ka Ming, Rashedul, Santina
-	- Perform differential expression analysis by doing different group comparisons
+3. **Limma and differential methylation analysis** - Ka Ming, Rashedul, Santina
+	- Perform differential methylation analysis by doing different group comparisons
 	- Literature research on top hit genes suggested by Limma 
 
 4. **Functional enrichment analysis** - Beryl, Eva, Rashedul 
