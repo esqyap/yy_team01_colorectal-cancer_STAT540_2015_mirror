@@ -1,3 +1,3 @@
 #### Put a brief description of the data you uploaded here:
 
-GSE48684_metadata_raw.Rdata (Beryl): only contains the raw metadata
+__GSE48684\_metadata\_raw.Rdata__ (Beryl): only contains the raw metadata
