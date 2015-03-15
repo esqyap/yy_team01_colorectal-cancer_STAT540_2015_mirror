@@ -98,13 +98,15 @@ if(file.exists("../data/GSE48684_raw_filtered.Rdata")){
 #
 #####################################################
 
-library(dplyr)
-filename <- "../data/GSE48684_metadata_raw.Rdata"
 
-if(!file.exists(filename)){
-	print("you haven't downloaded the raw metadata yet!")
+
+
+if(file.exists("../data/metadata.Rdata")){
+	print("metadata processed")
 } else {
-	load(filname)
+	library(dplyr)
+	filename <- "../data/GSE48684_metadata_raw.Rdata"
+	load(filename)
 	
 	# select the relavent columns form the raw metadata
 	metadata <- methyl_metadata_raw[, c("description", "title", 
@@ -123,6 +125,7 @@ if(!file.exists(filename)){
 		mutate(stage = gsub("Stage: ", "", stage))
 	
 	save(metadata, file = "../data/metadata.Rdata")
+	print("metadata is processed")
 }
 
 #####################################################
