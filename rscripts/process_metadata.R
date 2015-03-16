@@ -12,7 +12,7 @@ filename <- "../data/GSE48684_metadata_raw.Rdata"
 if(!file.exists(filename)){
   print("you haven't downloaded the raw metadata yet! pull Git or run get_data.R")
 } else {
-  load(filname)
+  load(filename)
   
   # select the relavent columns form the raw metadata
   metadata <- methyl_metadata_raw[, c("description", "title", 
