@@ -19,7 +19,7 @@
 
 library(GEOquery)
 if(file.exists("../data/GSE48684_raw.Rdata")){
-	Print("raw data downloaded, proceed to the next step.")
+	print("raw data downloaded, proceed to the next step.")
 } else {
 	filename <- "../data/GSE48684_series_matrix.txt.gz"
 	if(file.exists(filename)){
