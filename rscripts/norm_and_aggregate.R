@@ -40,7 +40,10 @@ if (!file.exists(filteredFilePath)) {
 # load input file
 load(filteredFilePath)
 
-# flag whether output files are stale or not
+# assert more than one rows are loaded
+stopifnot(nrow(raw_data_filter) > 0)
+
+# to flag whether output files are stale or not
 areOutputFilesStale <- FALSE
 
 # If a file is designated as "stale", all dependent output files are also stale!
@@ -92,7 +95,11 @@ if (!areOutputFilesStale && file.exists(mNormCgiFilePath)){
   str(M.norm.CGI, max.level = 0)
   save(M.norm.CGI, file = mNormCgiFilePath)
 }
-  
+
+# assert sizes are the same
+stopifnot(nrow(beta.norm) == nrow(M.norm))
+stopifnot(nrow(beta.norm.CGI) == nrow(M.norm.CGI))
+
 #####################################################
 # End of script
 #####################################################
