@@ -50,6 +50,7 @@ areOutputFilesStale <- FALSE
 # From now on, re-create any stale output file(s).
 
 # quantile-normalization on the beta values
+# TODO: normalize wrt different patient groups
 if (!areOutputFilesStale && file.exists(betaNormFilePath)) {
   load(betaNormFilePath)
 } else {
