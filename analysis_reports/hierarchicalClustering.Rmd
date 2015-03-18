@@ -35,6 +35,8 @@ mD <- metadata
 I am having trouble running the first script... Probably because (as Ka Ming suggested) that I have corrupted temp file and the script is using that. Anyway, I got the file from Beryl so I'll just use that : 
 
 ```{r}
+library(knitr)
+knitr::opts_chunk$set(ig.height = 08, fig.width = 10)
 load('../data/GSE48684_raw_filtered.Rdata')
 data <- raw_data_filter
 load('../data/metadata.Rdata')
@@ -134,6 +136,7 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 
 Do clustering for `dis_NAzeros`
 ```{r}
+
 dis_NAzeros.w <- hclust(dis_NAzeros, method = 'ward.D')
 plot(dis_NAzeros.w, labels = meta$group, cex = 0.5, 
      main = "Ward showing 4 clusters, with NA removed")

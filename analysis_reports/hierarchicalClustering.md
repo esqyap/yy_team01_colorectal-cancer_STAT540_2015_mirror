@@ -31,6 +31,8 @@ I am having trouble running the first script... Probably because (as Ka Ming sug
 
 
 ```r
+library(knitr)
+knitr::opts_chunk$set(ig.height = 08, fig.width = 10)
 load('../data/GSE48684_raw_filtered.Rdata')
 data <- raw_data_filter
 load('../data/metadata.Rdata')
