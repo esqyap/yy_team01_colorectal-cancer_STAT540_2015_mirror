@@ -39,7 +39,7 @@ load('../data/GSE48684_raw_filtered.Rdata')
 data <- raw_data_filter
 load('../data/metadata.Rdata')
 meta <- metadata
-head(data)
+head(data[, 1:10])
 head(meta)
 ```
 
@@ -49,7 +49,9 @@ For my personal preference I'm gonna reorganize the meta data a bit.
 rownames(meta) <- meta$geo_accession  # move labels to row names
 meta$geo_accession <- NULL
 
-meta$title <- as.factor(gsub("Genomic DNA from ", "", meta$title)) #remove redundant words 
+#remove redundant words 
+meta$title <- as.factor(gsub("Genomic DNA from ", "", meta$title)) 
+meta$title <- as.factor(gsub("Genomic DNA of ", "", meta$title))
 head(meta) # yay
 ```
 
@@ -103,5 +105,40 @@ Just as a reminder:
 BTW just want to make a point that I had to change my memory allocation limit from 3981 to 5000 `memory.limit(5000)` in order to knit this Rmarkdown up to this point. 
 
 ## Clustering 
+
+Make distance matrix 
+```{r}
+# compute pairwise distances
+dis <- dist(t(s_data), method = 'euclidean')
+dis_noNA <- dist(t(s_data_noNA), method = 'euclidean')
+dis_NAzeros <- dist(t(s_data_NA_zeros), method = 'euclidean')
+
+```
+
+Do clustering analysis for `dis`
+
+```{r}
+dis.w <- hclust(dis, method = 'ward.D')
+plot(dis.w, labels = meta$group, cex = 0.4, 
+     main = "Ward showing 4 clusters")
+rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
+```
+
+Do clustering for `dis_noNA`
+```{r}
+dis_noNA.w <- hclust(dis_noNA, method = 'ward.D')
+plot(dis_noNA.w, labels = meta$group, cex = 0.7, 
+     main = "Ward showing 4 clusters, with NA removed")
+rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
+```
+
+Do clustering for `dis_NAzeros`
+```{r}
+dis_NAzeros.w <- hclust(dis_NAzeros, method = 'ward.D')
+plot(dis_NAzeros.w, labels = meta$group, cex = 0.7, 
+     main = "Ward showing 4 clusters, with NA removed")
+rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
+```
+
 
 
