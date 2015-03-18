@@ -127,7 +127,7 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 Do clustering for `dis_noNA`
 ```{r}
 dis_noNA.w <- hclust(dis_noNA, method = 'ward.D')
-plot(dis_noNA.w, labels = meta$group, cex = 0.7, 
+plot(dis_noNA.w, labels = meta$group, cex = 0.5, 
      main = "Ward showing 4 clusters, with NA removed")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
 ```
@@ -135,7 +135,7 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 Do clustering for `dis_NAzeros`
 ```{r}
 dis_NAzeros.w <- hclust(dis_NAzeros, method = 'ward.D')
-plot(dis_NAzeros.w, labels = meta$group, cex = 0.7, 
+plot(dis_NAzeros.w, labels = meta$group, cex = 0.5, 
      main = "Ward showing 4 clusters, with NA removed")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
 ```
