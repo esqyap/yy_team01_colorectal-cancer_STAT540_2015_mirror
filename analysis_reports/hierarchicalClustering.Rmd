@@ -1,0 +1,107 @@
+---
+title: "Hierarchical Clustering Analysis"
+author: "Santina"
+date: "Monday, March 16, 2015"
+output: 
+  html_document:
+    keep_md: yes
+    toc: yes
+---
+
+Beryl and Ka Ming has written the scripts for the rest of the group to download and filter raw data and raw meta data. Here I will try some clustering analysis to test the water... or look at the data at a high level.
+
+The goal is to see if there are distinguishable features between different patient groups that clustering methods that come with R packages can pick out and correctly group the samples into their corresponding groups. 
+
+This report is purely for internal communication. 
+
+## Load the data
+
+First we'll load the data:
+
+```{r, message=FALSE, eval=FALSE}
+# run the script that gets the raw data and filter the raw data
+# this step would take a while 
+start <- proc.time()
+source('../rscripts/get_data_and_filter.R')
+(time <- proc.time() - start)
+
+# run the script that take the metadata on our repo and process/filter it 
+# reads in "GSE48684_metadata_raw.Rdata""
+source('../rscripts/process_metadata.R')
+load("../data/metadata.Rdata")
+mD <- metadata
+```
+
+I am having trouble running the first script... Probably because (as Ka Ming suggested) that I have corrupted temp file and the script is using that. Anyway, I got the file from Beryl so I'll just use that : 
+
+```{r}
+load('../data/GSE48684_raw_filtered.Rdata')
+data <- raw_data_filter
+load('../data/metadata.Rdata')
+meta <- metadata
+head(data)
+head(meta)
+```
+
+For my personal preference I'm gonna reorganize the meta data a bit. 
+
+```{r}
+rownames(meta) <- meta$geo_accession  # move labels to row names
+meta$geo_accession <- NULL
+
+meta$title <- as.factor(gsub("Genomic DNA from ", "", meta$title)) #remove redundant words 
+head(meta) # yay
+```
+
+## Scaling data 
+
+Now let's do clustering. 
+
+But first, as suggested in the seminar tutorial, let's scale so that we look at the distribution of methylation, not the absolute differences of methylation levels among regions. 
+
+
+```{r}
+s_data <- t(scale(t(data))) 
+
+# for inspection : 
+round(data.frame(avgBefore = rowMeans(head(data)),
+                 avgAfter = rowMeans(head(s_data)),
+                 varBefore = apply(head(data), 1, var),
+                 varAfter = apply(head(s_data), 1, var)), 2)
+
+```
+
+Looks like there are some missing values. I'm gonna scale it again so that this time NA is not being accounted (removing all the rows with NAs), just to make things easier. (good thing we inspect s_data first) 
+Note that in this case the probes is much fewer.
+
+```{r}
+nrow(data[complete.cases(data), ]) # 256981 vs 301208 in the original. 
+s_data_noNA <- t(scale(t(data[complete.cases(data), ])))
+```
+Maybe doing this would get rid of too many probes. So I'll try replacing NA with zeros in case the NAs in this study mean that they couldn't get any signal (hence zeros)
+
+```{r}
+data_NA_zeros <- data 
+data_NA_zeros[is.na(data_NA_zeros)] <- 0
+# sanity check
+nrow(data_NA_zeros[complete.cases(data_NA_zeros),]) == nrow(data)
+```
+
+Now scale 
+
+```{r}
+s_data_NA_zeros <- t(scale(t(data_NA_zeros)))
+```
+
+Just as a reminder: 
+- `data` : our original data
+- `meta` : our meta data containing what each column in `data` is 
+- `s_data`: the scaled `data` , it has NA because `data` has NAs
+- `s_data_noNA` : after removing rows with NAs from `data` and then scale it 
+- `s_data_NA_zeros` : after replacing NAs with zeros in `data` and then scale it 
+
+BTW just want to make a point that I had to change my memory allocation limit from 3981 to 5000 `memory.limit(5000)` in order to knit this Rmarkdown up to this point. 
+
+## Clustering 
+
+
