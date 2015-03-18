@@ -5,21 +5,21 @@
 # and metadata as .Rdata
 #
 # Output: methyl_data_raw, file = "../data/GSE48684_raw.Rdata
-#						-contain beta value for all probes (no filter)
+#					-contain beta value for all probes (no filter)
 #					raw_data_filter, file = "../data/GSE48684_raw_filtered.Rdata"
-#						-contain beta value for filtered probes (CGI and non chrx)
+#					-contain beta value for filtered probes (CGI and non chrx)
 #         methyl_metadata, file = "../data/GSE48684_metadata.Rdata"
-#						-metadata for all samples (RAW)
+#					-metadata for all samples (RAW)
 #					cginame, file = "../data/cgi_non_chrx_probes.Rdata"
-#						-probe info of now chrx CGI probes
+#					-probe info of now chrx CGI probes
 #					metadata, file = "../data/metadata.Rdata"
-#						-processed metadata, for limma and other
+#					-processed metadata, for limma and other
 #					
 #####################################################
 
 library(GEOquery)
 if(file.exists("../data/GSE48684_raw.Rdata")){
-	Print("raw data downloaded, proceed to the next step.")
+	print("raw data downloaded, proceed to the next step.")
 } else {
 	filename <- "../data/GSE48684_series_matrix.txt.gz"
 	if(file.exists(filename)){
@@ -36,13 +36,7 @@ if(file.exists("../data/GSE48684_raw.Rdata")){
 		methyl_metadata <- pData(phenoData(GSE48684))
 		#save Rdata
 		save(methyl_data_raw, file = "../data/GSE48684_raw.Rdata")  # large file, don't push
-		if (file.exists("../data/GSE48684_raw.Rdata")){
-			print("Raw methylation data GSE48684_raw.Rdata has been saved.")
-		}
 		save(methyl_metadata, file = "../data/GSE48684_metadata.Rdata")
-		if(file.exists( "../data/GSE48684_metadata.Rdata")){
-			print("Raw metadata GSE48684_metadata.Rdata is saved.") 
-		}
 }
 
 
