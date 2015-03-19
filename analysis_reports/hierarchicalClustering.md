@@ -8,7 +8,7 @@ The goal is to see if there are distinguishable features between different patie
 
 This report is purely for internal communication. 
 
-## Load the data
+# Load the data
 
 First we'll load the data:
 
@@ -32,7 +32,7 @@ I am having trouble running the first script... Probably because (as Ka Ming sug
 
 ```r
 library(knitr)
-knitr::opts_chunk$set(ig.height = 08, fig.width = 10)
+knitr::opts_chunk$set(ig.height = 08, fig.width = 13)
 load('../data/GSE48684_raw_filtered.Rdata')
 data <- raw_data_filter
 load('../data/metadata.Rdata')
@@ -108,7 +108,7 @@ head(meta) # yay
 ## GSM1183444   Male
 ```
 
-## Scaling data 
+# Scaling data 
 
 Now let's do clustering. 
 
@@ -181,7 +181,7 @@ Just as a reminder:
 
 BTW just want to make a point that I had to change my memory allocation limit from 3981 to 5000 `memory.limit(5000)` in order to knit this Rmarkdown up to this point. 
 
-## Clustering 
+# Clustering 
 
 Make distance matrix 
 
@@ -192,39 +192,59 @@ dis_noNA <- dist(t(s_data_noNA), method = 'euclidean')
 dis_NAzeros <- dist(t(s_data_NA_zeros), method = 'euclidean')
 ```
 
-Do clustering analysis for `dis`
+To make it easier to see in the tree, we'll decode different group with a number: 
+
+
+```r
+library(car)
+meta$code <- recode(meta$group, 
+										'"normal-H"=1; "normal-C"=2; "adenoma"=3; "cancer"=4', 
+										as.factor.result = TRUE)
+table(meta$group, meta$code)
+```
+
+```
+##           
+##             1  2  3  4
+##   adenoma   0  0 42  0
+##   cancer    0  0  0 64
+##   normal-C  0 24  0  0
+##   normal-H 17  0  0  0
+```
+
+## Do clustering analysis for `dis`
 
 
 ```r
 dis.w <- hclust(dis, method = 'ward.D')
-plot(dis.w, labels = meta$group, cex = 0.4, 
+plot(dis.w, labels = meta$code, cex = 0.5, 
      main = "Ward showing 4 clusters")
-rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
-```
-
-![](hierarchicalClustering_files/figure-html/unnamed-chunk-9-1.png) 
-
-Do clustering for `dis_noNA`
-
-```r
-dis_noNA.w <- hclust(dis_noNA, method = 'ward.D')
-plot(dis_noNA.w, labels = meta$group, cex = 0.5, 
-     main = "Ward showing 4 clusters, with NA removed")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
 ```
 
 ![](hierarchicalClustering_files/figure-html/unnamed-chunk-10-1.png) 
 
-Do clustering for `dis_NAzeros`
+## Do clustering for `dis_noNA`
 
 ```r
-dis_NAzeros.w <- hclust(dis_NAzeros, method = 'ward.D')
-plot(dis_NAzeros.w, labels = meta$group, cex = 0.5, 
+dis_noNA.w <- hclust(dis_noNA, method = 'ward.D')
+plot(dis_noNA.w, labels = meta$code, cex = 0.5, 
      main = "Ward showing 4 clusters, with NA removed")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
 ```
 
 ![](hierarchicalClustering_files/figure-html/unnamed-chunk-11-1.png) 
+
+## Do clustering for `dis_NAzeros`
+
+```r
+dis_NAzeros.w <- hclust(dis_NAzeros, method = 'ward.D')
+plot(dis_NAzeros.w, labels = meta$code, cex = 0.5, 
+     main = "Ward showing 4 clusters, with NA removed")
+rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
+```
+
+![](hierarchicalClustering_files/figure-html/unnamed-chunk-12-1.png) 
 
 
 
