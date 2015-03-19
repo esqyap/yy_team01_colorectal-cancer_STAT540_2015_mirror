@@ -32,7 +32,7 @@ I am having trouble running the first script... Probably because (as Ka Ming sug
 
 ```r
 library(knitr)
-knitr::opts_chunk$set(ig.height = 08, fig.width = 13)
+knitr::opts_chunk$set(ig.height = 09, fig.width = 15)
 load('../data/GSE48684_raw_filtered.Rdata')
 data <- raw_data_filter
 load('../data/metadata.Rdata')
@@ -212,39 +212,173 @@ table(meta$group, meta$code)
 ##   normal-H 17  0  0  0
 ```
 
+_Note that these numbers simply for easier visualization on the tree graphs, they are not the same numbers in the tables following each graphs_ The number in the tables are arbitrary number assigned by hclust and output by cutree. The tables are simply there to show how well each group cluster into the same class.
+
+Now we'll do clustering for each different distance matrix, using two different methods 'ward.D' and 'complete', with two hyperlinks to random sources describing them. 
+
 ## Do clustering analysis for `dis`
 
+[Ward's minimum variance method](http://en.wikipedia.org/wiki/Ward%27s_method)
 
 ```r
 dis.w <- hclust(dis, method = 'ward.D')
-plot(dis.w, labels = meta$code, cex = 0.5, 
+plot(dis.w, labels = meta$code, cex = 0.6, 
      main = "Ward showing 4 clusters")
-rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
+rect.hclust(dis.w, k = 4) # specify we want 4 clusters 
 ```
 
 ![](hierarchicalClustering_files/figure-html/unnamed-chunk-10-1.png) 
 
-## Do clustering for `dis_noNA`
+```r
+# to see more clearly what gets clustered together: 
+dis.w.groups <- cbind(meta, cluster = cutree(dis.w, k=4))
+kable(table(dis.w.groups$group, dis.w.groups$cluster))
+```
+
+             1    2    3    4
+---------  ---  ---  ---  ---
+adenoma      3   28   11    0
+cancer      10    8   36   10
+normal-C     3    0    1   20
+normal-H     6    0    0   11
+
+Mmm.... cancer ones get clustered into different cluster.  
+
+[Furthest neighbor or compact](http://ecology.msu.montana.edu/labdsv/R/labs/lab13/lab13.html)
+
 
 ```r
-dis_noNA.w <- hclust(dis_noNA, method = 'ward.D')
-plot(dis_noNA.w, labels = meta$code, cex = 0.5, 
-     main = "Ward showing 4 clusters, with NA removed")
-rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
+dis.w <- hclust(dis, method = 'complete')
+plot(dis.w, labels = meta$code, cex = 0.6, 
+     main = "Complete showing 4 clusters")
+rect.hclust(dis.w, k = 4) # specify we want 4 clusters 
 ```
 
 ![](hierarchicalClustering_files/figure-html/unnamed-chunk-11-1.png) 
 
-## Do clustering for `dis_NAzeros`
+```r
+# to see more clearly what gets clustered together: 
+dis.w.groups <- cbind(meta, cluster = cutree(dis.w, k=4))
+kable(table(dis.w.groups$group, dis.w.groups$cluster))
+```
+
+             1    2    3    4
+---------  ---  ---  ---  ---
+adenoma     34    1    6    1
+cancer      15   17   30    2
+normal-C    13   11    0    0
+normal-H    17    0    0    0
+
+Even worse. 
+
+## Do clustering for `dis_noNA`
+Ward: 
 
 ```r
-dis_NAzeros.w <- hclust(dis_NAzeros, method = 'ward.D')
-plot(dis_NAzeros.w, labels = meta$code, cex = 0.5, 
+dis_noNA.w <- hclust(dis_noNA, method = 'ward.D')
+plot(dis_noNA.w, labels = meta$code, cex = 0.7, 
      main = "Ward showing 4 clusters, with NA removed")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
 ```
 
 ![](hierarchicalClustering_files/figure-html/unnamed-chunk-12-1.png) 
 
+```r
+# to see more clearly what gets clustered together: 
+dis_noNA.w.groups <- cbind(meta, cluster = cutree(dis_noNA.w, k=4))
+kable(table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster))
+```
+
+             1    2    3    4
+---------  ---  ---  ---  ---
+adenoma      3   28   11    0
+cancer      10    8   36   10
+normal-C     3    0    1   20
+normal-H     6    0    0   11
+
+Complete: 
 
 
+```r
+dis_noNA.w <- hclust(dis_noNA, method = 'complete')
+plot(dis_noNA.w, labels = meta$code, cex = 0.7, 
+     main = "Complete showing 4 clusters, with NA removed")
+rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
+```
+
+![](hierarchicalClustering_files/figure-html/unnamed-chunk-13-1.png) 
+
+```r
+# to see more clearly what gets clustered together: 
+dis_noNA.w.groups <- cbind(meta, cluster = cutree(dis_noNA.w, k=4))
+kable(table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster))
+```
+
+             1    2    3    4
+---------  ---  ---  ---  ---
+adenoma      6   25    1   10
+cancer       6    2    8   48
+normal-C     0    0    3   21
+normal-H     6    0    0   11
+
+
+
+## Do clustering for `dis_NAzeros`
+
+Wards
+
+```r
+dis_NAzeros.w <- hclust(dis_NAzeros, method = 'ward.D')
+plot(dis_NAzeros.w, labels = meta$code, cex = 0.7, 
+     main = "Ward showing 4 clusters, with NA set to zeros")
+rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
+```
+
+![](hierarchicalClustering_files/figure-html/unnamed-chunk-14-1.png) 
+
+```r
+# to see more clearly what gets clustered together: 
+dis_NAzeros.w.groups <- cbind(meta, cluster = cutree(dis_NAzeros.w, k=4))
+kable(table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster))
+```
+
+             1    2    3    4
+---------  ---  ---  ---  ---
+adenoma      3   27   12    0
+cancer      19    8   36    1
+normal-C     4    0    1   19
+normal-H     6    0    0   11
+
+complete: 
+
+```r
+dis_NAzeros.w <- hclust(dis_NAzeros, method = 'complete')
+plot(dis_NAzeros.w, labels = meta$code, cex = 0.7, 
+     main = "Complete showing 4 clusters, with NA set to zeros")
+rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
+```
+
+![](hierarchicalClustering_files/figure-html/unnamed-chunk-15-1.png) 
+
+```r
+# to see more clearly what gets clustered together: 
+dis_NAzeros.w.groups <- cbind(meta, cluster = cutree(dis_NAzeros.w, k=4))
+kable(table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster))
+```
+
+             1    2    3    4
+---------  ---  ---  ---  ---
+adenoma      6   11    1   24
+cancer       6   13    9   36
+normal-C     0    0    3   21
+normal-H     6    0    0   11
+
+
+I should have just written a function to do this kind of repeatitive work...but I already finished copied and pasted. 
+
+> My conclusion, overall the data don't cluster that well together, but at least the majority from each group do get clustered into the same cluster. We should go ahead and do the analysis now and if we feel like coming back to these, we can go to the individual ones that get clustered into a different group to see how different they are. Note that clustering is stochastic. 
+
+
+
+
+For normalized data, just use this same markdown and change the data source. 
