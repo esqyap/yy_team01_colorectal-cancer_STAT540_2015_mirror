@@ -134,7 +134,7 @@ Now we'll do clustering for each different distance matrix, using two different 
 ## Do clustering analysis for `dis`
 
 [Ward's minimum variance method](http://en.wikipedia.org/wiki/Ward%27s_method)
-```{r, results='asis'}
+```{r}
 dis.w <- hclust(dis, method = 'ward.D')
 plot(dis.w, labels = meta$code, cex = 0.6, 
      main = "Ward showing 4 clusters")
@@ -142,14 +142,14 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 
 # to see more clearly what gets clustered together: 
 dis.w.groups <- cbind(meta, cluster = cutree(dis.w, k=4))
-kable(table(dis.w.groups$group, dis.w.groups$cluster))
+table(dis.w.groups$group, dis.w.groups$cluster)
 ```
 
 Mmm.... cancer ones get clustered into different cluster.  
 
 [Furthest neighbor or compact](http://ecology.msu.montana.edu/labdsv/R/labs/lab13/lab13.html)
 
-```{r, results='asis'}
+```{r}
 dis.w <- hclust(dis, method = 'complete')
 plot(dis.w, labels = meta$code, cex = 0.6, 
      main = "Complete showing 4 clusters")
@@ -157,14 +157,14 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 
 # to see more clearly what gets clustered together: 
 dis.w.groups <- cbind(meta, cluster = cutree(dis.w, k=4))
-kable(table(dis.w.groups$group, dis.w.groups$cluster))
+table(dis.w.groups$group, dis.w.groups$cluster)
 ```
 
 Even worse. 
 
 ## Do clustering for `dis_noNA`
 Ward: 
-```{r, results='asis'}
+```{r}
 dis_noNA.w <- hclust(dis_noNA, method = 'ward.D')
 plot(dis_noNA.w, labels = meta$code, cex = 0.7, 
      main = "Ward showing 4 clusters, with NA removed")
@@ -172,12 +172,12 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 
 # to see more clearly what gets clustered together: 
 dis_noNA.w.groups <- cbind(meta, cluster = cutree(dis_noNA.w, k=4))
-kable(table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster))
+table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster)
 ```
 
 Complete: 
 
-```{r, results='asis'}
+```{r}
 dis_noNA.w <- hclust(dis_noNA, method = 'complete')
 plot(dis_noNA.w, labels = meta$code, cex = 0.7, 
      main = "Complete showing 4 clusters, with NA removed")
@@ -185,7 +185,7 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 
 # to see more clearly what gets clustered together: 
 dis_noNA.w.groups <- cbind(meta, cluster = cutree(dis_noNA.w, k=4))
-kable(table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster))
+table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster)
 ```
 
 
@@ -193,7 +193,7 @@ kable(table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster))
 ## Do clustering for `dis_NAzeros`
 
 Wards
-```{r, results='asis'}
+```{r}
 dis_NAzeros.w <- hclust(dis_NAzeros, method = 'ward.D')
 plot(dis_NAzeros.w, labels = meta$code, cex = 0.7, 
      main = "Ward showing 4 clusters, with NA set to zeros")
@@ -201,11 +201,11 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 
 # to see more clearly what gets clustered together: 
 dis_NAzeros.w.groups <- cbind(meta, cluster = cutree(dis_NAzeros.w, k=4))
-kable(table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster))
+table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster)
 ```
 
 complete: 
-```{r, results='asis'}
+```{r}
 dis_NAzeros.w <- hclust(dis_NAzeros, method = 'complete')
 plot(dis_NAzeros.w, labels = meta$code, cex = 0.7, 
      main = "Complete showing 4 clusters, with NA set to zeros")
@@ -213,7 +213,7 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 
 # to see more clearly what gets clustered together: 
 dis_NAzeros.w.groups <- cbind(meta, cluster = cutree(dis_NAzeros.w, k=4))
-kable(table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster))
+table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster)
 ```
 
 

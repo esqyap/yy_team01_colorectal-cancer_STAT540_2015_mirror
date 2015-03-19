@@ -232,15 +232,17 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 ```r
 # to see more clearly what gets clustered together: 
 dis.w.groups <- cbind(meta, cluster = cutree(dis.w, k=4))
-kable(table(dis.w.groups$group, dis.w.groups$cluster))
+table(dis.w.groups$group, dis.w.groups$cluster)
 ```
 
-             1    2    3    4
----------  ---  ---  ---  ---
-adenoma      3   28   11    0
-cancer      10    8   36   10
-normal-C     3    0    1   20
-normal-H     6    0    0   11
+```
+##           
+##             1  2  3  4
+##   adenoma   3 28 11  0
+##   cancer   10  8 36 10
+##   normal-C  3  0  1 20
+##   normal-H  6  0  0 11
+```
 
 Mmm.... cancer ones get clustered into different cluster.  
 
@@ -259,15 +261,17 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 ```r
 # to see more clearly what gets clustered together: 
 dis.w.groups <- cbind(meta, cluster = cutree(dis.w, k=4))
-kable(table(dis.w.groups$group, dis.w.groups$cluster))
+table(dis.w.groups$group, dis.w.groups$cluster)
 ```
 
-             1    2    3    4
----------  ---  ---  ---  ---
-adenoma     34    1    6    1
-cancer      15   17   30    2
-normal-C    13   11    0    0
-normal-H    17    0    0    0
+```
+##           
+##             1  2  3  4
+##   adenoma  34  1  6  1
+##   cancer   15 17 30  2
+##   normal-C 13 11  0  0
+##   normal-H 17  0  0  0
+```
 
 Even worse. 
 
@@ -286,15 +290,17 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 ```r
 # to see more clearly what gets clustered together: 
 dis_noNA.w.groups <- cbind(meta, cluster = cutree(dis_noNA.w, k=4))
-kable(table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster))
+table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster)
 ```
 
-             1    2    3    4
----------  ---  ---  ---  ---
-adenoma      3   28   11    0
-cancer      10    8   36   10
-normal-C     3    0    1   20
-normal-H     6    0    0   11
+```
+##           
+##             1  2  3  4
+##   adenoma   3 28 11  0
+##   cancer   10  8 36 10
+##   normal-C  3  0  1 20
+##   normal-H  6  0  0 11
+```
 
 Complete: 
 
@@ -311,15 +317,17 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 ```r
 # to see more clearly what gets clustered together: 
 dis_noNA.w.groups <- cbind(meta, cluster = cutree(dis_noNA.w, k=4))
-kable(table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster))
+table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster)
 ```
 
-             1    2    3    4
----------  ---  ---  ---  ---
-adenoma      6   25    1   10
-cancer       6    2    8   48
-normal-C     0    0    3   21
-normal-H     6    0    0   11
+```
+##           
+##             1  2  3  4
+##   adenoma   6 25  1 10
+##   cancer    6  2  8 48
+##   normal-C  0  0  3 21
+##   normal-H  6  0  0 11
+```
 
 
 
@@ -339,15 +347,17 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 ```r
 # to see more clearly what gets clustered together: 
 dis_NAzeros.w.groups <- cbind(meta, cluster = cutree(dis_NAzeros.w, k=4))
-kable(table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster))
+table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster)
 ```
 
-             1    2    3    4
----------  ---  ---  ---  ---
-adenoma      3   27   12    0
-cancer      19    8   36    1
-normal-C     4    0    1   19
-normal-H     6    0    0   11
+```
+##           
+##             1  2  3  4
+##   adenoma   3 27 12  0
+##   cancer   19  8 36  1
+##   normal-C  4  0  1 19
+##   normal-H  6  0  0 11
+```
 
 complete: 
 
@@ -363,15 +373,17 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 ```r
 # to see more clearly what gets clustered together: 
 dis_NAzeros.w.groups <- cbind(meta, cluster = cutree(dis_NAzeros.w, k=4))
-kable(table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster))
+table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster)
 ```
 
-             1    2    3    4
----------  ---  ---  ---  ---
-adenoma      6   11    1   24
-cancer       6   13    9   36
-normal-C     0    0    3   21
-normal-H     6    0    0   11
+```
+##           
+##             1  2  3  4
+##   adenoma   6 11  1 24
+##   cancer    6 13  9 36
+##   normal-C  0  0  3 21
+##   normal-H  6  0  0 11
+```
 
 
 I should have just written a function to do this kind of repeatitive work...but I already finished copied and pasted. 
