@@ -15,5 +15,5 @@
   
 [Misc](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/rscripts/Misc)
   - miscellaneous/junk scripts
-  - scripts that are not crucial to the work flow
+  - scripts that are not crucial to the work flow, but too precious to delete
   
