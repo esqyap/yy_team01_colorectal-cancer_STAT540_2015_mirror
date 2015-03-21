@@ -214,20 +214,20 @@ wssplot <- function(sdat, nc=15, seed=1234){
 
 Plot for `raw_data_na`:
 ```{r}
-# raw_data_na (unfiltered pre-normalization)
-# wssplot(sdat)
+raw_data_na (unfiltered pre-normalization)
+wssplot(sdat)
 ```
 
 Plot for `raw_data_filter_na`:
 ```{r}
-# raw_data_filter_na (filtered pre-normalization)
-# wssplot(sdat_raw_filter)
+raw_data_filter_na (filtered pre-normalization)
+wssplot(sdat_raw_filter)
 ```
 
 Plot for `beta_norm_na`:
 ```{r}
-# beta_norm_na (filtered post-normalization)
-# wssplot(sdat_norm)
+beta_norm_na (filtered post-normalization)
+wssplot(sdat_norm)
 ```
 
 Based on the plots, a distinct drop can be observed from k=1 to 3 for pre-normalized datasets whereas only a distinct drop between k=1 and 2 was observed for the normalized dataset. 
