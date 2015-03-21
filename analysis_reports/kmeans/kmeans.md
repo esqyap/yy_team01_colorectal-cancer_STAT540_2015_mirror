@@ -3,7 +3,7 @@ Eva Y
 March 18, 2015  
 
 ### Analysis goal: 
-To evaluate our dataset for sample swaps, I will be performing kmeans cluster analysis on patient samples.
+To evaluate our dataset for sample swaps, I will be performing K-means cluster analysis on patient samples.
 
 
 ### Step 1: Attach packages for analysis
