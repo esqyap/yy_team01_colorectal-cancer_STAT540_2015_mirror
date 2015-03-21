@@ -1,4 +1,4 @@
-# R Scripts
+# R scripts
 
 ### Add brief description of the scripts here:
 
