@@ -1,0 +1,77 @@
+---
+title: " "
+author: "Beryl"
+date: "2015-04-01"
+output: 
+  html_document:
+    keep_md: yes
+    toc: yes
+---
+
+
+```{r load_data}
+load("../../data/GSE48684_raw.Rdata")
+load("../../data/GSE48684_raw_filtered.Rdata")
+
+load("../../data/GSE48684_raw_filtered.beta.norm.Rdata")
+load("../../data/GSE48684_raw_filtered.beta.norm.cgi.Rdata")
+
+load("../../data/GSE48684_raw_filtered.m.norm.Rdata")
+load("../../data/GSE48684_raw_filtered.m.norm.cgi.Rdata")
+
+
+```
+
+To inspect the datasets that we have so far, check the number of NAs. 
+
+```{r inspect}
+checkNA <- function(x){
+  length(which(is.na(x) == T))
+}
+
+# raw data
+head(methyl_data_raw)
+str(methyl_data_raw)
+checkNA(methyl_data_raw)
+
+head(raw_data_filter)
+str(raw_data_filter)
+checkNA(raw_data_filter)
+
+# normalized data
+head(beta.norm)
+str(beta.norm)
+checkNA(beta.norm)
+
+head(beta.norm.CGI)
+str(beta.norm.CGI)
+checkNA(beta.norm.CGI)
+
+#M value transformed
+head(M.norm)
+str(M.norm)
+checkNA(M.norm)
+head(M.norm.CGI)
+str(M.norm.CGI)
+checkNA(M.norm.CGI)
+
+# metadata
+load("../data/metadata.Rdata")
+head(metadata)
+```
+
+Plot the density of average beta values of the filtered raw data
+
+```{r}
+
+raw_beta_means <- data.frame(avg_beta = rowMeans(raw_data_filter, na.rm = T),
+                        category = "raw_beta_value")
+norm_beta_means <- data.frame(avg_beta = rowMeans(beta.norm, na.rm = T),
+                        category = "normalized_beta_value")
+  
+(probeAvg <- ggplot(data = rbind(raw_beta_means, norm_beta_means), aes(x = avg_beta, col = category)) +
+   geom_density() + 
+   ggtitle("Average Beta value density before and after normalization") + 
+   theme_bw()
+)
+```
