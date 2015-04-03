@@ -1,12 +1,19 @@
-####Add brief description of the scripts here:
+# R scripts
 
-[get\_data.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/get_data.R)- Beryl
-  - download the raw methylation data, save the methylation data and metadata as Rdata
+### Add brief description of the scripts here:
 
-[filter\_probes.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/filter_probes.R) - Ka Ming and Beryl
+[01-get\_data\_and\_filter.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/get_data_and_filter.R)- Beryl
+  - download the raw methylation data, save the raw methylation data and metadata as Rdata
   - filter the raw data, select probes of CG islands and non ChrX.
-  - the output __../data/raw\_data\_filter__ is for normalization and raw data clustering
+	- select the relevant columns from the raw metadata, new columns include `("group", "title", "geo_accession", "tissue", "colon_region", "gender", "stage")`
+	- beta value is not normalized
   
-[process\_metadata.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/process_metadata.R) - Beryl
-  - select the relevant columns from the raw metadata, new columns include `("group", "title", "geo_accession", "tissue", "colon_region", "gender", "stage")`
-  - output is __../data/metadata.Rdata__
+[02-norm\_and\_aggregate.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/norm_and_aggregate.R)- Ka Ming
+  - normalize filtered beta-values
+  - convert beta-values to M-values
+  - aggregate both beta-values and M-values to CpG islands
+  
+[Misc](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/rscripts/Misc)
+  - miscellaneous/junk scripts
+  - scripts that are not crucial to the work flow, but too precious to delete
+  
