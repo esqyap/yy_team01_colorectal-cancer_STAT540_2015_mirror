@@ -1,5 +1,5 @@
 ---
-title: " "
+title: "Density Plots for beta and M values"
 author: "Beryl"
 date: "2015-04-01"
 output: 
@@ -9,69 +9,189 @@ output:
 ---
 
 
-```{r load_data}
-load("../../data/GSE48684_raw.Rdata")
-load("../../data/GSE48684_raw_filtered.Rdata")
+```{r packages}
+suppressPackageStartupMessages(library(ggplot2)) # for plotting
+suppressPackageStartupMessages(library(pheatmap)) # for heatmap
+suppressPackageStartupMessages(library(RColorBrewer)) # for heatmap palette
+suppressPackageStartupMessages(library(plyr))  # data aggregation
+suppressPackageStartupMessages(library(dplyr)) #data aggregation
+suppressPackageStartupMessages(library(reshape))   #data aggregation
+suppressPackageStartupMessages(library(knitr)) # present better tables
 
+```
+
+```{r load_data}
+
+load("../../data/GSE48684_raw_filtered.Rdata")
 load("../../data/GSE48684_raw_filtered.beta.norm.Rdata")
 load("../../data/GSE48684_raw_filtered.beta.norm.cgi.Rdata")
-
 load("../../data/GSE48684_raw_filtered.m.norm.Rdata")
 load("../../data/GSE48684_raw_filtered.m.norm.cgi.Rdata")
-
+load("../../data/metadata.Rdata")
 
 ```
 
 To inspect the datasets that we have so far, check the number of NAs. 
 
-```{r inspect}
-checkNA <- function(x){
-  length(which(is.na(x) == T))
+```{r}
+checkNA <- function(df){
+  length(which(is.na(df) == T))
 }
 
-# raw data
-head(methyl_data_raw)
-str(methyl_data_raw)
-checkNA(methyl_data_raw)
-
-head(raw_data_filter)
+# raw data, probes filtered
+#head(raw_data_filter)
 str(raw_data_filter)
 checkNA(raw_data_filter)
 
 # normalized data
-head(beta.norm)
+#head(beta.norm)
 str(beta.norm)
 checkNA(beta.norm)
 
-head(beta.norm.CGI)
+#head(beta.norm.CGI)
 str(beta.norm.CGI)
 checkNA(beta.norm.CGI)
 
 #M value transformed
-head(M.norm)
+#head(M.norm)
 str(M.norm)
 checkNA(M.norm)
-head(M.norm.CGI)
+#head(M.norm.CGI)
 str(M.norm.CGI)
 checkNA(M.norm.CGI)
 
 # metadata
-load("../data/metadata.Rdata")
+load("../../data/metadata.Rdata")
 head(metadata)
 ```
 
-Plot the density of average beta values of the filtered raw data
+Plot the density of average beta values of the filtered raw data before and after normalization.
 
 ```{r}
+library(ggplot2)
 
-raw_beta_means <- data.frame(avg_beta = rowMeans(raw_data_filter, na.rm = T),
-                        category = "raw_beta_value")
-norm_beta_means <- data.frame(avg_beta = rowMeans(beta.norm, na.rm = T),
-                        category = "normalized_beta_value")
-  
-(probeAvg <- ggplot(data = rbind(raw_beta_means, norm_beta_means), aes(x = avg_beta, col = category)) +
+aggregateAvgValue <- function(df, cat, group){
+	# df is the matrix
+	# cat is the beta/M value category (character)
+	# group is the sample group (character)
+	group_list <- as.character(metadata$geo_accession[which(metadata$group == group)])
+	x <- df[, which(colnames(df) %in% group_list)]
+	return(data.frame(avg_value = rowMeans(x, na.rm = T),
+	                        category = cat,
+													 group = group))
+}
+
+beta_means <-rbind(
+			aggregateAvgValue(raw_data_filter, "raw_beta_value", "normal-H"),
+			aggregateAvgValue(raw_data_filter, "raw_beta_value", "normal-C"),
+			aggregateAvgValue(raw_data_filter, "raw_beta_value", "cancer"),
+			aggregateAvgValue(raw_data_filter, "raw_beta_value", "adenoma"),
+			aggregateAvgValue(beta.norm, "normalized_beta_value", "normal-H"),
+			aggregateAvgValue(beta.norm, "normalized_beta_value", "normal-C"),
+			aggregateAvgValue(beta.norm, "normalized_beta_value", "cancer"),
+			aggregateAvgValue(beta.norm, "normalized_beta_value", "adenoma"))
+
+head(beta_means)
+str(beta_means)
+
+```
+
+```{r beta_value_density}
+ggplot(data = beta_means, aes(x = avg_value, col = category)) +
    geom_density() + 
+	xlab("average beta value") +
    ggtitle("Average Beta value density before and after normalization") + 
    theme_bw()
-)
+
+
+```
+
+```{r beta_value_density_facet}
+ggplot(data = beta_means, aes(x = avg_value, col = category)) +
+   geom_density() + 
+		xlab("average beta value") +
+   ggtitle("Average Beta value density \nbefore and after normalization") + 
+   theme_bw() +
+	facet_wrap(~ group, nrow = 2, ncol =2)
+
+
+```
+
+
+Aggregate for M values and plot the density for the 4 groups:
+
+```{r M_value_density}
+m_means <-rbind(
+			aggregateAvgValue(M.norm, "M_value", "normal-H"),
+			aggregateAvgValue(M.norm, "M_value", "normal-C"),
+			aggregateAvgValue(M.norm, "M_value", "cancer"),
+			aggregateAvgValue(M.norm, "M_value", "adenoma"))
+
+ggplot(data = m_means, aes(x = avg_value)) +
+   geom_density() + 
+		xlab("average M value") +
+   ggtitle("Average M value density \nafter normalization") + 
+   theme_bw()
+```
+
+
+```{r M_value_density_facet}
+
+ggplot(data = m_means, aes(x = avg_value, col = group)) +
+   geom_density() + 
+		xlab("average M value") +
+   ggtitle("Average M value density \nafter normalization") + 
+   theme_bw()
+```
+
+
+The before and after normalization beta values have similar distribution, and consistent among groups.
+
+The M value distributions have three peaks. The distributions are consistent among groups.
+
+
+```{r heatmap}
+rownames(metadata) <- metadata$geo_accession
+
+# make a function to produce heatmap
+plotHeatmap <- function(x, title = "", legend = "group", size = 5){
+  ## x is an ordered matrix
+  ## title is the plot title
+  ## size is the font size for the rows
+  #get color palette
+  # pallette code is modified from seminar03, courtesy of Dean Attali
+  colour_scheme <- "BuPu"
+  palette <- colorRampPalette(rev(brewer.pal(n = 9, colour_scheme)))
+  paletteSize <- 256
+  cols <- palette(paletteSize)
+  #heatmap
+  annotation <- metadata[legend] #get the legend
+  pheatmap(x, color = cols,
+           cluster_rows = FALSE, cluster_cols = FALSE, # turn off dendrogram
+           annotation = annotation,
+           fontsize_row = size,
+           main = title)
+}
+
+#reorder columns by group
+order_by_group<-metadata$geo_accession[order(metadata$group, metadata$colon_region)]
+beta_cor <- cor(na.omit(raw_data_filter[, order_by_group]))
+```
+
+```{r beta_cor_heatmap}
+plotHeatmap(beta_cor, "heatmap for the sample correlation\n raw beta value",
+						legend = c("group", "colon_region"))
+```
+
+```{r beta_norm_beta_cor_heatmap}
+norm_beta_cor <- cor(na.omit(beta.norm[, order_by_group]))
+plotHeatmap(norm_beta_cor, "heatmap for the sample correlation\n normalized beta value")
+
+
+```
+
+```{r M_cor_heatmap}
+M_cor <- cor(na.omit(M.norm[, order_by_group]))
+plotHeatmap(M_cor, "heatmap for the sample correlation\n M value")
+
 ```
