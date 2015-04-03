@@ -1,5 +1,5 @@
 ---
-title: "Density Plots for beta and M values"
+title: "Data QC, Density Plots for beta and M values, and PCA"
 author: "Beryl"
 date: "2015-04-01"
 output: 
@@ -31,6 +31,7 @@ load("../../data/metadata.Rdata")
 
 ```
 
+####Data QC
 To inspect the datasets that we have so far, check the number of NAs. 
 
 ```{r}
@@ -65,6 +66,7 @@ load("../../data/metadata.Rdata")
 head(metadata)
 ```
 
+#### Density plots
 Plot the density of average beta values of the filtered raw data before and after normalization.
 
 ```{r}
@@ -106,17 +108,16 @@ ggplot(data = beta_means, aes(x = avg_value, col = category)) +
 
 ```
 
-```{r beta_value_density_facet}
-ggplot(data = beta_means, aes(x = avg_value, col = category)) +
+#### put this on the poster :)
+
+```{r beta_value_density_facet_by_category}
+ggplot(data = beta_means, aes(x = avg_value, col = group)) +
    geom_density() + 
 		xlab("average beta value") +
    ggtitle("Average Beta value density \nbefore and after normalization") + 
    theme_bw() +
-	facet_wrap(~ group, nrow = 2, ncol =2)
-
-
+	facet_grid(category ~ .)
 ```
-
 
 Aggregate for M values and plot the density for the 4 groups:
 
@@ -149,6 +150,7 @@ The before and after normalization beta values have similar distribution, and co
 
 The M value distributions have three peaks. The distributions are consistent among groups.
 
+#### Heatmaps
 
 ```{r heatmap}
 rownames(metadata) <- metadata$geo_accession
@@ -205,11 +207,13 @@ PCA for the normalized beta value
 
 ```{r pca_normalized_beta_1}
 
-#df <- na.omit(beta.norm)
-#df_pca <- prcomp(df, center = F, scale = F)
-#save(df_pca, file="../../data/pca/beta_norm_pca.Rdata")
-#df_prin_comp <- cbind(metadata, df_pca$rotation)
-#save(df_prin_comp, file="../../data/pca/beta_norm_pca_comp.Rdata")
+df <- na.omit(beta.norm)
+df_pca <- prcomp(df, center = F, scale = F)
+plot(df_pca, main = "PCA of normalized beta value")
+
+save(df_pca, file="../../data/pca/beta_norm_pca.Rdata")
+df_prin_comp <- cbind(metadata, df_pca$rotation)
+save(df_prin_comp, file="../../data/pca/beta_norm_pca_comp.Rdata")
 ```
 
 ```{r pca_normalized_beta}
@@ -226,10 +230,12 @@ For M value
 
 ```{r pca_M_value_1}
 
-# df <- na.omit(M.norm)
-# df_pca <- prcomp(df, center = F, scale = F)
-# df_prin_comp <- cbind(metadata, df_pca$rotation)
-# save(df_prin_comp, file="../../data/pca/M_norm_pca_comp.Rdata")
+df <- na.omit(M.norm)
+df_pca <- prcomp(df, center = F, scale = F)
+
+plot(df_pca, main = "PCA of normalized M value")
+df_prin_comp <- cbind(metadata, df_pca$rotation)
+save(df_prin_comp, file="../../data/pca/M_norm_pca_comp.Rdata")
 
 ```
 
@@ -245,11 +251,13 @@ ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
 
 
 ```{r pca_beta_CGI_value_1}
-# 
-# df <- na.omit(beta.norm.CGI)
-# df_pca <- prcomp(df, center = F, scale = F)
-# df_prin_comp <- cbind(metadata, df_pca$rotation)
-# save(df_prin_comp, file="../../data/pca/beta_norm_cgi_pca_comp.Rdata")
+
+df <- na.omit(beta.norm.CGI)
+df_pca <- prcomp(df, center = F, scale = F)
+
+plot(df_pca, main = "PCA of normalized beta CGI value")
+df_prin_comp <- cbind(metadata, df_pca$rotation)
+save(df_prin_comp, file="../../data/pca/beta_norm_cgi_pca_comp.Rdata")
 
 ```
 
@@ -264,11 +272,12 @@ ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
 
 
 ```{r pca_M_CGI_value_1}
-# 
-# df <- na.omit(M.norm.CGI)
-# df_pca <- prcomp(df, center = F, scale = F)
-# df_prin_comp <- cbind(metadata, df_pca$rotation)
-# save(df_prin_comp, file="../../data/pca/M_norm_cgi_pca_comp.Rdata")
+
+df <- na.omit(M.norm.CGI)
+df_pca <- prcomp(df, center = F, scale = F)
+plot(df_pca, main = "PCA of M CGI value")
+df_prin_comp <- cbind(metadata, df_pca$rotation)
+save(df_prin_comp, file="../../data/pca/M_norm_cgi_pca_comp.Rdata")
 
 ```
 
