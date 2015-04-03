@@ -335,20 +335,20 @@ head(metadata)
 ```
 
 ```
-##      group                                title geo_accession
-## 1 normal-H Genomic DNA from normal individual 1    GSM1183439
-## 2 normal-H Genomic DNA from normal individual 2    GSM1183440
-## 3 normal-H Genomic DNA from normal individual 3    GSM1183441
-## 4 normal-H Genomic DNA from normal individual 4    GSM1183442
-## 5 normal-H Genomic DNA from normal individual 5    GSM1183443
-## 6 normal-H Genomic DNA from normal individual 6    GSM1183444
-##              tissue colon_region gender stage
-## 1 colorectal mucosa        colon   Male      
-## 2 colorectal mucosa        colon   Male      
-## 3 colorectal mucosa        colon Female      
-## 4 colorectal mucosa        colon   Male      
-## 5 colorectal mucosa        colon   Male      
-## 6 colorectal mucosa        colon   Male
+##               group                                title geo_accession
+## GSM1183439 normal-H Genomic DNA from normal individual 1    GSM1183439
+## GSM1183440 normal-H Genomic DNA from normal individual 2    GSM1183440
+## GSM1183441 normal-H Genomic DNA from normal individual 3    GSM1183441
+## GSM1183442 normal-H Genomic DNA from normal individual 4    GSM1183442
+## GSM1183443 normal-H Genomic DNA from normal individual 5    GSM1183443
+## GSM1183444 normal-H Genomic DNA from normal individual 6    GSM1183444
+##                       tissue colon_region gender stage
+## GSM1183439 colorectal mucosa        colon   male  <NA>
+## GSM1183440 colorectal mucosa        colon   male  <NA>
+## GSM1183441 colorectal mucosa        colon female  <NA>
+## GSM1183442 colorectal mucosa        colon   male  <NA>
+## GSM1183443 colorectal mucosa        colon   male  <NA>
+## GSM1183444 colorectal mucosa        colon   male  <NA>
 ```
 
 Plot the density of average beta values of the filtered raw data before and after normalization.
@@ -492,7 +492,7 @@ The M value distributions have three peaks. The distributions are consistent amo
 rownames(metadata) <- metadata$geo_accession
 
 # make a function to produce heatmap
-plotHeatmap <- function(x, title = "", size = 5){
+plotHeatmap <- function(x, title = "", legend = "group", size = 2, names = F){
   ## x is an ordered matrix
   ## title is the plot title
   ## size is the font size for the rows
@@ -503,22 +503,26 @@ plotHeatmap <- function(x, title = "", size = 5){
   paletteSize <- 256
   cols <- palette(paletteSize)
   #heatmap
-  annotation <- metadata["group"] #get the legend
+  annotation <- metadata[legend] #get the legend
   pheatmap(x, color = cols,
            cluster_rows = FALSE, cluster_cols = FALSE, # turn off dendrogram
            annotation = annotation,
            fontsize_row = size,
-           main = title)
+           fontsize_col = size,
+  				 show_rownames = names,
+  				 show_colnames = names,
+  				 main = title)
 }
 
 #reorder columns by group
-order_by_group<-metadata$geo_accession[order(metadata$group)]
+order_by_group<-metadata$geo_accession[order(metadata$group, metadata$colon_region)]
 beta_cor <- cor(na.omit(raw_data_filter[, order_by_group]))
 ```
 
 
 ```r
-plotHeatmap(beta_cor, "heatmap for the sample correlation\n raw beta value")
+plotHeatmap(beta_cor, "heatmap for the sample correlation\n raw beta value",
+						legend = c("group", "colon_region"))
 ```
 
 ![](normalization_files/figure-html/beta_cor_heatmap-1.png) 
@@ -526,7 +530,7 @@ plotHeatmap(beta_cor, "heatmap for the sample correlation\n raw beta value")
 
 ```r
 norm_beta_cor <- cor(na.omit(beta.norm[, order_by_group]))
-plotHeatmap(norm_beta_cor, "heatmap for the sample correlation\n normalized beta value")
+plotHeatmap(norm_beta_cor, "heatmap for the sample correlation\n normalized beta value", legend = c("group", "colon_region"))
 ```
 
 ![](normalization_files/figure-html/beta_norm_beta_cor_heatmap-1.png) 
@@ -534,7 +538,98 @@ plotHeatmap(norm_beta_cor, "heatmap for the sample correlation\n normalized beta
 
 ```r
 M_cor <- cor(na.omit(M.norm[, order_by_group]))
-plotHeatmap(M_cor, "heatmap for the sample correlation\n M value")
+plotHeatmap(M_cor, "heatmap for the sample correlation\n M value", legend = c("group", "colon_region"))
 ```
 
 ![](normalization_files/figure-html/M_cor_heatmap-1.png) 
+
+
+#### PCA analysis
+
+PCA for the normalized beta value
+
+
+```r
+#df <- na.omit(beta.norm)
+#df_pca <- prcomp(df, center = F, scale = F)
+#save(df_pca, file="../../data/pca/beta_norm_pca.Rdata")
+#df_prin_comp <- cbind(metadata, df_pca$rotation)
+#save(df_prin_comp, file="../../data/pca/beta_norm_pca_comp.Rdata")
+```
+
+
+```r
+load("../../data/pca/beta_norm_pca_comp.Rdata")
+# scatter plot
+ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
+  geom_point() +
+  ggtitle("Scatterplot of the first two principal components\nnormalized beta value")
+```
+
+![](normalization_files/figure-html/pca_normalized_beta-1.png) 
+
+
+For M value
+
+
+```r
+# df <- na.omit(M.norm)
+# df_pca <- prcomp(df, center = F, scale = F)
+# df_prin_comp <- cbind(metadata, df_pca$rotation)
+# save(df_prin_comp, file="../../data/pca/M_norm_pca_comp.Rdata")
+```
+
+
+```r
+load("../../data/pca/M_norm_pca_comp.Rdata")
+# scatter plot
+ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
+  geom_point() +
+  ggtitle("Scatterplot of the first two principal components\nM value")
+```
+
+![](normalization_files/figure-html/pca_M_value-1.png) 
+
+
+
+
+```r
+# 
+# df <- na.omit(beta.norm.CGI)
+# df_pca <- prcomp(df, center = F, scale = F)
+# df_prin_comp <- cbind(metadata, df_pca$rotation)
+# save(df_prin_comp, file="../../data/pca/beta_norm_cgi_pca_comp.Rdata")
+```
+
+
+```r
+load("../../data/pca/beta_norm_cgi_pca_comp.Rdata")
+# scatter plot
+ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
+  geom_point() +
+  ggtitle("Scatterplot of the first two principal components\nbeta value CGI")
+```
+
+![](normalization_files/figure-html/pca_beta_cgi_value-1.png) 
+
+
+
+```r
+# 
+# df <- na.omit(M.norm.CGI)
+# df_pca <- prcomp(df, center = F, scale = F)
+# df_prin_comp <- cbind(metadata, df_pca$rotation)
+# save(df_prin_comp, file="../../data/pca/M_norm_cgi_pca_comp.Rdata")
+```
+
+
+```r
+load("../../data/pca/M_norm_cgi_pca_comp.Rdata")
+# scatter plot
+ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
+  geom_point() +
+  ggtitle("Scatterplot of the first two principal components\nM value CGI")
+```
+
+![](normalization_files/figure-html/pca_M_cgi_value-1.png) 
+

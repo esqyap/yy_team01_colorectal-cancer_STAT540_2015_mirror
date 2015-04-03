@@ -154,7 +154,7 @@ The M value distributions have three peaks. The distributions are consistent amo
 rownames(metadata) <- metadata$geo_accession
 
 # make a function to produce heatmap
-plotHeatmap <- function(x, title = "", legend = "group", size = 5){
+plotHeatmap <- function(x, title = "", legend = "group", size = 2, names = F){
   ## x is an ordered matrix
   ## title is the plot title
   ## size is the font size for the rows
@@ -170,7 +170,10 @@ plotHeatmap <- function(x, title = "", legend = "group", size = 5){
            cluster_rows = FALSE, cluster_cols = FALSE, # turn off dendrogram
            annotation = annotation,
            fontsize_row = size,
-           main = title)
+           fontsize_col = size,
+  				 show_rownames = names,
+  				 show_colnames = names,
+  				 main = title)
 }
 
 #reorder columns by group
@@ -185,13 +188,96 @@ plotHeatmap(beta_cor, "heatmap for the sample correlation\n raw beta value",
 
 ```{r beta_norm_beta_cor_heatmap}
 norm_beta_cor <- cor(na.omit(beta.norm[, order_by_group]))
-plotHeatmap(norm_beta_cor, "heatmap for the sample correlation\n normalized beta value")
-
+plotHeatmap(norm_beta_cor, "heatmap for the sample correlation\n normalized beta value", legend = c("group", "colon_region"))
 
 ```
 
 ```{r M_cor_heatmap}
 M_cor <- cor(na.omit(M.norm[, order_by_group]))
-plotHeatmap(M_cor, "heatmap for the sample correlation\n M value")
+plotHeatmap(M_cor, "heatmap for the sample correlation\n M value", legend = c("group", "colon_region"))
 
 ```
+
+
+#### PCA analysis
+
+PCA for the normalized beta value
+
+```{r pca_normalized_beta_1}
+
+#df <- na.omit(beta.norm)
+#df_pca <- prcomp(df, center = F, scale = F)
+#save(df_pca, file="../../data/pca/beta_norm_pca.Rdata")
+#df_prin_comp <- cbind(metadata, df_pca$rotation)
+#save(df_prin_comp, file="../../data/pca/beta_norm_pca_comp.Rdata")
+```
+
+```{r pca_normalized_beta}
+load("../../data/pca/beta_norm_pca_comp.Rdata")
+# scatter plot
+ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
+  geom_point() +
+  ggtitle("Scatterplot of the first two principal components\nnormalized beta value")
+
+```
+
+
+For M value
+
+```{r pca_M_value_1}
+
+# df <- na.omit(M.norm)
+# df_pca <- prcomp(df, center = F, scale = F)
+# df_prin_comp <- cbind(metadata, df_pca$rotation)
+# save(df_prin_comp, file="../../data/pca/M_norm_pca_comp.Rdata")
+
+```
+
+```{r pca_M_value}
+load("../../data/pca/M_norm_pca_comp.Rdata")
+# scatter plot
+ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
+  geom_point() +
+  ggtitle("Scatterplot of the first two principal components\nM value")
+
+```
+
+
+
+```{r pca_beta_CGI_value_1}
+# 
+# df <- na.omit(beta.norm.CGI)
+# df_pca <- prcomp(df, center = F, scale = F)
+# df_prin_comp <- cbind(metadata, df_pca$rotation)
+# save(df_prin_comp, file="../../data/pca/beta_norm_cgi_pca_comp.Rdata")
+
+```
+
+```{r pca_beta_cgi_value}
+load("../../data/pca/beta_norm_cgi_pca_comp.Rdata")
+# scatter plot
+ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
+  geom_point() +
+  ggtitle("Scatterplot of the first two principal components\nbeta value CGI")
+
+```
+
+
+```{r pca_M_CGI_value_1}
+# 
+# df <- na.omit(M.norm.CGI)
+# df_pca <- prcomp(df, center = F, scale = F)
+# df_prin_comp <- cbind(metadata, df_pca$rotation)
+# save(df_prin_comp, file="../../data/pca/M_norm_cgi_pca_comp.Rdata")
+
+```
+
+```{r pca_M_cgi_value}
+load("../../data/pca/M_norm_cgi_pca_comp.Rdata")
+# scatter plot
+ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
+  geom_point() +
+  ggtitle("Scatterplot of the first two principal components\nM value CGI")
+
+```
+
