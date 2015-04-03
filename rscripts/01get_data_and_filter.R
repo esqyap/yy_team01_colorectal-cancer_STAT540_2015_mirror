@@ -5,15 +5,15 @@
 # and metadata as .Rdata
 #
 # Output: methyl_data_raw, file = "../data/GSE48684_raw.Rdata
-#					-contain beta value for all probes (no filter)
+#						-contain beta value for all probes (no filter)
 #					raw_data_filter, file = "../data/GSE48684_raw_filtered.Rdata"
-#					-contain beta value for filtered probes (CGI and non chrx)
+#						-contain beta value for filtered probes (CGI and non chrx)
 #         methyl_metadata, file = "../data/GSE48684_metadata.Rdata"
-#					-metadata for all samples (RAW)
+#						-metadata for all samples (RAW)
 #					cginame, file = "../data/cgi_non_chrx_probes.Rdata"
-#					-probe info of now chrx CGI probes
+#						-probe info of now chrx CGI probes
 #					metadata, file = "../data/metadata.Rdata"
-#					-processed metadata, for limma and other
+#						-processed metadata, for limma and other
 #					
 #####################################################
 
@@ -104,6 +104,7 @@ if(file.exists("../data/GSE48684_raw_filtered.Rdata")){
 if(file.exists("../data/metadata.Rdata")){
 	print("metadata processed")
 } else {
+	library(plyr)
 	library(dplyr)
 	filename <- "../data/GSE48684_metadata_raw.Rdata"
 	load(filename)
@@ -123,6 +124,16 @@ if(file.exists("../data/metadata.Rdata")){
 		mutate(gender = gsub("gender: ", "", gender)) %>%
 		mutate(colon_region = gsub("colon region: ", "", colon_region)) %>%
 		mutate(stage = gsub("Stage: ", "", stage))
+	# convert to factors
+	metadata[sapply(metadata, is.character)] <- 
+		lapply(metadata[sapply(metadata, is.character)], as.factor)
+	
+	# fix typo and add NA for missing values- data standards!
+	metadata$gender <- tolower(metadata$gender)
+	metadata$colon_region <- tolower(metadata$colon_region)	
+	metadata$colon_region <- revalue(metadata$colon_region, 
+																		c("retum" = "rectum"))
+	metadata$stage[which(metadata$stage == "")]  <- NA
 	
 	save(metadata, file = "../data/metadata.Rdata")
 	print("metadata is processed")
