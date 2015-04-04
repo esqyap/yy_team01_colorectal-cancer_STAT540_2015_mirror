@@ -33,7 +33,7 @@ dat <- na.omit(M.norm.CGI)
 
 topTable.group <- limmaTopTable(dat, desMat.group)
 
-
+# WORKS UP TO HERE
 
 # design matrix for limma on group and colon_region
 des.no.unknown.region <- des %>%
