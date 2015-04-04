@@ -36,7 +36,7 @@ if(file.exists("../data/GSE48684_raw.Rdata")){
 		methyl_metadata <- pData(phenoData(GSE48684))
 		#save Rdata
 		save(methyl_data_raw, file = "../data/GSE48684_raw.Rdata")  # large file, don't push
-		save(methyl_metadata, file = "../data/GSE48684_metadata.Rdata")
+		save(methyl_metadata, file = "../data/GSE48684_metadata_raw.Rdata")
 }
 
 
@@ -110,7 +110,7 @@ if(file.exists("../data/metadata.Rdata")){
 	load(filename)
 	
 	# select the relavent columns form the raw metadata
-	metadata <- methyl_metadata_raw[, c("description", "title", 
+	metadata <- methyl_metadata[, c("description", "title", 
 																			"geo_accession", "source_name_ch1", 
 																			"characteristics_ch1.1", "characteristics_ch1.3",
 																			"characteristics_ch1.4")]
