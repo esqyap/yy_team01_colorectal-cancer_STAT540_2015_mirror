@@ -1,4 +1,4 @@
-# Density Plots for beta and M values
+# Data QC, Density Plots for beta and M values, and PCA
 Beryl  
 2015-04-01  
 
@@ -24,6 +24,7 @@ load("../../data/GSE48684_raw_filtered.m.norm.cgi.Rdata")
 load("../../data/metadata.Rdata")
 ```
 
+####Data QC
 To inspect the datasets that we have so far, check the number of NAs. 
 
 
@@ -351,6 +352,7 @@ head(metadata)
 ## GSM1183444 colorectal mucosa        colon   male  <NA>
 ```
 
+#### Density plots
 Plot the density of average beta values of the filtered raw data before and after normalization.
 
 
@@ -419,16 +421,18 @@ ggplot(data = beta_means, aes(x = avg_value, col = category)) +
 ## Warning: Removed 1 rows containing non-finite values (stat_density).
 ```
 
-![](normalization_files/figure-html/beta_value_density-1.png) 
+![](DataQC_PCA_files/figure-html/beta_value_density-1.png) 
+
+#### put this on the poster :)
 
 
 ```r
-ggplot(data = beta_means, aes(x = avg_value, col = category)) +
+ggplot(data = beta_means, aes(x = avg_value, col = group)) +
    geom_density() + 
 		xlab("average beta value") +
    ggtitle("Average Beta value density \nbefore and after normalization") + 
    theme_bw() +
-	facet_wrap(~ group, nrow = 2, ncol =2)
+	facet_grid(category ~ .)
 ```
 
 ```
@@ -439,8 +443,7 @@ ggplot(data = beta_means, aes(x = avg_value, col = category)) +
 ## Warning: Removed 1 rows containing non-finite values (stat_density).
 ```
 
-![](normalization_files/figure-html/beta_value_density_facet-1.png) 
-
+![](DataQC_PCA_files/figure-html/beta_value_density_facet_by_category-1.png) 
 
 Aggregate for M values and plot the density for the 4 groups:
 
@@ -463,7 +466,7 @@ ggplot(data = m_means, aes(x = avg_value)) +
 ## Warning: Removed 1 rows containing non-finite values (stat_density).
 ```
 
-![](normalization_files/figure-html/M_value_density-1.png) 
+![](DataQC_PCA_files/figure-html/M_value_density-1.png) 
 
 
 
@@ -479,13 +482,14 @@ ggplot(data = m_means, aes(x = avg_value, col = group)) +
 ## Warning: Removed 1 rows containing non-finite values (stat_density).
 ```
 
-![](normalization_files/figure-html/M_value_density_facet-1.png) 
+![](DataQC_PCA_files/figure-html/M_value_density_facet-1.png) 
 
 
 The before and after normalization beta values have similar distribution, and consistent among groups.
 
 The M value distributions have three peaks. The distributions are consistent among groups.
 
+#### Heatmaps
 
 
 ```r
@@ -525,7 +529,7 @@ plotHeatmap(beta_cor, "heatmap for the sample correlation\n raw beta value",
 						legend = c("group", "colon_region"))
 ```
 
-![](normalization_files/figure-html/beta_cor_heatmap-1.png) 
+![](DataQC_PCA_files/figure-html/beta_cor_heatmap-1.png) 
 
 
 ```r
@@ -533,7 +537,7 @@ norm_beta_cor <- cor(na.omit(beta.norm[, order_by_group]))
 plotHeatmap(norm_beta_cor, "heatmap for the sample correlation\n normalized beta value", legend = c("group", "colon_region"))
 ```
 
-![](normalization_files/figure-html/beta_norm_beta_cor_heatmap-1.png) 
+![](DataQC_PCA_files/figure-html/beta_norm_beta_cor_heatmap-1.png) 
 
 
 ```r
@@ -541,7 +545,7 @@ M_cor <- cor(na.omit(M.norm[, order_by_group]))
 plotHeatmap(M_cor, "heatmap for the sample correlation\n M value", legend = c("group", "colon_region"))
 ```
 
-![](normalization_files/figure-html/M_cor_heatmap-1.png) 
+![](DataQC_PCA_files/figure-html/M_cor_heatmap-1.png) 
 
 
 #### PCA analysis
@@ -550,11 +554,17 @@ PCA for the normalized beta value
 
 
 ```r
-#df <- na.omit(beta.norm)
-#df_pca <- prcomp(df, center = F, scale = F)
-#save(df_pca, file="../../data/pca/beta_norm_pca.Rdata")
-#df_prin_comp <- cbind(metadata, df_pca$rotation)
-#save(df_prin_comp, file="../../data/pca/beta_norm_pca_comp.Rdata")
+df <- na.omit(beta.norm)
+df_pca <- prcomp(df, center = F, scale = F)
+plot(df_pca, main = "PCA of normalized beta value")
+```
+
+![](DataQC_PCA_files/figure-html/pca_normalized_beta_1-1.png) 
+
+```r
+save(df_pca, file="../../data/pca/beta_norm_pca.Rdata")
+df_prin_comp <- cbind(metadata, df_pca$rotation)
+save(df_prin_comp, file="../../data/pca/beta_norm_pca_comp.Rdata")
 ```
 
 
@@ -566,17 +576,24 @@ ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
   ggtitle("Scatterplot of the first two principal components\nnormalized beta value")
 ```
 
-![](normalization_files/figure-html/pca_normalized_beta-1.png) 
+![](DataQC_PCA_files/figure-html/pca_normalized_beta-1.png) 
 
 
 For M value
 
 
 ```r
-# df <- na.omit(M.norm)
-# df_pca <- prcomp(df, center = F, scale = F)
-# df_prin_comp <- cbind(metadata, df_pca$rotation)
-# save(df_prin_comp, file="../../data/pca/M_norm_pca_comp.Rdata")
+df <- na.omit(M.norm)
+df_pca <- prcomp(df, center = F, scale = F)
+
+plot(df_pca, main = "PCA of normalized M value")
+```
+
+![](DataQC_PCA_files/figure-html/pca_M_value_1-1.png) 
+
+```r
+df_prin_comp <- cbind(metadata, df_pca$rotation)
+save(df_prin_comp, file="../../data/pca/M_norm_pca_comp.Rdata")
 ```
 
 
@@ -588,17 +605,23 @@ ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
   ggtitle("Scatterplot of the first two principal components\nM value")
 ```
 
-![](normalization_files/figure-html/pca_M_value-1.png) 
+![](DataQC_PCA_files/figure-html/pca_M_value-1.png) 
 
 
 
 
 ```r
-# 
-# df <- na.omit(beta.norm.CGI)
-# df_pca <- prcomp(df, center = F, scale = F)
-# df_prin_comp <- cbind(metadata, df_pca$rotation)
-# save(df_prin_comp, file="../../data/pca/beta_norm_cgi_pca_comp.Rdata")
+df <- na.omit(beta.norm.CGI)
+df_pca <- prcomp(df, center = F, scale = F)
+
+plot(df_pca, main = "PCA of normalized beta CGI value")
+```
+
+![](DataQC_PCA_files/figure-html/pca_beta_CGI_value_1-1.png) 
+
+```r
+df_prin_comp <- cbind(metadata, df_pca$rotation)
+save(df_prin_comp, file="../../data/pca/beta_norm_cgi_pca_comp.Rdata")
 ```
 
 
@@ -610,16 +633,21 @@ ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
   ggtitle("Scatterplot of the first two principal components\nbeta value CGI")
 ```
 
-![](normalization_files/figure-html/pca_beta_cgi_value-1.png) 
+![](DataQC_PCA_files/figure-html/pca_beta_cgi_value-1.png) 
 
 
 
 ```r
-# 
-# df <- na.omit(M.norm.CGI)
-# df_pca <- prcomp(df, center = F, scale = F)
-# df_prin_comp <- cbind(metadata, df_pca$rotation)
-# save(df_prin_comp, file="../../data/pca/M_norm_cgi_pca_comp.Rdata")
+df <- na.omit(M.norm.CGI)
+df_pca <- prcomp(df, center = F, scale = F)
+plot(df_pca, main = "PCA of M CGI value")
+```
+
+![](DataQC_PCA_files/figure-html/pca_M_CGI_value_1-1.png) 
+
+```r
+df_prin_comp <- cbind(metadata, df_pca$rotation)
+save(df_prin_comp, file="../../data/pca/M_norm_cgi_pca_comp.Rdata")
 ```
 
 
@@ -631,5 +659,5 @@ ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
   ggtitle("Scatterplot of the first two principal components\nM value CGI")
 ```
 
-![](normalization_files/figure-html/pca_M_cgi_value-1.png) 
+![](DataQC_PCA_files/figure-html/pca_M_cgi_value-1.png) 
 
