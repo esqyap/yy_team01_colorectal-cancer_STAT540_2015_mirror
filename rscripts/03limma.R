@@ -33,20 +33,18 @@ dat <- na.omit(M.norm.CGI)
 
 topTable.group <- limmaTopTable(dat, desMat.group)
 
+
+# design matrix for group and gender
+des.group.gender <- des %>%
+  select(group, geo_accession, gender)
+desMat.group.gender <- model.matrix(~group+gender, des.group.gender)
+
+dat.group.gender <- dat[, as.character(des.group.gender$geo_accession)]
+
+topTable.group.gender <- limmaTopTable(dat.group.gender, desMat.group.gender)
+
+
 # WORKS UP TO HERE
-
-# design matrix for limma on group and colon_region
-des.no.unknown.region <- des %>%
-  filter(colon_region != 'unknown') %>%
-  droplevels()
-desMat.group.plus.region <- model.matrix(~group+colon_region, des.no.unknown.region)
-desMat.group.star.region <- model.matrix(~group*colon_region, des.no.unknown.region)
-
-dat.no.unknown.region <- dat[, as.character(des.no.unknown.region$geo_accession)]
-
-topTable.group.plus.region <- limmaTopTable(dat.no.unknown.region, desMat.group.plus.region)
-topTable.group.star.region <- limmaTopTable(dat.no.unknown.region, desMat.group.star.region)
-
 
 
 # design matrix for cancer and stage
@@ -61,16 +59,15 @@ topTable.cancer.stage <- limmaTopTable(dat.cancer.stage, desMat.cancer.stage)
 
 
 
-# design matrix for group and gender
-des.group.gender <- des %>%
-  select(group, geo_accession, gender)
-desMat.group.gender <- model.matrix(~group+gender, des.group.gender)
+# design matrix for limma on group and colon_region
+des.no.unknown.region <- subset(des, colon_region != 'unknown')
+desMat.group.plus.region <- model.matrix(~group+colon_region, des.no.unknown.region)
+desMat.group.star.region <- model.matrix(~group*colon_region, des.no.unknown.region)
 
-dat.group.gender <- dat[, as.character(des.group.gender$geo_accession)]
+dat.no.unknown.region <- dat[, as.character(des.no.unknown.region$geo_accession)]
 
-topTable.group.gender <- limmaTopTable(dat.group.gender, desMat.group.gender)
-
-
+topTable.group.plus.region <- limmaTopTable(dat.no.unknown.region, desMat.group.plus.region)
+topTable.group.star.region <- limmaTopTable(dat.no.unknown.region, desMat.group.star.region)
 
 #####################################################
 # End of script
