@@ -16,6 +16,7 @@ load(metadata.path)
 head(M.norm.CGI)
 head(metadata)
 
+
 # function to perform limma to generate top table
 limmaTopTable <- function(dat, des){
   myFit <- lmFit(dat, des)
@@ -24,15 +25,14 @@ limmaTopTable <- function(dat, des){
   return(myTopTable)
 }
 
+
 # design matrix for limma on group
 des <- metadata %>% 
   select(group, colon_region, gender, stage)
 rownames(des) <- metadata$geo_accession
-
-
 desMat.group <- model.matrix(~group, des)
 
-# remove NA from data
+# remove non-numerics and NA from data
 nums <- sapply(M.norm.CGI, is.numeric)
 dat <- na.omit(M.norm.CGI[ , nums])
 
@@ -55,23 +55,17 @@ desMat.cancer.stage <- model.matrix(~stage, des.cancer.stage)
 
 dat.cancer.stage <- dat[, rownames(des.cancer.stage)]
 
-#myFit <- lmFit(dat.cancer.stage, desMat.cancer.stage)
-#myEbFit <- eBayes(myFit)
-#myTopTable <- topTable(myEbFit, number=nrow(dat), colnames(coef(myEbFit)))
-
 topTable.cancer.stage <- limmaTopTable(dat.cancer.stage, desMat.cancer.stage)
 
-# WORKS UP TO HERE
 
 # design matrix for limma on group and colon_region
 des.no.unknown.region <- droplevels(subset(des, colon_region != 'unknown'))
-desMat.group.plus.region <- model.matrix(~group+colon_region, des.no.unknown.region)
-desMat.group.star.region <- model.matrix(~group*colon_region, des.no.unknown.region)
+desMat.region <- model.matrix(~colon_region, des.no.unknown.region)
 
 dat.no.unknown.region <- dat[, rownames(des.no.unknown.region)]
 
-topTable.group.plus.region <- limmaTopTable(dat.no.unknown.region, desMat.group.plus.region)
-topTable.group.star.region <- limmaTopTable(dat.no.unknown.region, desMat.group.star.region)
+topTable.group.region <- limmaTopTable(dat.no.unknown.region, desMat.region)
+
 
 #####################################################
 # End of script
