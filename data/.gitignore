@@ -1,3 +1,9 @@
+*.Rdata
 GSE48684_series_matrix.txt.gz
 GPL13534.soft
 GSE48684_raw_filtered*.Rdata
+GSE48684_metadata.Rdata
+GSE48684_metadata_raw.Rdata
+GSE48684_raw.Rdata
+cgi_non_chrx_probes.Rdata
+metadata.Rdata

@@ -9,10 +9,8 @@ To evaluate our dataset for sample swaps, I will be performing K-means cluster a
 ### Step 1: Attach packages for analysis
 
 ```r
-library(RColorBrewer)
-library(ggplot2)
-library(NbClust)
 library(cluster)
+library(fpc)
 ```
 
 
@@ -164,6 +162,15 @@ str(beta_norm_na, max.level=0)
 
 I cross-check the number of probes after removing NA values with Santina's analysis. It is the same. Now I'm good to go!
 
+> Save the results with removed `NA` for future use. 
+
+
+```r
+save(raw_data_na, file="raw.beta.na.Rdata")
+save(raw_data_filter_na, file="raw.filter.beta.na.Rdata")
+save(beta_norm_na, file="norm.filter.beta.na.Rdata")
+```
+
 
 ### Step 3: Perform sample clustering using K-means method
 > 3.1 Scale the data (specifically, the rows)
@@ -225,8 +232,8 @@ km_dat$withinss
 
 ```r
 # composition of each cluster
-km_table <- data.frame(group=metadata$group, cluster=km_dat$cluster)
-addmargins(with(km_table, table(group, cluster)))
+raw <- data.frame(group=metadata$group, cluster=km_dat$cluster)
+addmargins(with(raw, table(group, cluster)))
 ```
 
 ```
@@ -237,6 +244,11 @@ addmargins(with(km_table, table(group, cluster)))
 ##   normal-C   0   0   3  21  24
 ##   normal-H   0   0   6  11  17
 ##   Sum       35  41  23  48 147
+```
+
+```r
+# save the data.frame for future use
+save(raw, file="km_raw.Rdata")
 ```
 
 Based on this cluster analysis, it can be observed that majority of samples from the same group are clustered together, except for normal tissues from patients with colorectal cancer (normal-C) and healthy patients (normal-H). While 28/42 adenoma samples are in cluster 1 and 33/64 colorectal cancer samples are in cluster 2, 21/24 normal-C and 11/17 normal-H are in cluster 4. 
@@ -271,19 +283,22 @@ km <- function(data, sdat){
   km_dat$withinss
   
   # composition of each cluster
-  km_table <- data.frame(group=metadata$group, cluster=km_dat$cluster)
-  addmargins(with(km_table, table(group, cluster)))
+  data.frame(group=metadata$group, cluster=km_dat$cluster)
 }
 ```
 
 Perform the analysis for `raw_data_filter_na`:
 
 ```r
-km(raw_data_filter_na, sdat_raw_filter)
+raw_filter <- km(raw_data_filter_na, sdat_raw_filter)
 ```
 
 ```
 ##  num [1:256981, 1:147] 1.239 1.052 -1.301 -1.214 -0.877 ...
+```
+
+```r
+addmargins(with(raw_filter, table(group, cluster)))
 ```
 
 ```
@@ -296,14 +311,23 @@ km(raw_data_filter_na, sdat_raw_filter)
 ##   Sum       42  33  51  21 147
 ```
 
+```r
+# save the data.frame for future use
+save(raw_filter, file="km_raw_filter.Rdata")
+```
+
 Perform the analysis for `beta_norm_na`:
 
 ```r
-km(beta_norm_na, sdat_norm)
+norm_filter <- km(beta_norm_na, sdat_norm)
 ```
 
 ```
 ##  num [1:256981, 1:147] 1.322 1.129 -1.226 -1.154 -0.575 ...
+```
+
+```r
+addmargins(with(norm_filter, table(group, cluster)))
 ```
 
 ```
@@ -314,6 +338,11 @@ km(beta_norm_na, sdat_norm)
 ##   normal-C  19   0   5   0  24
 ##   normal-H  17   0   0   0  17
 ##   Sum       64  55  14  14 147
+```
+
+```r
+# save the data.frame for future use
+save(norm_filter, file="km_norm_filter.Rdata")
 ```
 
 While the output of `raw_data_filter_na` (filtered pre-normalization) are similar with with cluster analysis of `raw_data_na` (unfiltered pre-normalization), this is not the same for `beta_norm_na` (filtered post-normalization). For `beta_norm_na`, 31/42 adenoma samples are in cluster 2 and 24/64 colorectal cancer samples are in cluster 2, 19/24 normal-C and 17/17 normal-H are in cluster 1. It can be observed that majority of adenoma and cancer samples are in the same cluster whereas majority normal-C and all of normal-H are in the same cluster. 
@@ -350,7 +379,7 @@ Plot for `raw_data_na`:
 wssplot(sdat)
 ```
 
-![](kmeans_files/figure-html/unnamed-chunk-16-1.png) 
+![](kmeans_files/figure-html/unnamed-chunk-17-1.png) 
 
 Plot for `raw_data_filter_na`:
 
@@ -359,7 +388,7 @@ Plot for `raw_data_filter_na`:
 wssplot(sdat_raw_filter)
 ```
 
-![](kmeans_files/figure-html/unnamed-chunk-17-1.png) 
+![](kmeans_files/figure-html/unnamed-chunk-18-1.png) 
 
 Plot for `beta_norm_na`:
 
@@ -368,36 +397,6 @@ Plot for `beta_norm_na`:
 wssplot(sdat_norm)
 ```
 
-![](kmeans_files/figure-html/unnamed-chunk-18-1.png) 
+![](kmeans_files/figure-html/unnamed-chunk-19-1.png) 
 
 Based on the plots, a distinct drop can be observed from k=1 to 3 for pre-normalized datasets whereas only a distinct drop between k=1 and 2 was observed for the normalized dataset. 
-
-> 4.2 NbClust
-
-`NbClust` package offers 30 indices for determining k. More information [here](http://www.rdocumentation.org/packages/NbClust/functions/NbClust).
-
-
-```r
-# raw_data_na (unfiltered pre-normalization)
-# nc_raw <- NbClust(sdat, min.nc=2, max.nc=15, method="kmeans")
-# table(nc_raw$Best.n[1,])
-
-# raw_data_filter_na (filtered pre-normalization)
-# nc_raw_filter <- NbClust(sdat_raw_filter, min.nc=2, max.nc=15, method="kmeans")
-# table(nc_raw_filter$Best.n[1,])
-
-# beta_norm_na (filtered post-normalization)
-# nc_norm <- NbClust(sdat_norm, min.nc=2, max.nc=15, method="kmeans")
-# table(nc_norm$Best.n[1,])
-```
-
-> 4.3 AIC
-
-
-
-> 4.4 BIC
-
-
-
-### Summary
-
