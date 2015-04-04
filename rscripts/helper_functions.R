@@ -1,14 +1,16 @@
 ########################################################
-#  helper functions
 # Beryl Zhuang
-# three helper functions:
+#
+# helper functions:
 # 1. prepareData
 # 2. subsetData
 # 3. plotHeatmap
+# 4. plotScatter
 ########################################################
 
+load("../data/metadata.Rdata")
 ########################################################
-########################################################
+#####prepareData: data aggregation
 ########################################################
 prepareData <- function(df, x, design, col_names = c("chr", "value")){
 	# takes a list of  (length can be variable) chr/ probes
@@ -41,10 +43,10 @@ prepareData <- function(df, x, design, col_names = c("chr", "value")){
 
 
 ########################################################
-########################################################
+####### subsetData
 ########################################################
 # subset the data matrix by a candidate list of chr coordinates, probes etc
-# return an ordered matrix
+# return an ordered matrix (for heatmap)
 subsetData <- function(data, candidate_list, design = metadata){
 	# take a list of chr coordinates/ probes and get a subset
 	## data: the data matrix for methylation values (e.g. normalized M CGI)
@@ -60,17 +62,20 @@ subsetData <- function(data, candidate_list, design = metadata){
 
 
 ########################################################
-########################################################
+##### plotHeatmap
 ########################################################
 # take a ordered matrix and produce a heatmap
-plotHeatmap <- function(x, title = "", legend = "group", size = 2, names = F){
+plotHeatmap <- function(x, title = "", legend = "group", 
+												size = 2, names = F, 
+												row_dendrogram = F, col_dendrogram = F){
 	## x is an ordered matrix
 	## title is the plot title
 	## size is the font size for the rows
 	## legend: for group legends, colnames in the design, e.g. c("group", "colon_region")
 	## size: the x y axis font size
 	## names: turn on(T) or off(F) the row and col names
-	##
+	## row_dendrogram : turn on(T) or off(F) for the row clustering 
+	## col_dendrogram : turn on(T) or off(F) for the column clustering 
 	# load packages
 	# load plyr, dplyr if it's not loaded
 	if("package:RColorBrewer" %in% search() == FALSE)
@@ -86,7 +91,8 @@ plotHeatmap <- function(x, title = "", legend = "group", size = 2, names = F){
 	#heatmap
 	annotation <- metadata[legend] #get the legend
 	pheatmap(x, color = cols,
-					 cluster_rows = FALSE, cluster_cols = FALSE, # turn off dendrogram
+					 cluster_rows = row_dendrogram, 
+					 cluster_cols = col_dendrogram, # turn on/off dendrogram
 					 annotation = annotation,
 					 fontsize_row = size,
 					 fontsize_col = size,
@@ -96,3 +102,14 @@ plotHeatmap <- function(x, title = "", legend = "group", size = 2, names = F){
 }
 
 
+########################################################
+##### plotScatter
+########################################################
+
+plotScatter <- function(df, x, y, gp, title){
+	p <- ggplot(df, aes_string(x, y, color = gp)) + 
+			 	geom_point(position = position_jitter(width = 0.05)) +
+			 	stat_summary(aes_string(group = gp), fun.y = mean, geom ="line") +
+			 	ggtitle(title)
+	return(p)
+}
