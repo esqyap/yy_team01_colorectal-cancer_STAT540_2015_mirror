@@ -32,6 +32,16 @@ betaNormCgiFilePath <- paste(dataDir, "GSE48684_raw_filtered.beta.norm.cgi.Rdata
 mNormFilePath <- paste(dataDir, "GSE48684_raw_filtered.m.norm.Rdata", sep="/")
 mNormCgiFilePath <- paste(dataDir, "GSE48684_raw_filtered.m.norm.cgi.Rdata", sep="/")
 
+# define cgi names
+cginame <- as.data.frame(IlluminaHumanMethylation450kCPGINAME)
+names(cginame) <- c('Probe_ID', 'cginame')
+rownames(cginame) <- cginame$Probe_ID
+length(levels(factor(cginame$cginame)))   # No. of CGIs 27176
+# Exclude probe ID in chrX regions
+chrx <- grep("^chrX:", cginame$cginame, ignore.case=TRUE)
+cginame <- cginame[-chrx, ]
+
+
 if (!file.exists(filteredFilePath)) {
   # can't find input file, quit with error message
   stop(paste0("ERROR: Cannot find: ", filteredFilePath))  
