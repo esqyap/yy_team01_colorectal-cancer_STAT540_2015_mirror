@@ -2,6 +2,7 @@
 # Ka Ming Nip
 # 
 
+library(dplyr)
 library(limma)
 
 # loading the norm. CGI.
@@ -29,7 +30,9 @@ des <- metadata %>%
 desMat.group <- model.matrix(~group, des)
 
 # remove NA from data
-dat <- na.omit(M.norm.CGI)
+
+nums <- sapply(M.norm.CGI, is.numeric)
+dat <- na.omit(M.norm.CGI[ , nums])
 
 topTable.group <- limmaTopTable(dat, desMat.group)
 
@@ -48,12 +51,16 @@ topTable.group.gender <- limmaTopTable(dat.group.gender, desMat.group.gender)
 
 
 # design matrix for cancer and stage
-des.cancer.stage <- des %>%
-  filter(group == "cancer") %>%
-  select(geo_accession, stage)
+des.cancer.stage <- subset(des, group == "cancer")
 desMat.cancer.stage <- model.matrix(~stage, des.cancer.stage)
 
 dat.cancer.stage <- dat[, as.character(des.cancer.stage$geo_accession)]
+
+myFit <- lmFit(dat.cancer.stage, desMat.cancer.stage)
+myEbFit <- eBayes(myFit)
+stop()
+
+myTopTable <- topTable(myEbFit, number=nrow(dat), colnames(coef(myEbFit)))
 
 topTable.cancer.stage <- limmaTopTable(dat.cancer.stage, desMat.cancer.stage)
 
