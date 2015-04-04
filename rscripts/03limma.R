@@ -2,6 +2,7 @@
 # Ka Ming Nip
 # 
 
+library(dplyr)
 library(limma)
 
 # loading the norm. CGI.
@@ -48,12 +49,16 @@ topTable.group.gender <- limmaTopTable(dat.group.gender, desMat.group.gender)
 
 
 # design matrix for cancer and stage
-des.cancer.stage <- des %>%
-  filter(group == "cancer") %>%
-  select(geo_accession, stage)
+des.cancer.stage <- subset(des, group == "cancer")
 desMat.cancer.stage <- model.matrix(~stage, des.cancer.stage)
 
 dat.cancer.stage <- dat[, as.character(des.cancer.stage$geo_accession)]
+
+myFit <- lmFit(dat.cancer.stage, desMat.cancer.stage)
+stop()
+
+myEbFit <- eBayes(myFit)
+myTopTable <- topTable(myEbFit, number=nrow(dat), colnames(coef(myEbFit)))
 
 topTable.cancer.stage <- limmaTopTable(dat.cancer.stage, desMat.cancer.stage)
 
