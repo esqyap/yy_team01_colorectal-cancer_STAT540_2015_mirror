@@ -1,6 +1,26 @@
 #####################################################
 # Ka Ming Nip
 # 
+# Script to:
+#   1. perform limma for differential methylation analyses
+# 
+# Input Files: (2)
+#   M.norm.CGI.path : "../data/GSE48684_raw_filtered.m.norm.cgi.Rdata"
+#   metadata.path   : "../data/metadata.Rdata"
+# 
+# Output Files: (4)
+#   topTable.group         : "../data/topTable.group.Rdata"
+#   topTable.group.gender  : "../data/topTable.group.gender.Rdata"
+#   topTable.cancer.stage  : "../data/topTable.cancer.stage.Rdata"
+#   topTable.group.region  : "../data/topTable.group.region.Rdata"
+#   
+#####################################################
+
+topTable.group.path        <- "../data/topTable.group.Rdata"
+topTable.group.gender.path <- "../data/topTable.group.gender.Rdata"
+topTable.cancer.stage.path <- "../data/topTable.cancer.stage.Rdata"
+topTable.group.region.path <- "../data/topTable.group.region.Rdata"
+
 
 library(dplyr)
 library(limma)
@@ -9,10 +29,11 @@ library(limma)
 M.norm.CGI.path <- "../data/GSE48684_raw_filtered.m.norm.cgi.Rdata"
 load(M.norm.CGI.path)
 
+# load the metadata
 metadata.path <- "../data/metadata.Rdata"
 load(metadata.path)
 
-# sanity
+# sanity check
 head(M.norm.CGI)
 head(metadata)
 
@@ -65,6 +86,12 @@ desMat.region <- model.matrix(~colon_region, des.no.unknown.region)
 dat.no.unknown.region <- dat[, rownames(des.no.unknown.region)]
 
 topTable.group.region <- limmaTopTable(dat.no.unknown.region, desMat.region)
+
+# save the toptables to files
+save(topTable.group, file = topTable.group.path)
+save(topTable.group.gender, file = topTable.group.gender.path)
+save(topTable.cancer.stage, file = topTable.cancer.stage.path)
+save(topTable.group.region, file = topTable.group.region.path)
 
 
 #####################################################
