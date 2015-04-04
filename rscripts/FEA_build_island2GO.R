@@ -26,6 +26,4 @@ Island2GO<-lapply(isl,islGO)
 
 
 names(Island2GO)<-Island$cpgiview.ucscname
-save(Island2GO, file="../data/island2go.Rdata")
-
-# load(file="island2go.Rdata")
+save(Island2GO, file="../data/FEA_island2go.Rdata")
