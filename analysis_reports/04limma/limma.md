@@ -372,7 +372,7 @@ ggplot(normH_adenoma_cgi, aes(x=group, y=MValue, color=status)) +
 
 ![](limma_files/figure-html/unnamed-chunk-13-3.png) 
 
-The results for normal-H vs. cancer is not good... I think it's because linear models work best if the data is balance (approximately equal number of samples), but we have way more cancer samples vs. normal-H. 
+The results for normal-H vs. cancer/adenoma is not good... I think it's because linear models work best if the data is balance (approximately equal number of samples), but we have way more cancer samples vs. normal-H. 
 
 Try with beta values.  
 
@@ -444,4 +444,4 @@ ggplot(normH_adenoma_beta_cgi, aes(x=group, y=MValue, color=status)) +
 
 ## Summary
 Guys, I hate to say this but we have a problem. 
-Perhaps, we should pool our normal samples together given that they cluster together in the unsupervised hierarchical clustering. 
+I think we have two options. We could either pool our normal samples together given that they cluster together in the unsupervised hierarchical clustering or we could downsize the cancer and adenoma samples. 
