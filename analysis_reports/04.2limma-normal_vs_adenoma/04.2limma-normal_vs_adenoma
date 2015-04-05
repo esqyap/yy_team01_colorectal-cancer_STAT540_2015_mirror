@@ -1,0 +1,135 @@
+---
+title: "LIMMA_analysis: (normal-C+normal-H) vs adenoma"
+author: "Beryl Zhuang"
+date: "Sunday, April 05, 2015"
+output: 
+  html_document:
+    keep_md: yes
+    toc: yes
+---
+
+
+#### Differential methylation analysis comparing normal-c and normal-H
+
+
+LIMMA codes are writen by Ka Ming.
+
+
+```{r}
+library(dplyr)
+library(limma)
+library(ggplot2)
+```
+
+```{r}
+source("../../rscripts/helper_functions.R")
+```
+
+
+```{r}
+# codes from Ka Ming
+
+# loading the norm. CGI.
+M.norm.CGI.path <- "../../data/GSE48684_raw_filtered.m.norm.cgi.Rdata"
+load(M.norm.CGI.path)
+M.norm.CGI.path <- na.omit(M.norm.CGI.path)
+
+# load the metadata
+metadata.path <- "../../data/metadata.Rdata"
+load(metadata.path)
+
+# sanity check
+head(M.norm.CGI)
+head(metadata)
+
+
+# function to perform limma to generate top table
+limmaTopTables <- function(dat, des, file_name){
+	myFit <- lmFit(dat, des)
+	myEbFit <- eBayes(myFit)
+	
+	for (coeff in colnames(myEbFit$coefficients)[-1]){
+		myTopTable <- topTable(myEbFit, number=nrow(dat), coef=c(coeff))
+		
+		save(myTopTable, file=file_name)
+	}
+}
+
+# reorder factor level for `group`
+metadata$group <- factor(metadata$group, levels=c("normal-H", "normal-C", "cancer", "adenoma"))
+```
+
+
+
+```{r}
+goal <- "Normal_vs_adenoma"
+
+group_names <- c("normal-H","normal-C", "adenoma")
+# design matrix for limma on group
+des <- metadata[which(metadata$group %in% group_names), ] %>% droplevels()
+# group normal-H and normal-C together
+des$new_group <- "normal"
+des$new_group[which(des$group == "adenoma")] <- "adenoma"
+
+desMat.group <- model.matrix(~new_group, des)
+desMat.group
+
+group_subset <- as.character(metadata$geo_accession
+														 [which(metadata$group %in% group_names)])
+group_subset
+length(group_subset)
+
+dat <- M.norm.CGI[, group_subset] %>% droplevels()
+
+head(dat)
+ncol(dat)
+
+file_name <- paste0("../../data/limma/topTable_", goal, ".Rdata")
+limmaTopTables(dat, desMat.group, file_name)
+
+load(file_name)
+
+head(myTopTable)
+```
+
+
+
+```{r density_plot}
+## plot density
+ggplot(myTopTable, aes(adj.P.Val)) + 
+	stat_density(geom = "line", position = "identity") +
+	ggtitle("FDR density")
+ggplot(myTopTable, aes(adj.P.Val)) + 
+	geom_histogram(position="identity") +
+	ggtitle("FDR density")
+```
+
+
+Setting cutoffs
+
+```{r}
+cutoff <- 1e-5
+length(which(myTopTable$adj.P.Val < cutoff))
+```
+
+
+plotHeatmap <- function(x, title = "", legend = "group", 
+												size = 2, names = F, 
+												row_dendrogram = F, col_dendrogram = F)
+
+```{r heatmap}
+top <- length(which(myTopTable$adj.P.Val < cutoff))
+top_genes <-as.character(rownames(myTopTable)[1:top]) 
+head(top_genes)
+
+top_matrix <- subsetData(M.norm.CGI, top_genes, design = metadata)
+
+#subset to the groups
+top_matrix <- top_matrix[, group_subset]
+head(top_matrix)	
+ncol(top_matrix)
+
+plotHeatmap(top_matrix, title = paste0("Heatmap of top ", top, "\n", goal),
+						col_dendrogram = T, row_dendrogram = T)
+
+```
