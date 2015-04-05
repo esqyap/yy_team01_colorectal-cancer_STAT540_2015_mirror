@@ -4,6 +4,9 @@
 
 ################################
 
+library(reshape2)
+library(ggplot2)
+
 # load m values
 load("../../data/GSE48684_raw_filtered.m.norm.cgi.Rdata")
 str(M.norm.CGI, max.level=0)
