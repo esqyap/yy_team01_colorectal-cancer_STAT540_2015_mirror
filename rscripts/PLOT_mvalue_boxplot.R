@@ -8,11 +8,11 @@ library(reshape2)
 library(ggplot2)
 
 # load m values
-load("../../data/GSE48684_raw_filtered.m.norm.cgi.Rdata")
+load("../data/GSE48684_raw_filtered.m.norm.cgi.Rdata")
 str(M.norm.CGI, max.level=0)
 
 # load metadata
-load("../../data/metadata.Rdata")
+load("../data/metadata.Rdata")
 str(metadata, max.level=0)
 
 # rename sample labels for the dataset
@@ -41,9 +41,9 @@ m.cgi.tall$Samples <- factor(m.cgi.tall$Samples, levels=unique(m.cgi.tall$Sample
   ggtitle("Distribution of CGI M values"))
 
 # add code to save the boxplot
-(p +
-	theme(text = element_text(size=28)))
-ggsave(plot = p, filename = "../../figures/dataQC_boxplot.png", width = 16, height = 10.67, units = "in")
+p <- p +
+	theme(text = element_text(size=28))
+ggsave(plot = p, filename = "../figures/dataQC_boxplot.png", width = 16, height = 10.67, units = "in")
 
 
 ################################
