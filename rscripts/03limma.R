@@ -9,17 +9,17 @@
 #   metadata.path   : "../data/metadata.Rdata"
 # 
 # Output Files: (4)
-#   topTable.group         : "../data/topTable.group.Rdata"
-#   topTable.group.gender  : "../data/topTable.group.gender.Rdata"
-#   topTable.cancer.stage  : "../data/topTable.cancer.stage.Rdata"
-#   topTable.group.region  : "../data/topTable.group.region.Rdata"
+# topTable.group.path        <- "../data/topTable.group.Rdata"
+# topTable.group.gender.path <- "../data/topTable.group.gender.Rdata"
+# topTable.cancer.stage.path <- "../data/topTable.cancer.stage.Rdata"
+# topTable.group.region.path <- "../data/topTable.region.Rdata"
 #   
 #####################################################
 
 topTable.group.path        <- "../data/topTable.group.Rdata"
 topTable.group.gender.path <- "../data/topTable.group.gender.Rdata"
 topTable.cancer.stage.path <- "../data/topTable.cancer.stage.Rdata"
-topTable.group.region.path <- "../data/topTable.group.region.Rdata"
+topTable.group.region.path <- "../data/topTable.region.Rdata"
 
 
 library(dplyr)
@@ -39,13 +39,19 @@ head(metadata)
 
 
 # function to perform limma to generate top table
-limmaTopTable <- function(dat, des){
+limmaTopTables <- function(dat, des){
   myFit <- lmFit(dat, des)
   myEbFit <- eBayes(myFit)
-  myTopTable <- topTable(myEbFit, number=nrow(dat), colnames(coef(myEbFit)))
-  return(myTopTable)
+  
+  for (coeff in colnames(myEbFit$coefficients)[-1]){
+    myTopTable <- topTable(myEbFit, number=nrow(dat), coef=c(coeff))
+    
+    save(myTopTable, file=paste("../data/topTable.", coeff, ".Rdata", sep=""))
+  }
 }
 
+# reorder factor level for `group`
+metadata$group <- factor(metadata$group, levels=c("normal-H", "normal-C", "cancer", "adenoma"))
 
 # design matrix for limma on group
 des <- metadata %>% 
@@ -57,7 +63,7 @@ desMat.group <- model.matrix(~group, des)
 nums <- sapply(M.norm.CGI, is.numeric)
 dat <- na.omit(M.norm.CGI[ , nums])
 
-topTable.group <- limmaTopTable(dat, desMat.group)
+limmaTopTables(dat, desMat.group)
 
 
 # design matrix for group and gender
@@ -67,7 +73,7 @@ desMat.group.gender <- model.matrix(~group+gender, des.group.gender)
 
 dat.group.gender <- dat[, rownames(des.group.gender)]
 
-topTable.group.gender <- limmaTopTable(dat.group.gender, desMat.group.gender)
+limmaTopTables(dat.group.gender, desMat.group.gender)
 
 
 # design matrix for cancer and stage
@@ -76,7 +82,7 @@ desMat.cancer.stage <- model.matrix(~stage, des.cancer.stage)
 
 dat.cancer.stage <- dat[, rownames(des.cancer.stage)]
 
-topTable.cancer.stage <- limmaTopTable(dat.cancer.stage, desMat.cancer.stage)
+limmaTopTables(dat.cancer.stage, desMat.cancer.stage)
 
 
 # design matrix for limma on group and colon_region
@@ -85,13 +91,7 @@ desMat.region <- model.matrix(~colon_region, des.no.unknown.region)
 
 dat.no.unknown.region <- dat[, rownames(des.no.unknown.region)]
 
-topTable.group.region <- limmaTopTable(dat.no.unknown.region, desMat.region)
-
-# save the toptables to files
-save(topTable.group, file = topTable.group.path)
-save(topTable.group.gender, file = topTable.group.gender.path)
-save(topTable.cancer.stage, file = topTable.cancer.stage.path)
-save(topTable.group.region, file = topTable.group.region.path)
+limmaTopTables(dat.no.unknown.region, desMat.region)
 
 
 #####################################################
