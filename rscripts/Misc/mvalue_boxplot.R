@@ -4,6 +4,9 @@
 
 ################################
 
+library(reshape2)
+library(ggplot2)
+
 # load m values
 load("../../data/GSE48684_raw_filtered.m.norm.cgi.Rdata")
 str(M.norm.CGI, max.level=0)
@@ -31,11 +34,17 @@ m.cgi.tall$Samples <- as.character(m.cgi.tall$Samples)
 m.cgi.tall$Samples <- factor(m.cgi.tall$Samples, levels=unique(m.cgi.tall$Samples))
 
 # plot distribution of CGI M values
-ggplot(m.cgi.tall, aes(x=Samples, y=MValues)) +
+(p <- ggplot(m.cgi.tall, aes(x=Samples, y=MValues)) +
   geom_boxplot(aes(fill=factor(Group))) + theme_bw() +
   theme(axis.text.x = element_blank()) + 
   xlab("Samples") + ylab("M values") + 
-  ggtitle("Distribution of CGI M values")
+  ggtitle("Distribution of CGI M values"))
+
+# add code to save the boxplot
+(p +
+	theme(text = element_text(size=28)))
+ggsave(plot = p, filename = "../../figures/dataQC_boxplot.png", width = 16, height = 10.67, units = "in")
+
 
 ################################
 # End of script
