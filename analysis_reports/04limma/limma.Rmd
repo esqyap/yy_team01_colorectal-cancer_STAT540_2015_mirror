@@ -184,9 +184,9 @@ normH_normC_dma <- do.limma(normH_normC, design_normH_normC)
 normH_adenoma_dma <- do.limma(normH_adenoma, design_normH_adenoma)
 
 # save DMA results
-save(normH_cancer_dma, file="normH_cancer_dma.Rdata")
-save(normH_normC_dma, file="normH_normC_dma.Rdata")
-save(normH_adenoma_dma, file="normH_adenoma_dma.Rdata")
+save(normH_cancer_dma, file="../../data/normH_cancer_dma.Rdata")
+save(normH_normC_dma, file="../../data/normH_normC_dma.Rdata")
+save(normH_adenoma_dma, file="../../data/normH_adenoma_dma.Rdata")
 ```
 
 ### Step 4: Pick differentially methylated regions at FDR < 1e-05
