@@ -17,6 +17,7 @@ library(reshape2)
 library(VennDiagram)
 ```
 
+
 ### Step 2: Useful functions
 
 ```r
@@ -86,7 +87,7 @@ get_cgi <- function(data, int.list, bor.list){
 ```
 
 
-### Step 2: Load and explore data
+### Step 3: Load and explore data
 
 ```r
 # load m values
@@ -148,7 +149,8 @@ str(M.norm.CGI.rmna, max.level=0)
 save(M.norm.CGI.rmna, file="M.norm.CGI.rmna.Rdata")
 ```
 
-### Step 3: Data preparation
+
+### Step 4: Data preparation
 We want to get DMR between normal healthy samples and normal cancer, adenoma, and colorectal cancer samples. Let's prepare the datasets for that.
 
 ```r
@@ -180,7 +182,8 @@ metadata_normH_adenoma$group <- factor(metadata_normH_adenoma$group,
                                       levels=c("normal-H", "adenoma"))
 ```
 
-### Step 3: Perform DMA using `limma`
+
+### Step 5: Perform DMA using `limma`
 
 Make design matrix for different sample pairs.
 
@@ -216,7 +219,8 @@ save(normH_normC_dma, file="../../data/normH_normC_dma.Rdata")
 save(normH_adenoma_dma, file="../../data/normH_adenoma_dma.Rdata")
 ```
 
-### Step 4: Pick differentially methylated regions at FDR < 1e-05
+
+### Step 6: Pick differentially methylated regions at FDR < 1e-05
 
 ```r
 # how many DMR are there at FDR < 1e-05?
@@ -246,7 +250,8 @@ nrow(normH_adenoma_dmr)
 ## [1] 365
 ```
 
-### Step 5: Explore DMA and visualize DMR
+
+### Step 7: Explore DMA and visualize DMR
 
 What are the shared DMR between these different sample pairs analyses?
 
