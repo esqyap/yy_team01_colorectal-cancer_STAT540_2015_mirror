@@ -1,4 +1,4 @@
-# limma_normalHC
+# Identifying DMR using limma - Part 2
 Eva Y  
 April 5, 2015  
 ### Analysis goal: 

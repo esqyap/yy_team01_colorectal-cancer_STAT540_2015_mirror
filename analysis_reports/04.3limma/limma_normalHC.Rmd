@@ -1,5 +1,5 @@
 ---
-title: "limma_normalHC"
+title: "Identifying DMR using limma - Part 2"
 author: "Eva Y"
 date: "April 5, 2015"
 output:
