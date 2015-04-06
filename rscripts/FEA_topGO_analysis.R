@@ -1,4 +1,14 @@
-#beryl still working on this
+#########################################################
+# Beryl
+#' the codes are taken from 
+#' https://github.com/sjackman/stat540-project/blob/master/topGO.R
+#' with modification
+###########################################################
+#' functional enrichment analysis
+#' with output tables and intermediate Rdata
+#' compare differentially methylated CGI among normal, adenoma, and cancer.
+#' output enriched GO terms and genes
+#' 
 library(IlluminaHumanMethylation450k.db)
 library(topGO)
 
@@ -93,6 +103,32 @@ head(all_tests_result)
 write.table(all_tests_result, 
 						file = paste0(file_dir, "/enrichment_table.tsv"), 
 						row.names = F, col.names = T)
+write.table(as.data.frame(all_groups), 
+						file = paste0(file_dir, "/candidates.tsv"), 
+						row.names = F, col.names = F)
+
+
+###############################################
+
+load(paste0(file_dir, "/candidate_chr.Rdata"))
+myInterestingIslands <- all_groups
+
+## Genes in top Islands
+x <- IlluminaHumanMethylation450kSYMBOL
+# Get the probe identifiers that are mapped to a gene symbol
+mapped_probes <- mappedkeys(x)
+xx <- as.data.frame(x[mapped_probes])
+gen.isl<-merge(island, xx, by.x="cpgiview.Probe_ID", by.y="probe_id")
+
+gen.isl[1]<-NULL
+gen.isl<-unique(gen.isl) #21263 Islands associated with 14770 genes
+
+# function to pull out genes associated with top islands
+
+int.genes<-gen.isl[gen.isl$cpgiview.ucscname %in% myInterestingIslands, 2]
+
+lapply(int.genes, write, paste0(file_dir, "genes.txt"), append=TRUE)
+
 
 
 # part 2
