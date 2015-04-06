@@ -2,8 +2,9 @@
 Eva Y  
 April 5, 2015  
 ### Analysis goal: 
-Get DMR between normal samples (including normal healthy and normal cancer) and adenoma and colorectal cancer samples. 
+1. Get DMR between normal samples (including normal healthy and normal cancer) and adenoma and colorectal cancer samples. 
 
+2. Get DMR between adenoma and colorectal cancer samples. 
 
 ### Step 1: Attach packages for analysis
 
@@ -21,18 +22,70 @@ library(VennDiagram)
 
 ```r
 # 01 rename sample labels
-rename_samples <- function(data){
+rename_samples <- function(data, metadata){
   paste(metadata$group, gsub("GSM", "", colnames(data)), sep="_")
 }
 
-# 02 make expression data with only normal-H and normal-C/adenoma/cancer samples
-prep_data <- function(sample1="", sample2="", data){
-  sample1 <- data[ ,grepl(sample1, colnames(data))]
-  sample2 <- data[ ,grepl(sample2, colnames(data))]
-  cbind(sample1, sample2)
+# 02 make methylation data with only normal-H and normal-C/adenoma/cancer samples
+prep_data <- function(data, metadata, sample1="", sample2="", 
+                      sample3="", three.samples=FALSE){
+  if (three.samples){
+  d <- t(data)
+  d <- data.frame(sample.id=rep(row.names(d)), 
+                                metadata$group, d)
+  d <- subset(d, 
+              d$metadata.group %in% 
+                c(sample1, sample2, sample3))
+  
+  d <- d[ ,-(2), drop=FALSE]
+  row.names(d) <- d$sample.id
+  d <- d[ ,-(1), drop=FALSE]
+  d <- t(d)
+  d  
+  } else {
+  d <- t(data)
+  d <- data.frame(sample.id=rep(row.names(d)), 
+                                metadata$group, d)
+  d <- subset(d, 
+              d$metadata.group %in% 
+                c(sample1, sample2))
+  
+  d <- d[ ,-(2), drop=FALSE]
+  row.names(d) <- d$sample.id
+  d <- d[ ,-(1), drop=FALSE]
+  d <- t(d)
+  d
+  }
 }
 
-# 03 perform limma DMA
+# 03 make metadata
+prep_metadata <- function(metadata, sample1="", sample2="", sample3="", 
+                          level1="", level2="", level3="", regexp="", 
+                          three.samples=FALSE, three.levels=FALSE){
+  
+  if (three.samples){
+    metadata_subset <- subset(metadata, 
+                               group %in% 
+                                 c(sample1, sample2, sample3))
+    metadata_subset$group <- gsub(regexp, "", metadata_subset$group)
+    } else {
+      metadata_subset <- subset(metadata, 
+                               group %in% 
+                                 c(sample1, sample2))
+      metadata_subset$group <- gsub(regexp, "", metadata_subset$group)
+    }
+  
+  if (three.levels){
+    metadata_subset$group <- factor(metadata_subset$group, 
+                                      levels=c(level1, level2, level3))
+    } else {
+      metadata_subset$group <- factor(metadata_subset$group, 
+                                      levels=c(level1, level2))
+    }
+  metadata_subset
+  }
+
+# 04 perform limma DMA
 do.limma <- function(data, design){
   # fit linear model
   fit <- lmFit(data, design)
@@ -41,16 +94,16 @@ do.limma <- function(data, design){
   ebfit <- eBayes(fit)
   
   # get output of the linear model
-  top <- topTable(ebfit, number=Inf)
+  topTable(ebfit, number=Inf)
 }
 
-# 04 prepare design matrix for different sample pairs
+# 05 prepare design matrix for different sample pairs
 prep_design <- function(metadata="", sample1="", sample2=""){
   metadata$group <- factor(metadata$group, levels=c(sample1, sample2))
   model.matrix(~group, metadata)
 }
 
-# 05 plot heatmap for DMR
+# 06 plot heatmap for DMR
 plot_heatmap <- function(data, palette, labels, metadata, x=""){
   heatmap.2(as.matrix(data), col=palette, 
           trace="none", labRow=NA, labCol=NA,
@@ -63,8 +116,8 @@ plot_heatmap <- function(data, palette, labels, metadata, x=""){
        col=labels, ncol=1, lty=1, lwd=5, cex=0.5)
 }
 
-# 06 when given a list of cgi, returns a tall&skinny data frame
-get_cgi <- function(data, int.list, bor.list){
+# 07 when given a list of cgi, returns a tall&skinny data frame
+get_cgi <- function(data, metadata, int.list, bor.list){
   # get interesting hits
   int <- subset(data, row.names(data) %in% int.list)
   
@@ -73,14 +126,16 @@ get_cgi <- function(data, int.list, bor.list){
   
   # make tall and skinny data frame
   df <- rbind(int, bor)
-  df <- cbind(cgi=rep(row.names(df)), 
+  
+  colnames(df) <- rename_samples(df, metadata) # rename colnames
+  
+  df <- data.frame(cgi=rep(row.names(df)), 
               status=rep(c("interesting", "boring"), each=3), df)
   df <- melt(df, id.vars=c("cgi", "status"), 
              variable.name="sample", value.name="MValue")
   df <- data.frame(df, group=df$sample)
   
   # get rid of "_\\d"
-  df$group <- sub("[-].[_]\\d+", "", df$group)
   df$group <- sub("[_]\\d+", "", df$group)
   df
 }
@@ -90,8 +145,18 @@ get_cgi <- function(data, int.list, bor.list){
 ### Step 3: Load and explore data
 
 ```r
-# load m values with renamed columns and removed NAs
-load("M.norm.CGI.rmna.Rdata")
+# load m values and remove NAs
+load("../../data/GSE48684_raw_filtered.m.norm.cgi.Rdata")
+str(M.norm.CGI, max.level=0)
+```
+
+```
+## 'data.frame':	26403 obs. of  147 variables:
+##   [list output truncated]
+```
+
+```r
+M.norm.CGI.rmna <- M.norm.CGI[complete.cases(M.norm.CGI), ]
 str(M.norm.CGI.rmna, max.level=0)
 ```
 
@@ -101,6 +166,9 @@ str(M.norm.CGI.rmna, max.level=0)
 ```
 
 ```r
+# save this
+save(M.norm.CGI.rmna, file="M.norm.CGI.rmna.Rdata")
+
 # load beta values
 load("../03kmeans_cgi/beta.norm.cgi.rmna.Rdata")
 str(norm_beta_filter_cgi, max.level=0)
@@ -121,33 +189,50 @@ str(metadata, max.level=0)
 ## 'data.frame':	147 obs. of  7 variables:
 ```
 
+
 ### Step 4: Data preparation
 We want to get DMR between normal samples and adenoma/colorectal cancer samples. Let's prepare the datasets for that.
 
 ```r
 ## normal vs. cancer
-# make methylation data with only normal-H and cancer samples
-norm_cancer <- prep_data(sample1="normal*", sample2="cancer", M.norm.CGI.rmna)
+# make methylation data with only normal and cancer samples
+norm_cancer <- prep_data(M.norm.CGI.rmna, metadata, sample1="normal-H", 
+               sample2="normal-C", sample3="cancer", three.samples=TRUE)
 
-# make metadata with only normal-H and cancer samples
-metadata_norm_cancer <- subset(metadata, 
-                               group %in% 
-                                 c("normal-H", "normal-C", "cancer"))
-metadata_norm_cancer$group <- gsub("[-].", "", metadata_norm_cancer$group)
-metadata_norm_cancer$group <- factor(metadata_norm_cancer$group, 
-                                      levels=c("normal", "cancer"))
-                      
+# make metadata with only normal and cancer samples
+metadata_norm_cancer <- prep_metadata(metadata, sample1="normal-H", 
+                                      sample2="normal-C", sample3="cancer", 
+                                      level1="normal", level2="cancer",
+                                      regexp="[-].", 
+                                      three.samples=TRUE, 
+                                      three.levels=FALSE)
+
 ## normal vs. adenoma
-# make methylation data with only normal-H and normal-C samples
-norm_adenoma <- prep_data(sample1="normal*", sample2="adenoma", M.norm.CGI.rmna)
+# make methylation data with only normal and adenoma samples
+norm_adenoma <- prep_data(M.norm.CGI.rmna, metadata, sample1="normal-H", 
+               sample2="normal-C", sample3="adenoma", three.samples=TRUE)
 
-# make metadata with only normal-H and normal-C samples
-metadata_norm_adenoma <- subset(metadata, 
-                                group %in% 
-                                  c("normal-H", "normal-C", "adenoma"))
-metadata_norm_adenoma$group <- gsub("[-].", "", metadata_norm_adenoma$group)
-metadata_norm_adenoma$group <- factor(metadata_norm_adenoma$group, 
-                                      levels=c("normal", "adenoma"))
+# make metadata with only normal and adenoma samples
+metadata_norm_adenoma <- prep_metadata(metadata, sample1="normal-H", 
+                                      sample2="normal-C", sample3="adenoma", 
+                                      level1="normal", level2="adenoma",
+                                      regexp="[-].", 
+                                      three.samples=TRUE,
+                                      three.levels=FALSE)
+
+## adenoma vs. cancer
+# make methylation data with only adenoma and cancer samples
+adenoma_cancer <- prep_data(M.norm.CGI.rmna, metadata, sample1="adenoma", 
+                            sample2="cancer", three.samples=FALSE)
+
+# make metadata with only adenoma and cancer samples
+metadata_adenoma_cancer <- prep_metadata(metadata, sample1="adenoma", 
+                                         sample2="cancer",
+                                         level1="adenoma", 
+                                         level2="cancer",
+                                         regexp="", 
+                                         three.samples=FALSE,
+                                         three.levels=FALSE)
 ```
 
 
@@ -163,6 +248,10 @@ design_norm_cancer <- prep_design(metadata=metadata_norm_cancer,
 # normal vs. adenoma
 design_norm_adenoma <- prep_design(metadata=metadata_norm_adenoma, 
                                    sample1="normal", sample2="adenoma")
+
+# adenoma vs. cancer
+design_adenoma_cancer <- prep_design(metadata=metadata_adenoma_cancer, 
+                                   sample1="adenoma", sample2="cancer")
 ```
 
 Perform DMA using `limma`.
@@ -174,9 +263,13 @@ norm_cancer_dma <- do.limma(norm_cancer, design_norm_cancer)
 # normal vs. adenoma
 norm_adenoma_dma <- do.limma(norm_adenoma, design_norm_adenoma)
 
+# adenoma vs. cancer
+adenoma_cancer_dma <- do.limma(adenoma_cancer, design_adenoma_cancer)
+
 # save DMA results
-save(norm_cancer_dma, file="../../data/norm_cancer_dma.Rdata")
-save(norm_adenoma_dma, file="../../data/norm_adenoma_dma.Rdata")
+save(norm_cancer_dma, file="norm_cancer_dma.Rdata")
+save(norm_adenoma_dma, file="norm_adenoma_dma.Rdata")
+save(adenoma_cancer_dma, file="adenoma_cancer_dma.Rdata")
 ```
 
 
@@ -184,21 +277,30 @@ save(norm_adenoma_dma, file="../../data/norm_adenoma_dma.Rdata")
 
 ```r
 # how many DMR are there at FDR < 1e-05?
-norm_cancer_dmr <- subset(norm_cancer_dma, adj.P.Val < 1e-04)
+norm_cancer_dmr <- subset(norm_cancer_dma, adj.P.Val < 1e-05)
 nrow(norm_cancer_dmr)
 ```
 
 ```
-## [1] 525
+## [1] 6189
 ```
 
 ```r
-norm_adenoma_dmr <- subset(norm_adenoma_dma, adj.P.Val < 1e-04)
+norm_adenoma_dmr <- subset(norm_adenoma_dma, adj.P.Val < 1e-05)
 nrow(norm_adenoma_dmr)
 ```
 
 ```
-## [1] 3781
+## [1] 11266
+```
+
+```r
+adenoma_cancer_dmr <- subset(adenoma_cancer_dma, adj.P.Val < 1e-05)
+nrow(adenoma_cancer_dmr)
+```
+
+```
+## [1] 461
 ```
 
 
@@ -208,15 +310,16 @@ What are the shared DMR between these different sample pairs analyses?
 
 ```r
 # assign names to the lists for plotting
-dmr <- list(adenoma=row.names(norm_adenoma_dmr), 
-            cancer=row.names(norm_cancer_dmr))
+dmr <- list(Normal.Adenoma=row.names(norm_adenoma_dmr), 
+            Normal.Cancer=row.names(norm_cancer_dmr), 
+            Adenoma.Cancer=row.names(adenoma_cancer_dmr))
 
 # start a new plot
 plot.new()
 
 # draw the Venn diagram
 venn.plot <- venn.diagram(dmr, filename = NULL, 
-                          fill = c("red", "blue"))
+                          fill = c("red", "blue", "green"))
 
 # draw the plot on the screen
 grid.draw(venn.plot)
@@ -234,21 +337,49 @@ jRdBu.palette <- jRdBu(palette.size)
 
 # specify color labels for different samples
 sample.cancer <- brewer.pal(11, "Spectral")[c(3,1)]
+sample.cancer.3 <- brewer.pal(11, "Spectral")[c(3,9,1)]
+
 sample.adenoma <- brewer.pal(11, "Spectral")[c(3,5)]
+sample.adenoma.3 <- brewer.pal(11, "Spectral")[c(3,9,5)]
+
+sample.cancer.adenoma <- brewer.pal(11, "Spectral")[c(5,1)]
 
 # create data frame for heatmap.2
 # norm vs. cancer
 hmap_normcancer <- subset(norm_cancer, 
                            row.names(norm_cancer) %in% 
                              row.names(norm_cancer_dmr))
+hmap_normcancer <- hmap_normcancer[1:450, ]
 
 # norm vs. adenoma
 hmap_normadenoma <- subset(norm_adenoma, 
                            row.names(norm_adenoma) %in% 
                              row.names(norm_adenoma_dmr))
+hmap_normadenoma <- hmap_normadenoma[1:450, ]
 
+# adenoma vs. cancer
+hmap_adenomacancer <- subset(adenoma_cancer, 
+                           row.names(adenoma_cancer) %in% 
+                             row.names(adenoma_cancer_dmr))
+hmap_adenomacancer <- hmap_adenomacancer[1:450, ]
+
+# make new metadata that discrimates between normal-H and normal-C
+m.norm.cancer.3 <- prep_metadata(metadata, sample1="normal-H", 
+                   sample2="normal-C", sample3="cancer",
+                   level1="normal-H", level2="normal-C",
+                   level3="cancer",
+                   regexp="", three.samples=TRUE, 
+                   three.levels=TRUE)
+
+m.norm.adenoma.3 <- prep_metadata(metadata, sample1="normal-H", 
+                   sample2="normal-C", sample3="adenoma",
+                   level1="normal-H", level2="normal-C",
+                   level3="adenoma",
+                   regexp="", three.samples=TRUE, 
+                   three.levels=TRUE)
 
 # plot heatmaps
+# normal vs. cancer
 plot_heatmap(hmap_normcancer, jRdBu.palette, sample.cancer, 
              metadata_norm_cancer, x="Normal vs. Cancer")
 ```
@@ -256,11 +387,35 @@ plot_heatmap(hmap_normcancer, jRdBu.palette, sample.cancer,
 ![](limma_normalHC_files/figure-html/unnamed-chunk-9-1.png) 
 
 ```r
+plot_heatmap(hmap_normcancer, jRdBu.palette, sample.cancer.3, 
+             m.norm.cancer.3, x="Normal vs. Cancer")
+```
+
+![](limma_normalHC_files/figure-html/unnamed-chunk-9-2.png) 
+
+```r
+# normal vs. adenoma
 plot_heatmap(hmap_normadenoma, jRdBu.palette, sample.adenoma, 
              metadata_norm_adenoma, x="Normal vs. Adenoma")
 ```
 
-![](limma_normalHC_files/figure-html/unnamed-chunk-9-2.png) 
+![](limma_normalHC_files/figure-html/unnamed-chunk-9-3.png) 
+
+```r
+plot_heatmap(hmap_normadenoma, jRdBu.palette, sample.adenoma.3, 
+             m.norm.adenoma.3, x="Normal vs. Adenoma")
+```
+
+![](limma_normalHC_files/figure-html/unnamed-chunk-9-4.png) 
+
+```r
+# adenoma vs. cancer
+plot_heatmap(hmap_adenomacancer, jRdBu.palette, sample.cancer.adenoma, 
+             metadata_adenoma_cancer, x="Adenoma vs. Cancer")
+```
+
+![](limma_normalHC_files/figure-html/unnamed-chunk-9-5.png) 
+
 
 Plot some interesting and boring hits for each DMA. 
 
@@ -268,7 +423,7 @@ Plot some interesting and boring hits for each DMA.
 # normal vs. cancer
 int.list <- head(row.names(norm_cancer_dma), 3)
 bor.list <- tail(row.names(norm_cancer_dma), 3)
-norm_cancer_cgi <- get_cgi(norm_cancer, int.list, bor.list)
+norm_cancer_cgi <- get_cgi(norm_cancer, metadata_norm_cancer, int.list, bor.list)
 
 # plot
 ggplot(norm_cancer_cgi, aes(x=group, y=MValue, color=status)) +
@@ -282,10 +437,18 @@ ggplot(norm_cancer_cgi, aes(x=group, y=MValue, color=status)) +
 ![](limma_normalHC_files/figure-html/unnamed-chunk-10-1.png) 
 
 ```r
+ggsave(file="norm_cancer_cgi.png", dpi=300)
+```
+
+```
+## Saving 7 x 5 in image
+```
+
+```r
 # normal vs. adenoma
 int.list <- head(row.names(norm_adenoma_dma), 3)
 bor.list <- tail(row.names(norm_adenoma_dma), 3)
-norm_adenoma_cgi <- get_cgi(norm_adenoma, int.list, bor.list)
+norm_adenoma_cgi <- get_cgi(norm_adenoma, metadata_norm_adenoma, int.list, bor.list)
 
 # plot
 ggplot(norm_adenoma_cgi, aes(x=group, y=MValue, color=status)) +
@@ -297,6 +460,39 @@ ggplot(norm_adenoma_cgi, aes(x=group, y=MValue, color=status)) +
 ```
 
 ![](limma_normalHC_files/figure-html/unnamed-chunk-10-2.png) 
+
+```r
+ggsave(file="norm_adenoma_cgi.png", dpi=300)
+```
+
+```
+## Saving 7 x 5 in image
+```
+
+```r
+# adenoma vs. cancer
+int.list <- head(row.names(adenoma_cancer_dma), 3)
+bor.list <- tail(row.names(adenoma_cancer_dma), 3)
+adenoma_cancer_cgi <- get_cgi(adenoma_cancer, metadata_adenoma_cancer, int.list, bor.list)
+
+# plot
+ggplot(adenoma_cancer_cgi, aes(x=group, y=MValue, color=status)) +
+  geom_point() + 
+  facet_wrap(~cgi) +
+  theme_bw() +
+  stat_summary(aes(group=1), fun.y=mean, geom="line") +
+  ggtitle("Adenoma vs. Cancer")
+```
+
+![](limma_normalHC_files/figure-html/unnamed-chunk-10-3.png) 
+
+```r
+ggsave(file="adenoma_cancer_cgi.png", dpi=300)
+```
+
+```
+## Saving 7 x 5 in image
+```
 
 ## Summary
 Guys, this looks good!
