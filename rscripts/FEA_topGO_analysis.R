@@ -1,19 +1,45 @@
 #########################################################
 # Beryl
-#' the codes are taken from 
+#' the test codes are taken from 
 #' https://github.com/sjackman/stat540-project/blob/master/topGO.R
 #' with modification
 ###########################################################
 #' functional enrichment analysis
 #' with output tables and intermediate Rdata
 #' compare differentially methylated CGI among normal, adenoma, and cancer.
-#' output enriched GO terms and genes
+#' output genes associtated with the CGIs
+#' output enriched GO terms
 #' 
 library(IlluminaHumanMethylation450k.db)
 library(topGO)
 
+#####################inputs
+# load island to GO
+island_GO_file <- "../data/FEA_island2go.Rdata"
 
-load("../data/FEA_island2go.Rdata")
+if(file.exists(island_GO_file)){
+	load(island_GO_file)
+	} else {
+	source("FEA_build_island2GO.R")
+	load(island_GO_file)
+}
+
+# load the toptables
+normal_adenoma <- read.delim("../data/topTables/normal_vs_adenoma_santina.tsv")
+normal_cancer <- read.delim("../data/topTables/normal_vs_cancer_santina.tsv")
+adenoma_cancer <- read.delim("../data/topTables/adenoma_vs_cancer_santina.tsv")
+
+# set FDR cutoff value
+cutoff <- 1e-4
+
+## save the files
+file_dir <- paste0("../data/FEA/", as.character(cutoff), "/")
+dir.create(path = file_dir, showWarnings = F)
+
+
+#######################################
+
+
 
 # get all the cgi island names
 island<-as.data.frame(IlluminaHumanMethylation450kCPGINAME)
@@ -52,12 +78,7 @@ makeTopGODataPreDefined <- function(predefined_gene_list){
 
 ###############################################
 ###############################################
-# load the toptables
-normal_adenoma <- read.delim("../data/topTables/normal_vs_adenoma_santina.tsv")
-normal_cancer <- read.delim("../data/topTables/normal_vs_cancer_santina.tsv")
-adenoma_cancer <- read.delim("../data/topTables/adenoma_vs_cancer_santina.tsv")
 
-cutoff <- 1e-4
 
 getChr <- function(tb){
 	candidate_list <- as.character(rownames(tb)[which(tb$q.value < cutoff)])
@@ -75,7 +96,7 @@ all_groups <- intersect(NA_AC, NA_NC)
 
 
 
-#e.g.
+# make GOdata
 x <- predefinedGenes(all_groups)
 GOdata <- makeTopGODataPreDefined(x)
 
@@ -90,8 +111,6 @@ all_tests_result <- GenTable(GOdata, classicFisher = result_fisher,
 
 
 ##### save all the files
-file_dir <- paste0("../data/FEA/", as.character(cutoff), "/")
-dir.create(path = file_dir, showWarnings = F)
 save(all_groups, file = paste0(file_dir, "/candidate_chr.Rdata"))
 save(result_fisher, file = paste0(file_dir, "/result_fisher.Rdata"))
 save(result_KS, file = paste0(file_dir, "/result_KS.Rdata"))
@@ -147,6 +166,7 @@ makeTopGOData <- function(gene_list){
       gene2GO = Island2GO)
 }
 
+#'  from topGO manual:
 #'  Once the genes are annotated to the each GO term and the true
 #'  path rule is applied the nodes with less than nodeSize annotated genes are removed from the GO hierarchy.
 #'  We found that values between 5 and 10 for the nodeSize parameter yield more stable results. The default

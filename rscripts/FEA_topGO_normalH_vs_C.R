@@ -1,23 +1,40 @@
 #########################################################
 # Beryl
-#' the codes are taken from 
+#' the test codes are taken from 
 #' https://github.com/sjackman/stat540-project/blob/master/topGO.R
 #' with modification
 ###########################################################
 #' functional enrichment analysis
 #' with output tables and intermediate Rdata
 #' compare differentially methylated CGI among normal H and normal C groups
-#' output enriched GO terms and genes
-
-
-
+#' output genes associtated with the CGIs
+#' output enriched GO terms
 
 
 library(IlluminaHumanMethylation450k.db)
 library(topGO)
 
+######### inputs
+# load island to GO
+island_GO_file <- "../data/FEA_island2go.Rdata"
 
-load("../data/FEA_island2go.Rdata")
+if(file.exists(island_GO_file)){
+	load(island_GO_file)
+} else {
+	source("FEA_build_island2GO.R")
+	load(island_GO_file)
+}
+
+# load the toptables
+normal_HC <- read.delim("../data/topTables/normalC_vs_normalH_santina.tsv")
+# set FDR cutoff value
+cutoff <- 1e-4
+
+## save the files
+file_dir <- paste0("../data/FEA/normal_HC_", as.character(cutoff), "/")
+dir.create(path = file_dir, showWarnings = F)
+
+############
 
 # get all the cgi island names
 island<-as.data.frame(IlluminaHumanMethylation450kCPGINAME)
@@ -56,9 +73,6 @@ makeTopGODataPreDefined <- function(predefined_gene_list){
 
 ###############################################
 ###############################################
-# load the toptables
-normal_HC <- read.delim("../data/topTables/normalC_vs_normalH_santina.tsv")
-cutoff <- 1e-4
 
 getChr <- function(tb){
 	candidate_list <- as.character(rownames(tb)[which(tb$q.value < cutoff)])
@@ -84,8 +98,6 @@ all_tests_result <- GenTable(GOdata, classicFisher = result_fisher,
 
 
 ##### save all the files
-file_dir <- paste0("../data/FEA/normal_HC_", as.character(cutoff), "/")
-dir.create(path = file_dir, showWarnings = F)
 save(all_groups, file = paste0(file_dir, "/candidate_chr.Rdata"))
 save(result_fisher, file = paste0(file_dir, "/result_fisher.Rdata"))
 save(result_KS, file = paste0(file_dir, "/result_KS.Rdata"))
