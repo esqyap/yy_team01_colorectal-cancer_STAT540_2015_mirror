@@ -109,27 +109,19 @@ write.table(as.data.frame(all_groups),
 
 
 ###############################################
-
+# from chr coordinates to gene symbol
 load(paste0(file_dir, "/candidate_chr.Rdata"))
-myInterestingIslands <- all_groups
+sym <- as.data.frame(IlluminaHumanMethylation450kSYMBOL)
 
-## Genes in top Islands
-x <- IlluminaHumanMethylation450kSYMBOL
-# Get the probe identifiers that are mapped to a gene symbol
-mapped_probes <- mappedkeys(x)
-xx <- as.data.frame(x[mapped_probes])
-gen.isl<-merge(island, xx, by.x="cpgiview.Probe_ID", by.y="probe_id")
+# get probe.id
+probe_id <- island$cpgiview.Probe_ID[which(island$cpgiview.ucscname %in% all_groups)]
 
-gen.isl[1]<-NULL
-gen.isl<-unique(gen.isl) #21263 Islands associated with 14770 genes
+# probe id to gene symbol
+gene_symbol <- sort(unique(sym$symbol[which(sym$probe_id %in% probe_id)]))
 
-# function to pull out genes associated with top islands
-
-int.genes<-gen.isl[gen.isl$cpgiview.ucscname %in% myInterestingIslands, 2]
-
-lapply(int.genes, write, paste0(file_dir, "genes.txt"), append=TRUE)
-
-
+write.table(as.data.frame(gene_symbol), 
+						file = paste0(file_dir, "/genes.txt"), 
+						row.names = F, col.names = F)
 
 # part 2
 ###############################################
