@@ -1,0 +1,13 @@
+ID	Gene Name	Species
+RBM47	RNA binding motif protein 47	Homo sapiens	
+TBC1D2	TBC1 domain family, member 2	Homo sapiens	
+CLCC1	chloride channel CLIC-like 1	Homo sapiens	
+DIAPH3	diaphanous homolog 3 (Drosophila)	Homo sapiens	
+FAM71E2	family with sequence similarity 71, member E2	Homo sapiens	
+HIST3H3	histone cluster 3, H3	Homo sapiens	
+NEDD1	neural precursor cell expressed, developmentally down-regulated 1	Homo sapiens	
+TTC7B	tetratricopeptide repeat domain 7B	Homo sapiens	
+WNT7A	wingless-type MMTV integration site family, member 7A	Homo sapiens	
+ZNF471	zinc finger protein 471	Homo sapiens	
+ZNF540	zinc finger protein 540	Homo sapiens	
+ZNRD1	zinc ribbon domain containing 1	Homo sapiens	
