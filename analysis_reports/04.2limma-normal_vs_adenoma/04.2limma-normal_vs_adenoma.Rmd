@@ -9,10 +9,11 @@ output:
 ---
 
 
-#### Differential methylation analysis comparing normal-c and normal-H
+#### Differential methylation analysis comparing normal (normal-c and normal-H) and adenoma
 
 
-LIMMA codes are writen by Ka Ming.
+*LIMMA codes are writen by Ka Ming. The codes are modified for this analysis.
+
 
 
 ```{r}
@@ -32,7 +33,7 @@ source("../../rscripts/helper_functions.R")
 # loading the norm. CGI.
 M.norm.CGI.path <- "../../data/GSE48684_raw_filtered.m.norm.cgi.Rdata"
 load(M.norm.CGI.path)
-M.norm.CGI.path <- na.omit(M.norm.CGI.path)
+M.norm.CGI <- na.omit(M.norm.CGI)
 
 # load the metadata
 metadata.path <- "../../data/metadata.Rdata"
@@ -108,7 +109,7 @@ ggplot(myTopTable, aes(adj.P.Val)) +
 Setting cutoffs
 
 ```{r}
-cutoff <- 1e-5
+cutoff <- 1e-7
 length(which(myTopTable$adj.P.Val < cutoff))
 ```
 

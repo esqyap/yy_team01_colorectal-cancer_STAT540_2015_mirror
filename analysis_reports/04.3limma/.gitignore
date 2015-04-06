@@ -1,1 +1,14 @@
 *.Rdata
+adenoma_cancer_cgi.png
+hmap_adenoma_cancer.png
+hmap_norm_adenoma.png
+hmap_norm_adenoma3.png
+hmap_norm_cancer.png
+hmap_norm_cancer3.png
+norm_adenoma_cgi.png
+norm_cancer_cgi.png
+venn4.png
+venn5.png
+normH_adenoma_cgi.png
+normH_cancer_cgi.png
+normH_normC_cgi.png

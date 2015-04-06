@@ -1,4 +1,14 @@
-#beryl still working on this
+#########################################################
+# Beryl
+#' the codes are taken from 
+#' https://github.com/sjackman/stat540-project/blob/master/topGO.R
+#' with modification
+###########################################################
+#' functional enrichment analysis
+#' with output tables and intermediate Rdata
+#' compare differentially methylated CGI among normal, adenoma, and cancer.
+#' output enriched GO terms and genes
+#' 
 library(IlluminaHumanMethylation450k.db)
 library(topGO)
 
@@ -40,16 +50,95 @@ makeTopGODataPreDefined <- function(predefined_gene_list){
 }
 
 
-#e.g.
-x <- predefinedGenes("chrY:9363680-9363943")
-makeTopGODataPreDefined(x)
+###############################################
+###############################################
+# load the toptables
+normal_adenoma <- read.delim("../data/topTables/normal_vs_adenoma_santina.tsv")
+normal_cancer <- read.delim("../data/topTables/normal_vs_cancer_santina.tsv")
+adenoma_cancer <- read.delim("../data/topTables/adenoma_vs_cancer_santina.tsv")
 
+cutoff <- 1e-4
+
+getChr <- function(tb){
+	candidate_list <- as.character(rownames(tb)[which(tb$q.value < cutoff)])
+	return(candidate_list)
+}
+
+NA_NC <- intersect(getChr(normal_adenoma), getChr(normal_cancer))
+
+NA_AC <- intersect(getChr(adenoma_cancer), getChr(normal_adenoma))
+
+NC_AC <- intersect(getChr(adenoma_cancer), getChr(normal_cancer))
+
+all_groups <- intersect(NA_AC, NA_NC)
+
+
+
+
+#e.g.
+x <- predefinedGenes(all_groups)
+GOdata <- makeTopGODataPreDefined(x)
+
+### TESTS
+result_fisher <- runTest(GOdata, algorithm = "classic", statistic = "fisher")
+result_KS <- runTest(GOdata, algorithm = "classic", statistic = "ks")
+result_KS.elim <- runTest(GOdata, algorithm = "elim", statistic = "ks")
+###Summary of top GO groups
+all_tests_result <- GenTable(GOdata, classicFisher = result_fisher,
+											 classicKS = result_KS, elimKS = result_KS.elim, orderBy = "elimKS", 
+											 ranksOf = "classicFisher", topNodes = 20)
+
+
+##### save all the files
+file_dir <- paste0("../data/FEA/", as.character(cutoff), "/")
+dir.create(path = file_dir, showWarnings = F)
+save(all_groups, file = paste0(file_dir, "/candidate_chr.Rdata"))
+save(result_fisher, file = paste0(file_dir, "/result_fisher.Rdata"))
+save(result_KS, file = paste0(file_dir, "/result_KS.Rdata"))
+save(result_KS.elim, file = paste0(file_dir, "/result_KS_elim.Rdata"))
+save(all_tests_result, file = paste0(file_dir, "/all_tests_result.Rdata"))
+
+head(all_tests_result)
+
+write.table(all_tests_result, 
+						file = paste0(file_dir, "/enrichment_table.tsv"), 
+						row.names = F, col.names = T)
+write.table(as.data.frame(all_groups), 
+						file = paste0(file_dir, "/candidates.tsv"), 
+						row.names = F, col.names = F)
+
+
+###############################################
+
+load(paste0(file_dir, "/candidate_chr.Rdata"))
+myInterestingIslands <- all_groups
+
+## Genes in top Islands
+x <- IlluminaHumanMethylation450kSYMBOL
+# Get the probe identifiers that are mapped to a gene symbol
+mapped_probes <- mappedkeys(x)
+xx <- as.data.frame(x[mapped_probes])
+gen.isl<-merge(island, xx, by.x="cpgiview.Probe_ID", by.y="probe_id")
+
+gen.isl[1]<-NULL
+gen.isl<-unique(gen.isl) #21263 Islands associated with 14770 genes
+
+# function to pull out genes associated with top islands
+
+int.genes<-gen.isl[gen.isl$cpgiview.ucscname %in% myInterestingIslands, 2]
+
+lapply(int.genes, write, paste0(file_dir, "genes.txt"), append=TRUE)
+
+
+
+# part 2
 ###############################################
 #' for results straight from the toptable (no filter)
 #' filter is applied when building the topGOdata object
 
+cutoff <- 1e-4
 thresholdFun <- function (value) {
-  return(value < 0.01)
+  return(value < cutoff)
 }
 
 makeTopGOData <- function(gene_list){
@@ -74,25 +163,27 @@ makeTopGOData <- function(gene_list){
 ####################################
 ### example
 ####################################
-load("../data/GSE48684_raw_filtered.m.norm.cgi.Rdata")
+# load("../data/GSE48684_raw_filtered.m.norm.cgi.Rdata")
+# 
+# # make a random list
+# x <- row.names(M.norm.CGI)[1:1000]
+# lm_list <- runif(1000, 0, 1)
+# 
+# names(lm_list) <- x
+# 
+# test_GO <- makeTopGOData(lm_list)
+# 
+# GOdata <- makeTopGOData(lm_list)
+# ### TESTS
+# result_fisher <- runTest(GOdata, algorithm = "classic", statistic = "fisher")
+# result_KS <- runTest(GOdata, algorithm = "classic", statistic = "ks")
+# result_KS.elim <- runTest(GOdata, algorithm = "elim", statistic = "ks")
+# ###Summary of top GO groups
+# all_groups <- GenTable(GOdata, classicFisher = result_fisher,
+# 											 classicKS = result_KS, elimKS = result_KS.elim,orderBy = "elimKS", 
+# 											 ranksOf = "classicFisher", topNodes = 10)
+# 
+# head(all_groups)
 
-# make a random list
-x <- row.names(M.norm.CGI)[1:1000]
-lm_list <- runif(1000, 0, 1)
 
-names(lm_list) <- x
-
-test_GO <- makeTopGOData(lm_list)
-
-
-### TESTS
-resultFisher <- runTest(GOdata, algorithm = "classic", statistic = "fisher")
-resultFisher
-resultKS <- runTest(GOdata, algorithm = "classic", statistic = "ks")
-resultKS.elim <- runTest(GOdata, algorithm = "elim", statistic = "ks")
-###Summary of top GO groups
-allRes_APL <- GenTable(GOdata, classicFisher = resultFisher,
-                       classicKS = resultKS, elimKS = resultKS.elim,orderBy = "elimKS", 
-                       ranksOf = "classicFisher", topNodes = 10)
-save(allRes_ALL, file="allRes_ALL.R") 
-
+###################################
