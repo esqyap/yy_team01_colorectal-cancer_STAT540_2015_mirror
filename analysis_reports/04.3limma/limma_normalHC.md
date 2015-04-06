@@ -380,89 +380,41 @@ m.norm.adenoma.3 <- prep_metadata(metadata, sample1="normal-H",
 
 # plot heatmaps
 # normal vs. cancer
-
-png("hmap_norm_cancer.png", res = 300, 
-    width = 5*300, height = 5*300,
-    pointsize = 8)
-
 plot_heatmap(hmap_normcancer, jRdBu.palette, sample.cancer, 
              metadata_norm_cancer, x="Normal vs. Cancer")
-
-dev.off()
 ```
 
-```
-## quartz_off_screen 
-##                 2
-```
+![](limma_normalHC_files/figure-html/unnamed-chunk-9-1.png) 
 
 ```r
-png("hmap_norm_cancer3.png", res = 300, 
-    width = 5*300, height = 5*300,
-    pointsize = 8)
-
 plot_heatmap(hmap_normcancer, jRdBu.palette, sample.cancer.3, 
              m.norm.cancer.3, x="Normal vs. Cancer")
-
-dev.off()
 ```
 
-```
-## quartz_off_screen 
-##                 2
-```
+![](limma_normalHC_files/figure-html/unnamed-chunk-9-2.png) 
 
 ```r
 # normal vs. adenoma
-
-png("hmap_norm_adenoma.png", res = 300, 
-    width = 5*300, height = 5*300,
-    pointsize = 8)
-
 plot_heatmap(hmap_normadenoma, jRdBu.palette, sample.adenoma, 
              metadata_norm_adenoma, x="Normal vs. Adenoma")
-
-dev.off()
 ```
 
-```
-## quartz_off_screen 
-##                 2
-```
+![](limma_normalHC_files/figure-html/unnamed-chunk-9-3.png) 
 
 ```r
-png("hmap_norm_adenoma3.png", res = 300, 
-    width = 5*300, height = 5*300,
-    pointsize = 8)
-
 plot_heatmap(hmap_normadenoma, jRdBu.palette, sample.adenoma.3, 
              m.norm.adenoma.3, x="Normal vs. Adenoma")
-
-dev.off()
 ```
 
-```
-## quartz_off_screen 
-##                 2
-```
+![](limma_normalHC_files/figure-html/unnamed-chunk-9-4.png) 
 
 ```r
 # adenoma vs. cancer
-
-png("hmap_adenoma_cancer.png", res = 300, 
-    width = 5*300, height = 5*300,
-    pointsize = 8)
-
 plot_heatmap(hmap_adenomacancer, jRdBu.palette, sample.cancer.adenoma, 
              metadata_adenoma_cancer, x="Adenoma vs. Cancer")
-
-dev.off()
 ```
 
-```
-## quartz_off_screen 
-##                 2
-```
+![](limma_normalHC_files/figure-html/unnamed-chunk-9-5.png) 
 
 
 Plot some interesting and boring hits for each DMA. 
