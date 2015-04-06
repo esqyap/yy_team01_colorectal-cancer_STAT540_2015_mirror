@@ -8,7 +8,7 @@
 # 4. plotScatter
 ########################################################
 
-load("../data/metadata.Rdata")
+#load("../data/metadata.Rdata")
 ########################################################
 #####prepareData: data aggregation
 ########################################################
@@ -68,7 +68,7 @@ subsetData <- function(data, candidate_list, design = metadata){
 plotHeatmap <- function(x, title = "", legend = "group", 
 												size = 2, names = F, 
 												row_dendrogram = F, col_dendrogram = F){
-	## x is an ordered matrix
+	## x is an ordered matrix (prepare by function subsetData())
 	## title is the plot title
 	## size is the font size for the rows
 	## legend: for group legends, colnames in the design, e.g. c("group", "colon_region")
