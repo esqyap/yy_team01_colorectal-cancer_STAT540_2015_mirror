@@ -1,0 +1,5 @@
+"GO.ID"	"Term"	"Annotated"	"Significant"	"Expected"	"Rank in classicFisher"	"classicFisher"	"classicKS"	"elimKS"
+"GO:0003674"	"molecular_function"	15366	11	9.33	106	"0.330"	"< 1e-30"	"<1e-30"
+"GO:0005001"	"transmembrane receptor protein tyrosine ..."	98	0	0.06	123	"1.000"	"1.1e-11"	"<1e-30"
+"GO:0046332"	"SMAD binding"	128	0	0.08	124	"1.000"	"1.8e-10"	"<1e-30"
+"GO:0042288"	"MHC class I protein binding"	10	0	0.01	126	"1.000"	"0.0094"	"<1e-30"
