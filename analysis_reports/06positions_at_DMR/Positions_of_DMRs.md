@@ -1,0 +1,32 @@
+# Position of dmr
+Rashedul  
+Monday, April 06, 2015  
+
+This is the plot that says about the locations of CGIs at chromosome level. Here we made this plots of the DMR presents in our four different DMRs:
+
+
+1. adenoma_vs_cancer
+2. normalC_vs_normalH
+3. normal_vs_adenoma
+4. normal_vs_cancer
+
+Input was the limma DMR results at FDR 1e-4.
+
+**Plot_adenoma_vs_cancer plot**
+
+![Plot_adenoma_vs_cancer](Plot_adenoma_vs_cancer.png)
+
+**Plot_normalC_vs_normalH**
+
+![Plot_normalC_vs_normalH](Plot_normalC_vs_normalH.png)
+
+**Plot_normal_vs_adenoma**
+
+![Plot_normal_vs_adenoma](Plot_normal_vs_adenoma.png)
+
+**Plot_normal_vs_cancer**
+
+![Plot_normal_vs_cancer](Plot_normal_vs_cancer.png)
+
+To generate the plots Seminar08 was followed. To pre-process the data the code we used are [here](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/DMR_positions_at_chr_pre-process.R). The function we used to generate those graphs can be found [here](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/DMR_positions_at_chr_plot.R).
+
