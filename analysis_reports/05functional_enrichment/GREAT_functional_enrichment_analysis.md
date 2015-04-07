@@ -4,29 +4,20 @@ Monday, April 06, 2015
 
 The genomic coordinates of 34 top selected cgi of our study were converted to bed file using a text editor. 
 
-Then the bed file was fed on [GREAT](http://bejerano.stanford.edu/great/public/html/). The Human: GRCh37 genome assembly and whole genome background were used. GREAT gave 54 genes at FDR 0.05 that are associated with genomic regions. On the other hand, Bioconductor package "IlluminaHumanMethylation450kGO" predicted 20 top enriched genes. Among the 20 genes 16 genes are common in both the enrichment analysis methods. The the gene that are not common are: ANKRD30BL, TTC7B, ZNRD1-AS1, FAM71E2. **So the most important 16 genes are: **
+Then the bed file was fed on [GREAT](http://bejerano.stanford.edu/great/public/html/). The Human: GRCh37 genome assembly and whole genome background were used. GREAT gave 54 genes at FDR 0.05 that are associated with genomic regions. However, GREAT did not return any functionally enriched term, probably because we provied it only 34 cgi regions.
+
+The structure of a bed file is:
 
 ```
-RBM47
-NEDD1
-ZNF471
-TMEM247
-HIST3H3
-CNTN2
-WNT7A
-TBC1D2
-ATP11A
-DIAPH3
-ZAP70
-CLCC1
-ZNF540
-TRPM4
-ZNRD1
-KIF19
-OBSCN
+chr1  109505681  109506214  
+chr4  1049652  1049923     
+chr19  55870392  55870601   
+chr6  161100092  161100456  
+chr16  1598952  1599157    
+chr1  205038784  205039153 
 ```
 
-#### GREAT output
+#### GREAT output: Gene name and upstream (+) and downstream (-) location of the CGi from the gene. 
 
 ```
 ALG10       (+320255)
@@ -83,29 +74,4 @@ ZNF540	     (-2330)
 ZNF728	     (-68111)
 ZNF730	     (-45688)
 ZNRD1	     (+35)
-```
-####Bioconductor package output: 
-
-```
-RBM47
-NEDD1
-ANKRD30BL
-ZNF471
-TMEM247
-HIST3H3
-CNTN2
-WNT7A
-TBC1D2
-ATP11A
-DIAPH3
-#TTC7B
-ZAP70
-CLCC1
-ZNF540
-TRPM4
-ZNRD1
-KIF19
-ZNRD1-AS1
-OBSCN
-FAM71E2
 ```
