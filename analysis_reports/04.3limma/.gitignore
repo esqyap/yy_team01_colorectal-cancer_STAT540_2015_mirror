@@ -1,3 +1,4 @@
+*.tsv
 *.Rdata
 adenoma_cancer_cgi.png
 hmap_adenoma_cancer.png
