@@ -2,8 +2,7 @@
 Rashedul  
 Monday, April 06, 2015  
 
-This is the plot that says about the locations of CGIs at chromosome level. Here we made this plots of the DMR presents in our four different DMRs:
-
+This is the plot that says about the locations of CGIs at chromosome level. Here we made the plots of the DMRs that are present in our four different DMA in all chromosomes excluding 'x' chromosome:
 
 1. adenoma_vs_cancer
 2. normalC_vs_normalH
@@ -13,20 +12,23 @@ This is the plot that says about the locations of CGIs at chromosome level. Here
 Input was the limma DMR results at FDR 1e-4.
 
 **Plot_adenoma_vs_cancer plot**
+1011 CGIs were differentially expressed. 
 
 ![Plot_adenoma_vs_cancer](Plot_adenoma_vs_cancer.png)
 
-**Plot_normalC_vs_normalH**
+**Plot_normalC_vs_normalH:**
+8 CGIs were differentially expressed. 
 
 ![Plot_normalC_vs_normalH](Plot_normalC_vs_normalH.png)
 
-**Plot_normal_vs_adenoma**
+**Plot_normal_vs_adenoma:**
+13276 CGIs were differentially expressed. 
 
 ![Plot_normal_vs_adenoma](Plot_normal_vs_adenoma.png)
 
-**Plot_normal_vs_cancer**
+**Plot_normal_vs_cancer:** 
+8247 CGIs were differentially expressed. 
 
 ![Plot_normal_vs_cancer](Plot_normal_vs_cancer.png)
 
 To generate the plots Seminar08 was followed. To pre-process the data the code we used are [here](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/DMR_positions_at_chr_pre-process.R). The function we used to generate those graphs can be found [here](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/DMR_positions_at_chr_plot.R).
-
