@@ -37,20 +37,23 @@ The tissue samples were taken from colorectal mucosa. The metadata, such as gend
 
 
 #### Proposed Methods
-As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those (150,254) that hybridize to CpG islands, which are widely studied and shown to be biologically relevant in cancer progression as discussed earlier. In addition, we are excluding chromosome X from our analyses because one copy of chromosome X in every female would have chromosome-wide methylation at CpG sites **(9,11)**.
+As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those that hybridize to CpG islands, which are widely studied and shown to be biologically relevant in cancer progression as discussed earlier. In addition, we are excluding chromosome X from our analyses because one copy of chromosome X in every female would have chromosome-wide methylation at CpG sites **(9,11)**.
 
-In the first phase of our project, we want to do a sanity check on the on the quality of the data. We will perform unsupervised hierarchical [clustering analysis](http://www.statmethods.net/advstats/cluster.html) on our data to see if samples from the same patient groups are clustered together. If the majority of the samples are correctly clustered in the same patient groups, the analysis could suggest that the few ones that are incorrectly clustered could be potential sample-swaps or outliers. If our clustering analysis fails to correctly group the samples from the same groups together, it would suggest that the beta values of a large numbers of our probes do not significnatly differ between groups. 
+In the first phase of our project, we want to do a sanity check on the on the quality of the data. We will perform unsupervised hierarchical [clustering analysis](http://www.statmethods.net/advstats/cluster.html) on our data to see if samples from the same patient groups are clustered together. If the majority of the samples are correctly clustered in the same patient groups, the analysis could suggest that the few ones that are incorrectly clustered could be potential sample-swaps or outliers.
 
-We will then perform normalization on our data and then clustering analysis to see if the results differ. To further examine the data prior to the group comparison analysis, we will also examine covariance across the samples, assuming that samples in the same patient groups have strong co-variance.
+We will then perform normalization on our data and then clustering analysis to see if the results differ. __To further examine the data prior to the group comparison analysis, we will also examine covariance across the samples, assuming that samples in the same patient groups have strong co-variance.__, M value, CGI, PCA
 
-In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform several statistical tests, including ANOVA and differential methylation analysis by the Bioconductor package limma**(10)** and extract differentially methylated genes for further analysis. To examine the different stages of CRC progression, we will do two group comparisons for the following pairs:
+__TODO__add stuff for exploratory analysis :)
+
+In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform differential methylation analysis using the Bioconductor package limma**(10)** and extract differentially methylated CGI for further analysis. To examine the different stages of CRC progression, we will do two group comparisons for the following pairs:
 - normal-C  and normal-H: to investigate whether the two groups are differentially methylated, and what are the regions. This could reveal whether normal tissue from patients with CRC have different epigenomics compared to normal tissues from healthy individuals. 
 - normal-H+nomal-C and adenoma : to investigate if any regions become differently methylated in the progression from normal tissue to development of adenoma.  
+- normal-H+nomal-C and cancer : to investigate if any regions become differently methylated in the progression from normal tissue to CRC.  
 - adenoma and cancer : to see, if any, which probes indicate different methylation levels between the two groups. This information could reveal possible epigenomics changes as adenoma progresses to CRC. 
 
-We will do functional enrichment analysis on the top-hit candidate genes as part of our Aim #1. By examining the pathways these genes are part of, it could help us evaluate our analysis results and whether epigenomics play an important role in CRC.
+We will do functional enrichment analysis on the top-hit candidate genes as part of our Aim #1. __By examining the pathways these genes are part of, it could help us evaluate our analysis results and whether epigenomics play an important role in CRC.__
 
-#### Tentative work and assignments 
+#### Distribution of work
 
 1. **Data processing and prefiltering** - Ka Ming and Beryl
 	- Prepare scripts to download data and filtering data
@@ -58,18 +61,19 @@ We will do functional enrichment analysis on the top-hit candidate genes as part
 	- Create metadata and aggregating data
 	- Data normalization and transformation 
 
-2. **Clustering analysis for before and after data processing** - Santina and Eva
-	- Research on different clustering methods in R 
-	- Summarize and analyze clustering analysis 
+2. **Exploratory analysis** - Santina, Eva and Beryl
+	- Unsupervised hierarchical clustering
+	- K-means clustering 
+	- Principal component analysis
 
-3. **Limma and differential methylation analysis** - Ka Ming, Rashedul, Santina
-	- Perform differential methylation analysis by doing different group comparisons
-	- Literature research on top hit genes suggested by Limma 
+3. **Differential methylation analysis** - Ka Ming, Eva, Santina and Beryl
+	- Perform differential methylation analysis(limma) by doing different group comparisons
 
 4. **Functional enrichment analysis** - Beryl, Eva, Rashedul 
-	- Research on gene functions and pathways 
+	- topGO, DAVID
+	- Literature research on enriched Gene Ontology terms
 
-5. **Prepare poster** - all group members
+5. **Prepare poster** - Ka Ming, Eva, Santina
 
 #### References
 1. Li, Jiaqiu, Hongchuan Jin, and Xian Wang. "Epigenetic Biomarkers: Potential Applications in Gastrointestinal Cancers." ISRN gastroenterology 2014 (2014).
