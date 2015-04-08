@@ -101,9 +101,30 @@ x <- predefinedGenes(all_groups)
 GOdata <- makeTopGODataPreDefined(x)
 
 ### TESTS
-result_fisher <- runTest(GOdata, algorithm = "classic", statistic = "fisher")
-result_KS <- runTest(GOdata, algorithm = "classic", statistic = "ks")
-result_KS.elim <- runTest(GOdata, algorithm = "elim", statistic = "ks")
+fisher_file <- paste0(file_dir, "/result_fisher.Rdata")
+if(file.exists(fisher_file)){
+	load(file = fisher_file)
+} else {
+	result_fisher <- runTest(GOdata, algorithm = "classic", statistic = "fisher")
+	save(result_fisher, file = paste0(file_dir, "/result_fisher.Rdata"))
+}
+
+KS_file <- paste0(file_dir, "/result_KS.Rdata")
+if(file.exists(KS_file)){
+	load(file = KS_file)
+	} else {
+	result_KS <- runTest(GOdata, algorithm = "classic", statistic = "ks")
+	save(result_KS, file = KS_file)
+}
+
+
+KS.elim_file <- paste0(file_dir, "/result_KS_elim.Rdata")
+if(file.exists(KS.elim_file)){
+	load(file = KS.elim_file)
+} else {
+	result_KS.elim <- runTest(GOdata, algorithm = "elim", statistic = "ks")
+	save(result_KS.elim, file = KS.elim_file)
+}
 ###Summary of top GO groups
 all_tests_result <- GenTable(GOdata, classicFisher = result_fisher,
 											 classicKS = result_KS, elimKS = result_KS.elim, orderBy = "elimKS", 
@@ -112,9 +133,6 @@ all_tests_result <- GenTable(GOdata, classicFisher = result_fisher,
 
 ##### save all the files
 save(all_groups, file = paste0(file_dir, "/candidate_chr.Rdata"))
-save(result_fisher, file = paste0(file_dir, "/result_fisher.Rdata"))
-save(result_KS, file = paste0(file_dir, "/result_KS.Rdata"))
-save(result_KS.elim, file = paste0(file_dir, "/result_KS_elim.Rdata"))
 save(all_tests_result, file = paste0(file_dir, "/all_tests_result.Rdata"))
 
 head(all_tests_result)
@@ -141,6 +159,57 @@ gene_symbol <- sort(unique(sym$symbol[which(sym$probe_id %in% probe_id)]))
 write.table(as.data.frame(gene_symbol), 
 						file = paste0(file_dir, "/genes.txt"), 
 						row.names = F, col.names = F)
+
+
+################## making plots
+#' Rectangles indicate the top most significant terms. Rectangle color represents the relative significance,
+#' ranging from dark red (most significant) to bright yellow (least significant). For each node, some basic information
+#' is displayed. The first two lines show the GO identifier and a trimmed GO name. In the third line the raw p-value
+#' is shown. The forth line is showing the number of significant genes and the total number of genes annotated to
+#' the respective GO term.
+
+printGraph(GOdata, result_KS, firstSigNodes = 10, 
+					 result_fisher, fn.prefix = paste0(file_dir, "KS_fisher"), useInfo = "all", 
+					 pdfSW = TRUE)
+
+# save both pdf and png
+nodes <- 5
+pdf(file = paste0(file_dir, "/Fisher_top", nodes, "nodes.pdf"))
+showSigOfNodes(GOdata, score(result_fisher), 
+							 firstSigNodes = nodes, 
+							 useInfo = "all")
+dev.off()
+
+png(filename = paste0(file_dir, "/Fisher_top", nodes, "nodes.png"),
+		width = 1400, height = 1400, res = 300)
+showSigOfNodes(GOdata, score(result_fisher), 
+							 firstSigNodes = nodes, 
+							 useInfo = "all")
+dev.off()
+
+
+nodes <- 15
+pdf(file = paste0(file_dir, "/KS_top", nodes, "nodes.pdf"))
+showSigOfNodes(GOdata, score(result_KS), 
+							 firstSigNodes = nodes, 
+							 useInfo = "all")
+dev.off()
+
+png(filename = paste0(file_dir, "/KS_top", nodes, "nodes.png"),
+		width = 1400, height = 1400, res = 300)
+showSigOfNodes(GOdata, score(result_KS), 
+							 firstSigNodes = nodes, 
+							 useInfo = "all")
+dev.off()
+
+# ###select some genes?
+# x <- all_tests_result[c(1,9, 11, 14), ]
+# write.table(x, sep="\t", file = paste0(file_dir, "/seleted_top_GO.tsv", 
+# 						col.names = TRUE, row.names = F))
+# 
+# ### 
+
+						
 
 # part 2
 ###############################################
