@@ -1,0 +1,110 @@
+---
+title: 'Two Group: Normal and Cancer'
+author: "Santina"
+date: "Sunday, April 05, 2015"
+output: 
+  html_document:
+    keep_md: yes
+    toc: yes
+---
+
+# Goal 
+Beryl and Eva have been trying to do limma on normal samples (normal-H + normal-C) and cancer samples. They are getting different results so I'll try to see if I can reproduce one of their results. 
+
+
+
+# Subset Data 
+
+I'll use normalized cgi M value. 
+
+Load data: 
+```{r}
+load("../../data/GSE48684_raw_filtered.m.norm.cgi.Rdata") # M.norm.CGI
+load('../../data/metadata.Rdata') # metadata
+````
+
+Inspect 
+```{r}
+head(M.norm.CGI[, 1:5])
+head(metadata)
+
+#review what we have in our samples 
+table(metadata$group)
+```
+
+
+Subset 
+
+We'll use metadata to know which columns in the `M.norm.CGI` to keep.
+```{r}
+# sample_names <- rownames(metadata[metadata$group %in% c("normal-H", "normal-C", "cancer"), ]) 
+# data_sub <- M.norm.CGI[, sample_names]
+# I won't do this so I can keep things in order 
+
+# get column names for "normal"
+normal_samples <- rownames(metadata[metadata$group %in% c("normal-H", "normal-C"), ])
+
+# get column names for "cancer"
+cancer_samples <- rownames(metadata[metadata$group == "cancer", ])
+
+normal_data <- M.norm.CGI[, normal_samples]
+ncol(normal_data)  # 24 + 17 = 41
+
+cancer_data <- M.norm.CGI[, cancer_samples]
+ncol(cancer_data)  
+
+data_sub <- cbind(normal_data, cancer_data)
+ncol(data_sub) # instead of 147
+````
+
+Data cleaning: removing rows with NA values 
+```{r}
+(a <- nrow(data_sub))
+data_sub <- data_sub[complete.cases(data_sub), ]
+(a1 <- nrow(data_sub))
+```
+
+So we have removed `r a-a1` rows.
+
+# Limma 
+
+Time to do the real stuff ! 
+
+Design matrix: 
+```{r}
+des <- data.frame(replicate = colnames(data_sub), 
+                                    condition = factor(c(rep("normal", 41), rep("cancer", 64)))) # we can do this because we know the colnames are in order 
+
+
+des <- model.matrix(~condition, des)
+head(des)
+```
+
+
+```{r}
+library(limma)
+
+limmaFit <- lmFit(data_sub, des)
+EbFit <- eBayes(limmaFit)
+EbFit_table <- topTable(EbFit, number = nrow(EbFit))
+head(EbFit_table)
+```
+
+
+Just arrange the table a bit
+```{r}
+# keep  needed columns 
+EbFit_table <- EbFit_table[, c("logFC", "t", "P.Value", "adj.P.Val")]
+# rename column names 
+colnames(EbFit_table)  <- c("log.fc", "test.stat", "p.value", "q.value")
+head(EbFit_table)
+```
+
+Looks good, now I'll save it : 
+
+```{r}
+write.table(EbFit_table, file="normal_vs_cancer_santina.tsv", sep = "\t")
+```
+
+
+
