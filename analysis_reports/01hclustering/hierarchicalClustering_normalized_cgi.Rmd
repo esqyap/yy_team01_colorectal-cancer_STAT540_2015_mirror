@@ -1,48 +1,28 @@
 ---
-title: "Hierarchical Clustering Analysis"
+title: "hierarchicalClustering_normalized"
 author: "Santina"
-date: "Monday, March 16, 2015"
+date: "Friday, April 03, 2015"
 output: 
   html_document:
     keep_md: yes
     toc: yes
 ---
 
-Beryl and Ka Ming has written the scripts for the rest of the group to download and filter raw data and raw meta data. Here I will try some clustering analysis to test the water... or look at the data at a high level.
+Repeating the work done on [hierarchical clustering on filtered raw data](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/analysis_reports/01hclustering/hierarchicalClustering.md) 
 
 The goal is to see if there are distinguishable features between different patient groups that clustering methods that come with R packages can pick out and correctly group the samples into their corresponding groups. 
 
-This report is purely for internal communication. 
+This report is purely for internal communication and to generate figures for the poster.
 
 # Load the data
-
-First we'll load the data:
-
-```{r, message=FALSE, eval=FALSE}
-# run the script that gets the raw data and filter the raw data
-# this step would take a while 
-start <- proc.time()
-source('../rscripts/get_data_and_filter.R')
-(time <- proc.time() - start)
-
-# run the script that take the metadata on our repo and process/filter it 
-# reads in "GSE48684_metadata_raw.Rdata""
-source('../rscripts/process_metadata.R')
-load("../data/metadata.Rdata")
-mD <- metadata
-```
-
-I am having trouble running the first script... Probably because (as Ka Ming suggested) that I have corrupted temp file and the script is using that. Anyway, I got the file from Beryl so I'll just use that : 
 
 ```{r, cache=TRUE}
 library(knitr)
 knitr::opts_chunk$set(ig.height = 09, fig.width = 15)
-load('../../data/GSE48684_raw_filtered.Rdata')
-data <- raw_data_filter
+load('../../data/GSE48684_raw_filtered.beta.norm.cgi.Rdata')
+data <- beta.norm.CGI
 load('../../data/metadata.Rdata')
 meta <- metadata
-head(data[, 1:10])
-head(meta)
 ```
 
 For my personal preference I'm gonna reorganize the meta data a bit. 
@@ -71,33 +51,33 @@ round(data.frame(avgBefore = rowMeans(head(data)),
                  avgAfter = rowMeans(head(s_data)),
                  varBefore = apply(head(data), 1, var),
                  varAfter = apply(head(s_data), 1, var)), 2)
-#write.table(s_data, file="intermediate_data/s_data.tsv", sep = "\t")
+write.table(s_data, file="intermediate_data/s_data_n.tsv", sep = "\t")
 ```
 
 Looks like there are some missing values. I'm gonna scale it again so that this time NA is not being accounted (removing all the rows with NAs), just to make things easier. (good thing we inspect s_data first) 
 Note that in this case the probes is much fewer.
 
 ```{r, cache=TRUE}
-nrow(data[complete.cases(data), ]) # 256981 vs 301208 in the original. 
+nrow(data)
+nrow(data[complete.cases(data), ])
+```
+As we can see there are some NAs.
+
+We can remove it.
+```{r, cache=TRUE}
 s_data_noNA <- t(scale(t(data[complete.cases(data), ])))
 
 # save the data 
-#write.table(s_data_noNA, file="intermediate_data/s_data_noNA.tsv", sep = "\t")
+write.table(s_data_noNA, file="intermediate_data/s_data_noNA_n.tsv", sep = "\t")
 ```
-Maybe doing this would get rid of too many probes. So I'll try replacing NA with zeros in case the NAs in this study mean that they couldn't get any signal (hence zeros)
 
+Or keep it and set them to zeros. 
 ```{r, cache=TRUE}
 data_NA_zeros <- data 
 data_NA_zeros[is.na(data_NA_zeros)] <- 0
-# sanity check
-nrow(data_NA_zeros[complete.cases(data_NA_zeros),]) == nrow(data)
-```
 
-Now scale 
-
-```{r, cache=TRUE}
 s_data_NA_zeros <- t(scale(t(data_NA_zeros)))
-#write.table(s_data_NA_zeros, file="intermediate_data/s_data_NA_zeros.tsv", sep = "\t")
+write.table(s_data_NA_zeros, file="intermediate_data/s_data_NA_zeros_n.tsv", sep = "\t")
 ```
 
 Just as a reminder: 
@@ -111,7 +91,7 @@ BTW just want to make a point that I had to change my memory allocation limit fr
 
 # Clustering 
 
-Make distance matrix 
+Make distance matrix , all using Euclidean distance 
 ```{r, cache=TRUE}
 # compute pairwise distances
 dis <- dist(t(s_data), method = 'euclidean')
@@ -130,7 +110,6 @@ meta$code <- recode(meta$group,
 table(meta$code,meta$group)
 ```
 
-_Note that these numbers simply for easier visualization on the tree graphs, they are not the same numbers in the tables following each graphs_ The number in the tables are arbitrary number assigned by hclust and output by cutree. The tables are simply there to show how well each group cluster into the same class.
 
 Now we'll do clustering for each different distance matrix, using two different methods 'ward.D' and 'complete', with two hyperlinks to random sources describing them. 
 
@@ -139,10 +118,6 @@ Now we'll do clustering for each different distance matrix, using two different 
 [Ward's minimum variance method](http://en.wikipedia.org/wiki/Ward%27s_method)
 ```{r}
 dis.w <- hclust(dis, method = 'ward.D')
-
-# uncolor version with numerical label. 
-	# plot(dis.w, labels = meta$code, cex = 0.6, main = "Ward showing 4 clusters")
-	# rect.hclust(dis.w, k = 4) # specify we want 4 clusters 
 
 # color the dendrograms 
 library(sparcl)
@@ -171,12 +146,13 @@ labelCol <- function(x) {
 # using dendrapply
 clusDendro = dendrapply(dis.w.d, labelCol)
 # make plot
-png(file="../../figures/ward_raw_filtered.png",width=2000,height=1500)
+png(file="../../figures/ward_cgi_normalized.png",width=2000,height=1500)
 
 plot(clusDendro, cex=2)
-title(main = "Ward clustering on filtered raw data", cex.main=4)
+title(main = "Ward clustering on normalized Beta CGI data", cex.main=4)
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters 
 legend("topright", legend = c("normal-H", "normal-C", "adenoma", "cancer"), fill = labelColors, title="Legend", box.col="transparent",  cex=3)
+
 
 dev.off()
 
@@ -218,7 +194,7 @@ dis.w.d = as.dendrogram(dis_noNA.w)
 # using dendrapply
 clusDendro = dendrapply(dis.w.d, labelCol)
 # make plot
-plot(clusDendro, main = "Ward clustering, with NA removed", , hang = -1)
+plot(clusDendro, main = "Ward clustering, with NA removed")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters 
 legend("topright", legend = c("normal-H", "normal-C", "adenoma", "cancer"), fill = labelColors, title="Legend", box.col="transparent")
 
@@ -237,7 +213,7 @@ dis.w.d = as.dendrogram(dis_noNA.w)
 # using dendrapply
 clusDendro = dendrapply(dis.w.d, labelCol)
 # make plot
-plot(clusDendro, main = "Complete clustering, with NA removed", hang = -1)
+plot(clusDendro, main = "Complete clustering, with NA removed")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
 legend("topright", legend = c("normal-H", "normal-C", "adenoma", "cancer"), fill = labelColors, title="Legend", box.col="transparent")
 
@@ -259,7 +235,7 @@ dis.w.d = as.dendrogram(dis_NAzeros.w)
 # using dendrapply
 clusDendro = dendrapply(dis.w.d, labelCol)
 # make plot
-plot(clusDendro, main = "Ward clustering, with NA set to zeros", hang = -1)
+plot(clusDendro, main = "Ward clustering, with NA set to zeros")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters 
 legend("topright", legend = c("normal-H", "normal-C", "adenoma", "cancer"), fill = labelColors, title="Legend", box.col="transparent")
 
@@ -277,7 +253,7 @@ dis.w.d = as.dendrogram(dis_NAzeros.w)
 # using dendrapply
 clusDendro = dendrapply(dis.w.d, labelCol)
 # make plot
-plot(clusDendro, main = "Complete clustering, with NA set to zeros", hang = -1)
+plot(clusDendro, main = "Complete clustering, with NA set to zeros")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters 
 legend("topright", legend = c("normal-H", "normal-C", "adenoma", "cancer"), fill = labelColors, title="Legend", box.col="transparent")
 
@@ -286,13 +262,3 @@ legend("topright", legend = c("normal-H", "normal-C", "adenoma", "cancer"), fill
 dis_NAzeros.w.groups <- cbind(meta, cluster = cutree(dis_NAzeros.w, k=4))
 table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster)
 ```
-
-
-I should have just written a function to do this kind of repeatitive work...but I already finished copied and pasted. 
-
-> My conclusion, overall the data don't cluster that well together, but at least the majority from each group do get clustered into the same cluster. We should go ahead and do the analysis now and if we feel like coming back to these, we can go to the individual ones that get clustered into a different group to see how different they are. Note that clustering is stochastic. 
-
-
-
-
-For normalized data, just use this same markdown and change the data source. 

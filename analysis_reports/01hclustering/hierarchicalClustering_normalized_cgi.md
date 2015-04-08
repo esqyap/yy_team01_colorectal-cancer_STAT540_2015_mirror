@@ -1,81 +1,23 @@
-# Hierarchical Clustering Analysis
+# hierarchicalClustering_normalized
 Santina  
-Monday, March 16, 2015  
+Friday, April 03, 2015  
 
-Beryl and Ka Ming has written the scripts for the rest of the group to download and filter raw data and raw meta data. Here I will try some clustering analysis to test the water... or look at the data at a high level.
+Repeating the work done on [hierarchical clustering on filtered raw data](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/analysis_reports/01hclustering/hierarchicalClustering.md) 
 
 The goal is to see if there are distinguishable features between different patient groups that clustering methods that come with R packages can pick out and correctly group the samples into their corresponding groups. 
 
-This report is purely for internal communication. 
+This report is purely for internal communication and to generate figures for the poster.
 
 # Load the data
-
-First we'll load the data:
-
-
-```r
-# run the script that gets the raw data and filter the raw data
-# this step would take a while 
-start <- proc.time()
-source('../rscripts/get_data_and_filter.R')
-(time <- proc.time() - start)
-
-# run the script that take the metadata on our repo and process/filter it 
-# reads in "GSE48684_metadata_raw.Rdata""
-source('../rscripts/process_metadata.R')
-load("../data/metadata.Rdata")
-mD <- metadata
-```
-
-I am having trouble running the first script... Probably because (as Ka Ming suggested) that I have corrupted temp file and the script is using that. Anyway, I got the file from Beryl so I'll just use that : 
 
 
 ```r
 library(knitr)
 knitr::opts_chunk$set(ig.height = 09, fig.width = 15)
-load('../../data/GSE48684_raw_filtered.Rdata')
-data <- raw_data_filter
+load('../../data/GSE48684_raw_filtered.beta.norm.cgi.Rdata')
+data <- beta.norm.CGI
 load('../../data/metadata.Rdata')
 meta <- metadata
-head(data[, 1:10])
-```
-
-```
-##            GSM1183439 GSM1183440 GSM1183441 GSM1183442 GSM1183443
-## cg00050873 0.87153040 0.89495460  0.6093750 0.87842130 0.89606860
-## cg00063477 0.89772560 0.93803160  0.4852941 0.94228640 0.95133270
-## cg00121626 0.70276340 0.44292580  0.5263158 0.54055630 0.54761520
-## cg00212031 0.06251355 0.03182913  0.5037221 0.06570613 0.01812475
-## cg00213748 0.77986580 0.86277300  0.3082902 0.77699040 0.83620970
-## cg00214611 0.02722982 0.02486223  0.4694960 0.03288129 0.01453940
-##            GSM1183444 GSM1183445 GSM1183446 GSM1183447 GSM1183448
-## cg00050873 0.86411680  0.5121107  0.6389892 0.70725050  0.5295275
-## cg00063477 0.92998790  0.5389049  0.5275311 0.92888770  0.5908558
-## cg00121626 0.43066520  0.2141328  0.4771574 0.83613020  0.5928074
-## cg00212031 0.07941718  0.5557692  0.3333333 0.80034610  0.3005952
-## cg00213748 0.80006250  0.2034549  0.2849003 0.80853740  0.3333333
-## cg00214611 0.02377164  0.4161850  0.3505976 0.02797866  0.3442623
-```
-
-```r
-head(meta)
-```
-
-```
-##               group                                title geo_accession
-## GSM1183439 normal-H Genomic DNA from normal individual 1    GSM1183439
-## GSM1183440 normal-H Genomic DNA from normal individual 2    GSM1183440
-## GSM1183441 normal-H Genomic DNA from normal individual 3    GSM1183441
-## GSM1183442 normal-H Genomic DNA from normal individual 4    GSM1183442
-## GSM1183443 normal-H Genomic DNA from normal individual 5    GSM1183443
-## GSM1183444 normal-H Genomic DNA from normal individual 6    GSM1183444
-##                       tissue colon_region gender stage
-## GSM1183439 colorectal mucosa        colon   male  <NA>
-## GSM1183440 colorectal mucosa        colon   male  <NA>
-## GSM1183441 colorectal mucosa        colon female  <NA>
-## GSM1183442 colorectal mucosa        colon   male  <NA>
-## GSM1183443 colorectal mucosa        colon   male  <NA>
-## GSM1183444 colorectal mucosa        colon   male  <NA>
 ```
 
 For my personal preference I'm gonna reorganize the meta data a bit. 
@@ -126,17 +68,17 @@ round(data.frame(avgBefore = rowMeans(head(data)),
 ```
 
 ```
-##            avgBefore avgAfter varBefore varAfter
-## cg00050873      0.59        0      0.05        1
-## cg00063477      0.66        0      0.05        1
-## cg00121626        NA       NA        NA       NA
-## cg00212031      0.31        0      0.04        1
-## cg00213748        NA       NA        NA       NA
-## cg00214611      0.26        0      0.04        1
+##                          avgBefore avgAfter varBefore varAfter
+## chr1:10003165-10003585        0.20        0         0        1
+## chr1:1002663-1005318          0.48        0         0        1
+## chr1:100315420-100316009      0.17        0         0        1
+## chr1:100435297-100436070      0.19        0         0        1
+## chr1:100503482-100504404      0.21        0         0        1
+## chr1:10057121-10058108        0.27        0         0        1
 ```
 
 ```r
-#write.table(s_data, file="intermediate_data/s_data.tsv", sep = "\t")
+write.table(s_data, file="intermediate_data/s_data_n.tsv", sep = "\t")
 ```
 
 Looks like there are some missing values. I'm gonna scale it again so that this time NA is not being accounted (removing all the rows with NAs), just to make things easier. (good thing we inspect s_data first) 
@@ -144,39 +86,39 @@ Note that in this case the probes is much fewer.
 
 
 ```r
-nrow(data[complete.cases(data), ]) # 256981 vs 301208 in the original. 
+nrow(data)
 ```
 
 ```
-## [1] 256981
+## [1] 26403
 ```
+
+```r
+nrow(data[complete.cases(data), ])
+```
+
+```
+## [1] 26363
+```
+As we can see there are some NAs.
+
+We can remove it.
 
 ```r
 s_data_noNA <- t(scale(t(data[complete.cases(data), ])))
 
 # save the data 
-#write.table(s_data_noNA, file="intermediate_data/s_data_noNA.tsv", sep = "\t")
+write.table(s_data_noNA, file="intermediate_data/s_data_noNA_n.tsv", sep = "\t")
 ```
-Maybe doing this would get rid of too many probes. So I'll try replacing NA with zeros in case the NAs in this study mean that they couldn't get any signal (hence zeros)
 
+Or keep it and set them to zeros. 
 
 ```r
 data_NA_zeros <- data 
 data_NA_zeros[is.na(data_NA_zeros)] <- 0
-# sanity check
-nrow(data_NA_zeros[complete.cases(data_NA_zeros),]) == nrow(data)
-```
 
-```
-## [1] TRUE
-```
-
-Now scale 
-
-
-```r
 s_data_NA_zeros <- t(scale(t(data_NA_zeros)))
-#write.table(s_data_NA_zeros, file="intermediate_data/s_data_NA_zeros.tsv", sep = "\t")
+write.table(s_data_NA_zeros, file="intermediate_data/s_data_NA_zeros_n.tsv", sep = "\t")
 ```
 
 Just as a reminder: 
@@ -190,7 +132,7 @@ BTW just want to make a point that I had to change my memory allocation limit fr
 
 # Clustering 
 
-Make distance matrix 
+Make distance matrix , all using Euclidean distance 
 
 ```r
 # compute pairwise distances
@@ -219,7 +161,6 @@ table(meta$code,meta$group)
 ##   4       0     64        0        0
 ```
 
-_Note that these numbers simply for easier visualization on the tree graphs, they are not the same numbers in the tables following each graphs_ The number in the tables are arbitrary number assigned by hclust and output by cutree. The tables are simply there to show how well each group cluster into the same class.
 
 Now we'll do clustering for each different distance matrix, using two different methods 'ward.D' and 'complete', with two hyperlinks to random sources describing them. 
 
@@ -229,10 +170,6 @@ Now we'll do clustering for each different distance matrix, using two different 
 
 ```r
 dis.w <- hclust(dis, method = 'ward.D')
-
-# uncolor version with numerical label. 
-	# plot(dis.w, labels = meta$code, cex = 0.6, main = "Ward showing 4 clusters")
-	# rect.hclust(dis.w, k = 4) # specify we want 4 clusters 
 
 # color the dendrograms 
 library(sparcl)
@@ -268,12 +205,13 @@ labelCol <- function(x) {
 # using dendrapply
 clusDendro = dendrapply(dis.w.d, labelCol)
 # make plot
-png(file="../../figures/ward_raw_filtered.png",width=2000,height=1500)
+png(file="../../figures/ward_cgi_normalized.png",width=2000,height=1500)
 
 plot(clusDendro, cex=2)
-title(main = "Ward clustering on filtered raw data", cex.main=4)
+title(main = "Ward clustering on normalized Beta CGI data", cex.main=4)
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters 
 legend("topright", legend = c("normal-H", "normal-C", "adenoma", "cancer"), fill = labelColors, title="Legend", box.col="transparent",  cex=3)
+
 
 dev.off()
 ```
@@ -292,10 +230,10 @@ table(dis.w.groups$group, dis.w.groups$cluster)
 ```
 ##           
 ##             1  2  3  4
-##   adenoma   3 28 11  0
-##   cancer   10  8 36 10
-##   normal-C  3  0  1 20
-##   normal-H  6  0  0 11
+##   adenoma   2 13 26  1
+##   cancer    5 12 27 20
+##   normal-C 20  0  0  4
+##   normal-H 17  0  0  0
 ```
 
 Mmm.... cancer ones get clustered into different cluster.  
@@ -315,7 +253,7 @@ rect.hclust(dis.w, k = 4) # specify we want 4 clusters
 legend("topright", legend = c("normal-H", "normal-C", "adenoma", "cancer"), fill = labelColors, title="Legend", box.col="transparent")
 ```
 
-![](hierarchicalClustering_files/figure-html/unnamed-chunk-11-1.png) 
+![](hierarchicalClustering_normalized_cgi_files/figure-html/unnamed-chunk-10-1.png) 
 
 ```r
 # to see more clearly what gets clustered together: 
@@ -326,9 +264,9 @@ table(dis.w.groups$group, dis.w.groups$cluster)
 ```
 ##           
 ##             1  2  3  4
-##   adenoma  34  1  6  1
-##   cancer   15 17 30  2
-##   normal-C 13 11  0  0
+##   adenoma  27 14  1  0
+##   cancer   46 15  2  1
+##   normal-C 22  0  2  0
 ##   normal-H 17  0  0  0
 ```
 
@@ -344,37 +282,12 @@ dis.w.d = as.dendrogram(dis_noNA.w)
 # using dendrapply
 clusDendro = dendrapply(dis.w.d, labelCol)
 # make plot
-plot(clusDendro, main = "Ward clustering, with NA removed", , hang = -1)
-```
-
-```
-## Warning in plot.window(...): "hang" is not a graphical parameter
-```
-
-```
-## Warning in plot.xy(xy, type, ...): "hang" is not a graphical parameter
-```
-
-```
-## Warning in axis(side = side, at = at, labels = labels, ...): "hang" is not
-## a graphical parameter
-```
-
-```
-## Warning in axis(side = side, at = at, labels = labels, ...): "hang" is not
-## a graphical parameter
-```
-
-```
-## Warning in title(...): "hang" is not a graphical parameter
-```
-
-```r
+plot(clusDendro, main = "Ward clustering, with NA removed")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters 
 legend("topright", legend = c("normal-H", "normal-C", "adenoma", "cancer"), fill = labelColors, title="Legend", box.col="transparent")
 ```
 
-![](hierarchicalClustering_files/figure-html/unnamed-chunk-12-1.png) 
+![](hierarchicalClustering_normalized_cgi_files/figure-html/unnamed-chunk-11-1.png) 
 
 ```r
 # to see more clearly what gets clustered together: 
@@ -385,10 +298,10 @@ table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster)
 ```
 ##           
 ##             1  2  3  4
-##   adenoma   3 28 11  0
-##   cancer   10  8 36 10
-##   normal-C  3  0  1 20
-##   normal-H  6  0  0 11
+##   adenoma   2 13 26  1
+##   cancer    5 12 27 20
+##   normal-C 20  0  0  4
+##   normal-H 17  0  0  0
 ```
 
 Complete: 
@@ -401,37 +314,12 @@ dis.w.d = as.dendrogram(dis_noNA.w)
 # using dendrapply
 clusDendro = dendrapply(dis.w.d, labelCol)
 # make plot
-plot(clusDendro, main = "Complete clustering, with NA removed", hang = -1)
-```
-
-```
-## Warning in plot.window(...): "hang" is not a graphical parameter
-```
-
-```
-## Warning in plot.xy(xy, type, ...): "hang" is not a graphical parameter
-```
-
-```
-## Warning in axis(side = side, at = at, labels = labels, ...): "hang" is not
-## a graphical parameter
-```
-
-```
-## Warning in axis(side = side, at = at, labels = labels, ...): "hang" is not
-## a graphical parameter
-```
-
-```
-## Warning in title(...): "hang" is not a graphical parameter
-```
-
-```r
+plot(clusDendro, main = "Complete clustering, with NA removed")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters  
 legend("topright", legend = c("normal-H", "normal-C", "adenoma", "cancer"), fill = labelColors, title="Legend", box.col="transparent")
 ```
 
-![](hierarchicalClustering_files/figure-html/unnamed-chunk-13-1.png) 
+![](hierarchicalClustering_normalized_cgi_files/figure-html/unnamed-chunk-12-1.png) 
 
 ```r
 # to see more clearly what gets clustered together: 
@@ -442,10 +330,10 @@ table(dis_noNA.w.groups$group, dis_noNA.w.groups$cluster)
 ```
 ##           
 ##             1  2  3  4
-##   adenoma   6 25  1 10
-##   cancer    6  2  8 48
-##   normal-C  0  0  3 21
-##   normal-H  6  0  0 11
+##   adenoma  27 14  1  0
+##   cancer   46 15  2  1
+##   normal-C 22  0  2  0
+##   normal-H 17  0  0  0
 ```
 
 
@@ -461,37 +349,12 @@ dis.w.d = as.dendrogram(dis_NAzeros.w)
 # using dendrapply
 clusDendro = dendrapply(dis.w.d, labelCol)
 # make plot
-plot(clusDendro, main = "Ward clustering, with NA set to zeros", hang = -1)
-```
-
-```
-## Warning in plot.window(...): "hang" is not a graphical parameter
-```
-
-```
-## Warning in plot.xy(xy, type, ...): "hang" is not a graphical parameter
-```
-
-```
-## Warning in axis(side = side, at = at, labels = labels, ...): "hang" is not
-## a graphical parameter
-```
-
-```
-## Warning in axis(side = side, at = at, labels = labels, ...): "hang" is not
-## a graphical parameter
-```
-
-```
-## Warning in title(...): "hang" is not a graphical parameter
-```
-
-```r
+plot(clusDendro, main = "Ward clustering, with NA set to zeros")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters 
 legend("topright", legend = c("normal-H", "normal-C", "adenoma", "cancer"), fill = labelColors, title="Legend", box.col="transparent")
 ```
 
-![](hierarchicalClustering_files/figure-html/unnamed-chunk-14-1.png) 
+![](hierarchicalClustering_normalized_cgi_files/figure-html/unnamed-chunk-13-1.png) 
 
 ```r
 # to see more clearly what gets clustered together: 
@@ -502,10 +365,10 @@ table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster)
 ```
 ##           
 ##             1  2  3  4
-##   adenoma   3 27 12  0
-##   cancer   19  8 36  1
-##   normal-C  4  0  1 19
-##   normal-H  6  0  0 11
+##   adenoma   2 13 26  1
+##   cancer    5 12 27 20
+##   normal-C 20  0  0  4
+##   normal-H 17  0  0  0
 ```
 
 complete: 
@@ -517,37 +380,12 @@ dis.w.d = as.dendrogram(dis_NAzeros.w)
 # using dendrapply
 clusDendro = dendrapply(dis.w.d, labelCol)
 # make plot
-plot(clusDendro, main = "Complete clustering, with NA set to zeros", hang = -1)
-```
-
-```
-## Warning in plot.window(...): "hang" is not a graphical parameter
-```
-
-```
-## Warning in plot.xy(xy, type, ...): "hang" is not a graphical parameter
-```
-
-```
-## Warning in axis(side = side, at = at, labels = labels, ...): "hang" is not
-## a graphical parameter
-```
-
-```
-## Warning in axis(side = side, at = at, labels = labels, ...): "hang" is not
-## a graphical parameter
-```
-
-```
-## Warning in title(...): "hang" is not a graphical parameter
-```
-
-```r
+plot(clusDendro, main = "Complete clustering, with NA set to zeros")
 rect.hclust(dis.w, k = 4) # specify we want 4 clusters 
 legend("topright", legend = c("normal-H", "normal-C", "adenoma", "cancer"), fill = labelColors, title="Legend", box.col="transparent")
 ```
 
-![](hierarchicalClustering_files/figure-html/unnamed-chunk-15-1.png) 
+![](hierarchicalClustering_normalized_cgi_files/figure-html/unnamed-chunk-14-1.png) 
 
 ```r
 # to see more clearly what gets clustered together: 
@@ -558,18 +396,8 @@ table(dis_NAzeros.w.groups$group, dis_NAzeros.w.groups$cluster)
 ```
 ##           
 ##             1  2  3  4
-##   adenoma   6 11  1 24
-##   cancer    6 13  9 36
-##   normal-C  0  0  3 21
-##   normal-H  6  0  0 11
+##   adenoma  27 14  1  0
+##   cancer   46 15  2  1
+##   normal-C 22  0  2  0
+##   normal-H 17  0  0  0
 ```
-
-
-I should have just written a function to do this kind of repeatitive work...but I already finished copied and pasted. 
-
-> My conclusion, overall the data don't cluster that well together, but at least the majority from each group do get clustered into the same cluster. We should go ahead and do the analysis now and if we feel like coming back to these, we can go to the individual ones that get clustered into a different group to see how different they are. Note that clustering is stochastic. 
-
-
-
-
-For normalized data, just use this same markdown and change the data source. 
