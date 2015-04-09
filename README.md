@@ -17,10 +17,10 @@ Beryl Zhuang @BerylZhuang	|Bioinformatics Training Program| Dr. William Hsiao (B
 - BCCDC = BC Centre for Disease Control
 
 ## Table of contents
-- [initial proposal](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/initial_project_summary.md)
-- [final proposal](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/Group_proposal.md)
+- [initial proposal](initial_project_summary.md)
+- [final proposal](Group_proposal.md)
 - [poster](poster/poster.pdf)
 - [analysis workflow](figures/workflow.png)
 - [analysis scripts and results]
-- [Wiki Page](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/wiki) for references and resources.
+- [Wiki Page](wiki) for references and resources.
 
