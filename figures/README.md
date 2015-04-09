@@ -1,12 +1,20 @@
+# Figures
+
+## Data Normalization
+
 [dataQC_beta_density.png](dataQC_beta_density.png) - density plot of beta values before quantile normalization
 
 [dataQC_boxplot.png](dataQC_boxplot.png) - density plot of beta values after quantile normalization
+
+## Exploratory Analysis
 
 [dataQC_norm_beta_PCA.png](dataQC_norm_beta_PCA.png) - scatter plot of first 2 principal components from PCA of normalized beta values
 
 [ward_raw_filtered.png](ward_raw_filtered.png) - hierarachical clustering of filtered beta values
 
 [ward_cgi_normalized.png](ward_cgi_normalized.png) - hierarchical clustering of normalized beta values aggregate to CpG islands 
+
+## Differential Methylation Analysis
 
 [hmap_adenoma_cancer.png](hmap_adenoma_cancer.png) - heatmap of top 450 hits from limma of adenoma vs cancer
 
