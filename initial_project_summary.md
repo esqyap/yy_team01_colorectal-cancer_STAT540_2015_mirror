@@ -22,9 +22,9 @@ Colorectal cancer (CRC) step-wise progression is associated with the accumulatio
 
 #### References
 
-1. Li, J. et al. ISRN Gastroenterol. 2014 Mar 6; 2014:464015.
-2. Vaiopoulos, A. G. et al. Biochim. Biophys. Acta. 2014 Feb 20; 1842(7):971–80.
-3. Luo, Y. et al. Gastroenterol. 2014 Apr 23; 147(2):418–29.e8.
-4. Chan, A. et al. Am. J. Pathol. 2002 Jan 24; 160(5):1823–30.
-5. Muto, Y. et al. BMC Cancer. 2014 Jun 25; 14:466.
-6. Shen, L. et al. J. Natl. Cancer Inst. 2005 Sept 21; 97(18):1330–8.
+1. [Li, J. et al. ISRN Gastroenterol. 2014 Mar 6; 2014:464015.](http://www.ncbi.nlm.nih.gov/pubmed/24729878)
+2. [Vaiopoulos, A. G. et al. Biochim. Biophys. Acta. 2014 Feb 20; 1842(7):971–80.](http://www.ncbi.nlm.nih.gov/pubmed/24561654)
+3. [Luo, Y. et al. Gastroenterol. 2014 Apr 23; 147(2):418–29.e8.](http://www.ncbi.nlm.nih.gov/pubmed/24793120)
+4. [Chan, A. et al. Am. J. Pathol. 2002 Jan 24; 160(5):1823–30.](http://www.ncbi.nlm.nih.gov/pubmed/12000733)
+5. [Muto, Y. et al. BMC Cancer. 2014 Jun 25; 14:466.](http://www.ncbi.nlm.nih.gov/pubmed/24964857)
+6. [Shen, L. et al. J. Natl. Cancer Inst. 2005 Sept 21; 97(18):1330–8.](http://www.ncbi.nlm.nih.gov/pubmed/16174854)
