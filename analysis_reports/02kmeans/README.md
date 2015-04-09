@@ -2,9 +2,9 @@
 # K mean clustering analysis 
 
 This folder contains some __exploratory analysis__ and quality check on the methylation data: 
-	- raw filtered data
-	- normalized beta value 
-	- normalized M values
+- raw filtered data
+- normalized beta value 
+- normalized M values
 
 The rationale is to see how well the samples can cluster in their own group given just the methylation values. 
 

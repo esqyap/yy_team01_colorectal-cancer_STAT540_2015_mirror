@@ -2,11 +2,11 @@
 # Density plot, CPA, and heatmap 
 
 This folder contains some exploratory analysis and quality check on the methylation data: 
-	- raw filtered data
-	- normalized beta value 
-	- normalized M values
-	- normalized beta value at CGI 
-	- normalized M values at CGI 
+- raw filtered data
+- normalized beta value 
+- normalized M values
+- normalized beta value at CGI 
+- normalized M values at CGI 
 
 # Analysis and results
 
