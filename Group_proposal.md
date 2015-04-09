@@ -76,7 +76,7 @@ We will do functional enrichment analysis on the top-hit candidate genes as part
 5. **Prepare poster** - Ka Ming, Eva, Santina
 
 #### References
-1. [Li, J, et al. "Epigenetic Biomarkers: Potential Applications in Gastrointestinal Cancers." ISRN gastroenterology 2014 (2014). APA](http://www.ncbi.nlm.nih.gov/pubmed/24729878)	
+1. [Li, J, et al. "Epigenetic biomarkers: potential applications in gastrointestinal cancers." ISRN gastroenterology 2014 (2014): 464015](http://www.ncbi.nlm.nih.gov/pubmed/24729878)	
 2. [Vaiopoulos, AG, et al. "Epigenetic modifications in colorectal cancer: molecular insights and therapeutic challenges." Biochimica et Biophysica Acta (BBA)-Molecular Basis of Disease 1842.7 (2014): 971-980.](http://www.ncbi.nlm.nih.gov/pubmed/24561654)
 3. [Luo, Y, et al. "Differences in DNA methylation signatures reveal multiple pathways of progression from adenoma to colorectal cancer." Gastroenterology 147.2 (2014): 418-429.](http://www.ncbi.nlm.nih.gov/pubmed/24793120)
 4. [Chan, AO, et al. "CpG island methylation in aberrant crypt foci of the colorectum." The American journal of pathology 160.5 (2002): 1823-1830.](http://www.ncbi.nlm.nih.gov/pubmed/12000733)
