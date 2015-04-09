@@ -1,13 +1,6 @@
-# CrystalMethylation
-We're analyzing methylation data from GEO to identify changes in gene regulation in the progression of colorectal cancer. 
-
-## Project Proposal
-- [initial information](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/initial_project_summary.md)
-- [final proposal](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/Group_proposal.md)
-
-## Wiki Page
-[Wiki Page](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/wiki) for references and resources.
-
+# Identifying aberrant methylation patterns underlying colorectal cancer progression
+## Project Summary 
+__ add summary here__
 
 ## Group Members
 
@@ -21,3 +14,11 @@ Beryl Zhuang @BerylZhuang	|Bioinformatics Training Program| Dr. William Hsiao (B
 - CHiBi = Centre for High-Throughput Biology
 - BCGSC = Canada's Michael Smith Genome Sciences Centre		
 - BCCDC = BC Centre for Disease Control
+
+## Table of contents
+- [initial proposal](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/initial_project_summary.md)
+- [final proposal](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/Group_proposal.md)
+- [work flow]
+- [analysis scripts and results]
+- [Wiki Page](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/wiki) for references and resources.
+
