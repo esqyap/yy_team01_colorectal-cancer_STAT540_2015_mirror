@@ -76,15 +76,14 @@ We will do functional enrichment analysis on the top-hit candidate genes as part
 5. **Prepare poster** - Ka Ming, Eva, Santina
 
 #### References
-1. Li, Jiaqiu, Hongchuan Jin, and Xian Wang. "Epigenetic Biomarkers: Potential Applications in Gastrointestinal Cancers." ISRN gastroenterology 2014 (2014).
-APA	
-2. Vaiopoulos, Aristeidis G., Kalliopi Ch Athanasoula, and Athanasios G. Papavassiliou. "Epigenetic modifications in colorectal cancer: molecular insights and therapeutic challenges." Biochimica et Biophysica Acta (BBA)-Molecular Basis of Disease 1842.7 (2014): 971-980.
-3. Luo, Yanxin, et al. "Differences in DNA methylation signatures reveal multiple pathways of progression from adenoma to colorectal cancer." Gastroenterology 147.2 (2014): 418-429.
-4. Chan, Annie On-On, et al. "CpG island methylation in aberrant crypt foci of the colorectum." The American journal of pathology 160.5 (2002): 1823-1830.
-5. Muto, Yuta, et al. "DNA methylation alterations of AXIN2 in serrated adenomas and colon carcinomas with microsatellite instability." BMC cancer 14.1 (2014): 466.
-6. Shen, Lanlan, et al. "MGMT promoter methylation and field defect in sporadic colorectal cancer." Journal of the National Cancer Institute 97.18 (2005): 1330-1338.
-7. Maksimovic, Jovana, Lavinia Gordon, and Alicia Oshlack. "SWAN: Subset-quantile within array normalization for illumina infinium HumanMethylation450 BeadChips." Genome Biol 13.6 (2012): R44.
-8. Johnson, W. Evan, Cheng Li, and Ariel Rabinovic. "Adjusting batch effects in microarray expression data using empirical Bayes methods." Biostatistics 8.1 (2007): 118-127.
-9. Yasukochi, Yukio, et al. "X chromosome-wide analyses of genomic DNA methylation states and gene expression in male and female neutrophils." Proceedings of the National Academy of Sciences 107.8 (2010): 3704-3709.
-10. Smyth, Gordon K. "Linear models and empirical bayes methods for assessing differential expression in microarray experiments." Statistical applications in genetics and molecular biology 3.1 (2004): 1-25.
-11. Andrew J. Sharp, Elisavet Stathaki, Eugenia Migliavacca, Manisha Brahmachary, Stephen B. Montgomery, Yann Dupre, and Stylianos E. Antonarakis. "DNA methylation profiles of human active and inactive X chromosomes." Genome Res. 2011 Oct; 21(10): 1592–1600.
+1. [Li, J, et al. "Epigenetic Biomarkers: Potential Applications in Gastrointestinal Cancers." ISRN gastroenterology 2014 (2014). APA](http://www.ncbi.nlm.nih.gov/pubmed/24729878)	
+2. [Vaiopoulos, AG, et al. "Epigenetic modifications in colorectal cancer: molecular insights and therapeutic challenges." Biochimica et Biophysica Acta (BBA)-Molecular Basis of Disease 1842.7 (2014): 971-980.](http://www.ncbi.nlm.nih.gov/pubmed/24561654)
+3. [Luo, Y, et al. "Differences in DNA methylation signatures reveal multiple pathways of progression from adenoma to colorectal cancer." Gastroenterology 147.2 (2014): 418-429.](http://www.ncbi.nlm.nih.gov/pubmed/24793120)
+4. [Chan, AO, et al. "CpG island methylation in aberrant crypt foci of the colorectum." The American journal of pathology 160.5 (2002): 1823-1830.](http://www.ncbi.nlm.nih.gov/pubmed/12000733)
+5. [Muto, Y, et al. "DNA methylation alterations of AXIN2 in serrated adenomas and colon carcinomas with microsatellite instability." BMC cancer 14.1 (2014): 466.](http://www.ncbi.nlm.nih.gov/pubmed/24964857)
+6. [Shen, L, et al. "MGMT promoter methylation and field defect in sporadic colorectal cancer." Journal of the National Cancer Institute 97.18 (2005): 1330-1338.](http://www.ncbi.nlm.nih.gov/pubmed/16174854)
+7. [Maksimovic, J, et al. "SWAN: Subset-quantile within array normalization for illumina infinium HumanMethylation450 BeadChips." Genome Biol 13.6 (2012): R44.](http://www.ncbi.nlm.nih.gov/pubmed/22703947)
+8. [Johnson, WE, et al. "Adjusting batch effects in microarray expression data using empirical Bayes methods." Biostatistics 8.1 (2007): 118-127.](http://www.ncbi.nlm.nih.gov/pubmed/16632515)
+9. [Yasukochi, Y, et al. "X chromosome-wide analyses of genomic DNA methylation states and gene expression in male and female neutrophils." Proceedings of the National Academy of Sciences 107.8 (2010): 3704-3709.](http://www.ncbi.nlm.nih.gov/pubmed/20133578)
+10. [Smyth, GK. "Linear models and empirical bayes methods for assessing differential expression in microarray experiments." Statistical applications in genetics and molecular biology 3.1 (2004): 1-25.](http://www.ncbi.nlm.nih.gov/pubmed/16646809)
+11. [Sharp, AJ, et al. "DNA methylation profiles of human active and inactive X chromosomes." Genome Res. 2011 Oct; 21(10): 1592–1600.](http://www.ncbi.nlm.nih.gov/pubmed/21862626)
