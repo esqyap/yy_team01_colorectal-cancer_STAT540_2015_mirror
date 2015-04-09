@@ -1,5 +1,9 @@
 # Figures
 
+## Workflow
+
+[workflow.png](workflow.png) - overall statistical analysis workflow
+
 ## Data Normalization
 
 [dataQC_beta_density.png](dataQC_beta_density.png) - density plot of beta values before quantile normalization
