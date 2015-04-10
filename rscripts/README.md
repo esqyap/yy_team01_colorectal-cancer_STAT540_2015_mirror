@@ -1,21 +1,5 @@
 # R scripts
 
-### Add brief description of the scripts here:
-
-[01-get\_data\_and\_filter.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/get_data_and_filter.R)- Beryl
-  - download the raw methylation data, save the raw methylation data and metadata as Rdata
-  - filter the raw data, select probes of CG islands and non ChrX.
-	- select the relevant columns from the raw metadata, new columns include `("group", "title", "geo_accession", "tissue", "colon_region", "gender", "stage")`
-	- beta value is not normalized
-  
-[02-norm\_and\_aggregate.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/norm_and_aggregate.R)- Ka Ming
-  - normalize filtered beta-values
-  - convert beta-values to M-values
-  - aggregate both beta-values and M-values to CpG islands
-  
-
-
-
 __Script__|__Description__|__Input__|__Output__|
 --------------------------- | -------------|------------- |------------- |
 [01get_data_and_filter.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/01get_data_and_filter.R) | Download GSE48684 dataset and filter probes| - | filtered raw data|
@@ -26,9 +10,7 @@ __Script__|__Description__|__Input__|__Output__|
 [DMR_positions_at_chr_pre-process.R]| preprocess | - | preprocessed data|
 [FEA_build_island2GO.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/FEA_build_island2GO.R)| preprocess CPG island names | - | FEA_island2go.Rdata |
 [FEA_topGO_analysis.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/FEA_topGO_analysis.R)| functional enrichment(FEA) by topGO on candidate genes from normal vs cancer, normal vs adenoma, adenoma vs cancer| [FEA_island2go.Rdata](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/FEA_build_island2GO.R); <br>[candidate genes](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/analysis_reports/topGenes)| [enrichment table](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/data/FEA/1e-04/enrichment_table.tsv); <br>[plot-1](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/data/FEA/1e-04/Fisher_top5nodes.png); [plot-2](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/data/FEA/1e-04/KS_top15nodes.png) |
-[FEA_topGO_normalH_vs_C.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/FEA_topGO_normalH_vs_C.R)| FEA on normal-h vs normal-c|	[FEA_island2go.Rdata](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/FEA_build_island2GO.R); <br>[candidate genes](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/data/topTables/normalC_vs_normalH.tsv)| [enrichment tables](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/data/FEA/normal_HC_1e-04)|
+[FEA_topGO_normalH_vs_C.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/FEA_topGO_normalH_vs_C.R)| FEA on normal-h vs normal-c|  [FEA_island2go.Rdata](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/FEA_build_island2GO.R); <br>[candidate genes](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/data/topTables/normalC_vs_normalH.tsv)| [enrichment tables](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/data/FEA/normal_HC_1e-04)|
 [PLOT_mvalue_boxplot.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/PLOT_mvalue_boxplot.R)| plot Distribution of CGI M values| [M values](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/02norm_and_aggregate.R)| [M value box plot](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/figures/dataQC_boxplot.png)|
-[helper_functions.R]()
-[Misc](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/rscripts/Misc)
-  - miscellaneous/junk scripts
-  - scripts that are not crucial to the work flow, but too precious to delete
+[helper_functions.R](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/rscripts/helper_functions.R)| helper functions for plots, data aggregation | - | -|
+[Misc](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/rscripts/Misc)|scripts that are not crucial to the work flow, but too precious to delete| - | -|
