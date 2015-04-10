@@ -3,7 +3,7 @@
 #
 # Input: TtopTable data of four differential methylation analysis.
 #
-# Output: Top enrichment terms for each analysis. 
+# Output: Genomic coordinates at FDR 1e-4 in TSV file. 
 #####################################################
 
 adenoma_vs_cancer  <- 
@@ -54,3 +54,8 @@ str(takeCoord_4)
 
 #save row names as tsv file
 takeCoordTabSep_4  <- write.table(takeCoord_4, file= "../data/normal_vs_cancer.tsv", quote=FALSE, sep='\t', col.names = NA)
+
+
+###################################################################
+#End of script
+###################################################################
