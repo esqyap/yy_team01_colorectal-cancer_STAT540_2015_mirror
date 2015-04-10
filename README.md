@@ -21,6 +21,9 @@ Beryl Zhuang @BerylZhuang	|Bioinformatics Training Program| Dr. William Hsiao (B
 - [final proposal](Group_proposal.md)
 - [poster](poster/poster.pdf)
 - [analysis workflow](figures/workflow.png)
-- [analysis scripts and results]
-- [Wiki Page](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/wiki) for references and resources.
+- tables
+  - [r-scripts](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/rscripts)
+  - [analysis and results](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/analysis_reports)
+  - [data](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/data)
+- [wiki page](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/wiki) for references and resources.
 
