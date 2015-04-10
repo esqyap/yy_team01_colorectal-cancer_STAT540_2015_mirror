@@ -32,6 +32,9 @@ To inspect the datasets that we have so far, check the number of NAs.
 checkNA <- function(df){
   length(which(is.na(df) == T))
 }
+order_by_group <- metadata$geo_accession[order(metadata$group, 
+																							 metadata$colon_region)]
+
 
 # raw data, probes filtered
 #head(raw_data_filter)
@@ -54,6 +57,8 @@ checkNA(raw_data_filter)
 ```
 
 ```r
+raw_data_filter <- raw_data_filter[, order_by_group]
+
 # normalized data
 #head(beta.norm)
 str(beta.norm)
@@ -75,6 +80,8 @@ checkNA(beta.norm)
 ```
 
 ```r
+beta.norm <- beta.norm[, order_by_group]
+
 #head(beta.norm.CGI)
 str(beta.norm.CGI)
 ```
@@ -192,6 +199,8 @@ checkNA(beta.norm.CGI)
 ```
 
 ```r
+beta.norm.CGI <- beta.norm.CGI[, order_by_group]
+
 #M value transformed
 #head(M.norm)
 str(M.norm)
@@ -330,6 +339,8 @@ checkNA(M.norm.CGI)
 ```
 
 ```r
+M.norm.CGI <- M.norm.CGI[, order_by_group]
+
 # metadata
 load("../../data/metadata.Rdata")
 head(metadata)
@@ -430,7 +441,7 @@ ggplot(data = beta_means, aes(x = avg_value, col = category)) +
 ggplot(data = beta_means, aes(x = avg_value, col = group)) +
    geom_density() + 
 		xlab("average beta value") +
-   ggtitle("Average Beta value density \nbefore and after normalization") + 
+   ggtitle("Average Beta value density distribution") + 
    theme_bw() +
 	facet_grid(category ~ .)
 ```
@@ -444,6 +455,26 @@ ggplot(data = beta_means, aes(x = avg_value, col = group)) +
 ```
 
 ![](DataQC_PCA_files/figure-html/beta_value_density_facet_by_category-1.png) 
+
+```r
+# save a large figure for poster
+p <- ggplot(data = beta_means, aes(x = avg_value, col = group)) +
+   geom_density() + 
+		xlab("average beta value") +
+   ggtitle("Average Beta value density distribution") + 
+   theme_bw() +
+	facet_grid(category ~ .) +
+	theme(text = element_text(size=28))
+ggsave(plot = p, filename = "../../figures/dataQC_beta_density.png", width = 16, height = 10.67, units = "in")
+```
+
+```
+## Warning: Removed 1 rows containing non-finite values (stat_density).
+```
+
+```
+## Warning: Removed 1 rows containing non-finite values (stat_density).
+```
 
 Aggregate for M values and plot the density for the 4 groups:
 
@@ -577,6 +608,16 @@ ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
 ```
 
 ![](DataQC_PCA_files/figure-html/pca_normalized_beta-1.png) 
+
+```r
+# save high res for figures
+p <- ggplot(df_prin_comp, aes(PC1, PC2, label = geo_accession, color = group)) +
+  geom_point(size = 6) +
+	theme(text = element_text(size=28)) +
+  ggtitle("Scatterplot of the first two principal components\nnormalized beta value")
+
+ggsave(plot = p, filename = "../../figures/dataQC_norm_beta_PCA.png", width = 16, height = 10.67, units = "in")
+```
 
 
 For M value
