@@ -9,7 +9,8 @@ output:
 
 The genomic coordinates of 34 top selected cgi of our study were converted to bed file using a text editor. 
 
-Then the bed file was fed on [GREAT](http://bejerano.stanford.edu/great/public/html/). The Human: GRCh37 genome assembly and whole genome background were used. GREAT gave 54 genes at FDR 0.05 that are associated with genomic regions. However, GREAT did not return any functionally enriched term, probably because we provied it only 34 cgi regions.
+Then the bed file was fed on [GREAT](http://bejerano.stanford.edu/great/public/html/). The Human: GRCh37 genome assembly and whole genome background were used. GREAT gave 54 genes at FDR 0.05 that are associated with genomic regions. However, GREAT did not return any functionally enriched term, probably because we provied it only 34 cgi regions. Interestingly, we found that the 17 genes overlap with the genes that is found by bioconductor package done by Beryl [here](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/data/FEA/1e-04/genes.txt).
+
 
 The structure of a bed file is:
 
