@@ -3,7 +3,7 @@
 
 tsv files storing tables generated using limma on filtered normalized M values of CGI. 
 
-Top table results from limma analysis using the script in the r markdown in the folder `analysis_reports`. For example, `normal-C_vs_normal-H.tsv` 
+Top table results from limma analysis using the script in the r markdown in the folder `analysis_reports`.
 
 - `adenoma_vs_cancer.tsv` is generated using `analysis_reports/04.1limma-normal-C_vs_normal-H/04.1limma-adenoma_vs_cancer_santina.md`. 
 - `normalC_vs_normalH.tsv` is generated using `analysis_reports/04.1limma-normal-C_vs_normal-H/04.1limma-normalC_vs_normalH_santina.md`.
