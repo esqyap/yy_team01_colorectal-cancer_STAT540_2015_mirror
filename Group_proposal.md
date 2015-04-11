@@ -12,53 +12,48 @@ Project group members:
 * Beryl Zhuang
 
 #### Background
-Colorectal cancer (CRC) initiation and step-wise progression are associated with the accumulation of genetic and epigenetic alterations. The best-characterized epigenetic process is DNA methylation, which regulates gene transcription by covalent addition of a methyl group at the 5-carbon position of cytosine within cytosine-guanine dinucleotides (CpG). Aberrant DNA methylation can lead to malignancy by hypermethylation of CpG islands resulting in transcriptional silencing of tumour suppressor genes. CpG islands are sequences with high CpG fraction (>50%) located within gene promoters and methylation at these sites promotes association of methyl-binding proteins (MBPs) and subsequent recruitment of transcriptional repressors **(1,2)**.
+Epigenetic mechanisms are processes that can alter gene expression without changing the primary sequence of DNA. The best-characterized epigenetic process is DNA methylation, which regulates gene transcription by covalent addition of a methyl group at the 5-carbon position of cytosine within cytosine-guanine dinucleotides (CpG). Aberrant DNA methylation can lead to malignancy by hypermethylation of CpG islands resulting in transcriptional silencing of tumour suppressor genes. CpG islands (CGIs) are sequences with high CpG fraction (>50%) located within gene promoters and methylation at these sites promotes association of methyl-binding proteins (MBPs) and subsequent recruitment of transcriptional repressors **(1,2)**.
 
-Changes in DNA methylation is one of the early molecular events involved in CRC progression and many studies have identified these epigenetic abnormalities in precursor lesions such as aberrant crypt foci and adenomas **(3,4,5)**. Methylation aberrations can also mediate field defect, a phenomenon in which histologically normal tissues are predisposed to malignant transformation due to the presence of molecular alterations. For example, cancer-specific promoter methylation of the O<sup>6</sup>-methylguanine DNA methyltransferase (*MGMT*) gene which encodes for a DNA repair protein was detected in normal intestinal tissues adjacent to tumours and distant normal tissues 10 cm away from tumours in CRC patients **(6)**. 
+￼￼￼Colorectal cancer (CRC) accounts for the second highest cancer-related mortality among men and third among women in Canada, and it progresses from precursor lesions such as adenomas **(1,3)**. Aberrant methylation is implicated in CRC progression in a phenomenon known as field defect, in which histologically normal tissues are predisposed to malignant transformation due to the presence of molecular alterations. For example, cancer-specific promoter methylation of the O<sup>6</sup>-methylguanine DNA methyltransferase (*MGMT*) gene which encodes for a DNA repair protein was detected in normal intestinal tissues adjacent to tumours and distant normal tissues 10 cm away from tumours in CRC patients **(4)**. For our project, we will compare methylation patterns between normal mucosa, adenoma, and colorectal tumour. By identifying differentially methylated (DM) CGIs between these three groups, we hope to determine early methylation abnormalities underlying CRC progression, specifically the progression from adenoma to CRC. Ultimately, this information could be translated into a clinically applicable tool which applies DNA methylation markers in early detection, risk assessment, and disease monitoring of CRC. 
 
-Therefore, comparison of DNA methylation patterns at the whole methylome level between normal tissues, precursor lesions, and colorectal tumours as well as comparison of tumours with paired normal tissues from CRC patients could provide further insights on the biology of CRC initiation and progression. Ultimately, these information could be translated into a clinically applicable tool which applies DNA methylation markers in early detection, risk assessment, disease monitoring, and therapeutic intervention of CRC. 
-
-#### Project Aims
-1. To compare methylation patterns between normal tissues, colon adenomas, and colorectal tumours to identify aberrantly methylated CpG islands underlying CRC progression through the normal to adenoma and adenoma to tumour sequences.
-2. To compare methylation patterns between normal tissues from healthy patients and normal tissues from CRC patients to characterize DNA methylation mediators of field defect. 
+#### Project Aim and Rationale
+As CRC can progress from normal mucosa to adenoma followed by adenoma to cancer, our goal is to perform pairwise comparisons of sample groups (i.e. normal vs. adenoma, adenoma vs. cancer, and normal vs. cancer). From these results, we could determine common methylation abnormalities. Given that these DM CGIs are identified in adenomas compared to normal mucosa in addition to the two other pairwise comparisons (i.e. adenoma vs. cancer and normal vs. cancer), these aberrant methylation patterns can determine the risk of cancer progression from the adenoma stage. 
 
 #### Dataset
-For our group project, we will analyze DNA methylation array data from [Series GSE48684](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE48684) generated by the Illumina HumanMethylation450 BeadChip platform [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534") with standard Illumina protocol. This dataset is publicly available on the Gene Expression Omnibus (GEO). The dataset consists of a total of 147 patient samples which are divided into four different patient groups: 
+We will analyze DNA methylation array data from [Series GSE48684](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE48684) generated by the Illumina HumanMethylation450 BeadChip platform [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"). This dataset is publicly available on the Gene Expression Omnibus (GEO). The dataset consists of a total of 147 patient samples which are divided into four different patient groups: 
 
 | Group |  description| sample size |
 | ------------- |:-------------:| -----:|
-| normal-H |  Genomic DNA from normal individuals      | 17 |
+| normal-H |  Genomic DNA from normal colon samples from healthy individuals      | 17 |
 | normal-C  |    Genomic DNA of normal colon sample from CRC patients  | 24  |
 | adenoma   |    Genomic DNA from adenoma patients |    42  |
 | cancer |    Genomic DNA from CRC patients | 64  |
 
-Beta value, the estimation of methylation level by the ratio of methylated intensity and control intensity, were recorded for 485577 probes. The beta values have been normalized by SWAN **(7)** and corrected for batch effect by Combat **(8)**. 
-The tissue samples were taken from colorectal mucosa. The metadata, such as gender, cancer stage, colon region where the sample was taken from, and protocols used were also recorded.
-
+Beta value, the estimation of methylation level by the ratio of methylated intensity and control intensity, were recorded for 485,577 probes. The beta values have been corrected for batch effect by Combat **(5)**. The metadata contains information such as gender, cancer stage, colon region (site of biopsy), and GEO accession ID. 
 
 #### Proposed Methods
-As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those that hybridize to CpG islands, which are widely studied and shown to be biologically relevant in cancer progression as discussed earlier. In addition, we are excluding chromosome X from our analyses because one copy of chromosome X in every female would have chromosome-wide methylation at CpG sites **(9,11)**.
+As revealed by the corresponding [GEO Platform GPL13534](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534 "Platform GPL13534"), a total of 485,577 HumanMethylation450 probes were used in this study. Given our limited computational resources and time, we opt for downsizing the number of probes to those that hybridize to CpG islands, which are widely studied and shown to be biologically relevant in cancer progression as discussed earlier. In addition, we are excluding chromosome X from our analyses because one copy of chromosome X in every female would have chromosome-wide methylation at CpG sites **(6,7)**.
 
-In the first phase of our project, we want to do a sanity check on the on the quality of the data. We will perform unsupervised hierarchical [clustering analysis](http://www.statmethods.net/advstats/cluster.html) on our data to see if samples from the same patient groups are clustered together. If the majority of the samples are correctly clustered in the same patient groups, the analysis could suggest that the few ones that are incorrectly clustered could be potential sample-swaps or outliers.
+In the first phase of our project, we want to ensure the quality of the data (e.g. determine presence of outliers). We will perform unsupervised hierarchical [clustering analysis](http://www.statmethods.net/advstats/cluster.html), K-means clustering, and principal component analysis on our data to see if samples from the same patient groups are clustered together. If the majority of the samples are correctly clustered in the same patient groups, the analysis could suggest that the few ones that are incorrectly clustered could be potential sample-swaps or outliers.
 
-We will then perform normalization on our data and then clustering analysis to see if the results differ. __To further examine the data prior to the group comparison analysis, we will also examine covariance across the samples, assuming that samples in the same patient groups have strong co-variance.__, M value, CGI, PCA
+We will then perform quantile normalization on our data and then clustering analysis to see if the results differ. Subsequently, we will aggregate the probes to CGIs and convert beta values to M values (logit transformed beta values). Prior differential methylation analysis, we will perform a second step of data quality checking to determine M value variability between samples. This is because one of the assumptions of linear models is equal variance, hence, it is very important to determine equal variance before fitting a linear regression model to prevent inconsistent estimation of model parameters. 
 
-__TODO__add stuff for exploratory analysis :)
+After performing all the necessary data cleaning, processing, quality checking, and normalization, we will perform differential methylation analysis (DMA) using the Bioconductor package limma **(8)** with M-values for each CGIs for all samples as input. To examine DM CGIs in the different stages of CRC progression, we will do pairwise comparisons of sample groups as in the following:
 
-In order to do group comparison between the methylation data of the normal tissues, adenomas, and colorectal tumour, we will perform differential methylation analysis using the Bioconductor package limma**(10)** and extract differentially methylated CGI for further analysis. To examine the different stages of CRC progression, we will do two group comparisons for the following pairs:
-- normal-C  and normal-H: to investigate whether the two groups are differentially methylated, and what are the regions. This could reveal whether normal tissue from patients with CRC have different epigenomics compared to normal tissues from healthy individuals. 
-- normal-H+nomal-C and adenoma : to investigate if any regions become differently methylated in the progression from normal tissue to development of adenoma.  
-- normal-H+nomal-C and cancer : to investigate if any regions become differently methylated in the progression from normal tissue to CRC.  
+- *normal* and adenoma : to investigate if any regions become differently methylated in the progression from normal tissue to development of adenoma.  
+- *normal* and cancer : to investigate if any regions become differently methylated in the progression from normal tissue to CRC.  
 - adenoma and cancer : to see, if any, which probes indicate different methylation levels between the two groups. This information could reveal possible epigenomics changes as adenoma progresses to CRC. 
 
-We will do functional enrichment analysis on the top-hit candidate genes as part of our Aim #1. __By examining the pathways these genes are part of, it could help us evaluate our analysis results and whether epigenomics play an important role in CRC.__
+**Note: Due to unequal sample sizes, we combined normal-H and normal-C samples in the *normal* group compared with adenoma and cancer.**
+
+Based on the results of our DMA, we will determine common DM CGIs and perform functional enrichment analysis. Literature review will be performed to examine the association of enriched functions with cancer progression.
 
 #### Distribution of work
 
 1. **Data processing and prefiltering** - Ka Ming and Beryl
-	- Prepare scripts to download data and filtering data
+	- Prepare scripts to download data and filter data
 	- Describe data structures and sizes 
-	- Create metadata and aggregating data
+	- Create metadata and aggregate data
 	- Data normalization and transformation 
 
 2. **Exploratory analysis** - Santina, Eva and Beryl
@@ -66,24 +61,23 @@ We will do functional enrichment analysis on the top-hit candidate genes as part
 	- K-means clustering 
 	- Principal component analysis
 
-3. **Differential methylation analysis** - Ka Ming, Eva, Santina and Beryl
-	- Perform differential methylation analysis(limma) by doing different group comparisons
+3. **Differential methylation analysis** - Ka Ming, Eva, Santina, and Beryl
+	- Perform DMA by doing pairwise sample group comparisons
+  - Use Bioconductor package `limma`
+  - Prepare appropriate figures and interpretation of the model fitted
 
 4. **Functional enrichment analysis** - Beryl, Eva, Rashedul 
 	- topGO, DAVID
 	- Literature research on enriched Gene Ontology terms
 
-5. **Prepare poster** - Ka Ming, Eva, Santina
+5. **Prepare poster** - Ka Ming, Eva, Santina, and Beryl
 
 #### References
 1. [Li, J, et al. "Epigenetic biomarkers: potential applications in gastrointestinal cancers." ISRN gastroenterology 2014 (2014): 464015](http://www.ncbi.nlm.nih.gov/pubmed/24729878)	
-2. [Vaiopoulos, AG, et al. "Epigenetic modifications in colorectal cancer: molecular insights and therapeutic challenges." Biochimica et Biophysica Acta (BBA)-Molecular Basis of Disease 1842.7 (2014): 971-980.](http://www.ncbi.nlm.nih.gov/pubmed/24561654)
-3. [Luo, Y, et al. "Differences in DNA methylation signatures reveal multiple pathways of progression from adenoma to colorectal cancer." Gastroenterology 147.2 (2014): 418-429.](http://www.ncbi.nlm.nih.gov/pubmed/24793120)
-4. [Chan, AO, et al. "CpG island methylation in aberrant crypt foci of the colorectum." The American journal of pathology 160.5 (2002): 1823-1830.](http://www.ncbi.nlm.nih.gov/pubmed/12000733)
-5. [Muto, Y, et al. "DNA methylation alterations of AXIN2 in serrated adenomas and colon carcinomas with microsatellite instability." BMC cancer 14.1 (2014): 466.](http://www.ncbi.nlm.nih.gov/pubmed/24964857)
-6. [Shen, L, et al. "MGMT promoter methylation and field defect in sporadic colorectal cancer." Journal of the National Cancer Institute 97.18 (2005): 1330-1338.](http://www.ncbi.nlm.nih.gov/pubmed/16174854)
-7. [Maksimovic, J, et al. "SWAN: Subset-quantile within array normalization for illumina infinium HumanMethylation450 BeadChips." Genome Biol 13.6 (2012): R44.](http://www.ncbi.nlm.nih.gov/pubmed/22703947)
-8. [Johnson, WE, et al. "Adjusting batch effects in microarray expression data using empirical Bayes methods." Biostatistics 8.1 (2007): 118-127.](http://www.ncbi.nlm.nih.gov/pubmed/16632515)
-9. [Yasukochi, Y, et al. "X chromosome-wide analyses of genomic DNA methylation states and gene expression in male and female neutrophils." Proceedings of the National Academy of Sciences 107.8 (2010): 3704-3709.](http://www.ncbi.nlm.nih.gov/pubmed/20133578)
-10. [Smyth, GK. "Linear models and empirical bayes methods for assessing differential expression in microarray experiments." Statistical applications in genetics and molecular biology 3.1 (2004): 1-25.](http://www.ncbi.nlm.nih.gov/pubmed/16646809)
-11. [Sharp, AJ, et al. "DNA methylation profiles of human active and inactive X chromosomes." Genome Res. 2011 Oct; 21(10): 1592–1600.](http://www.ncbi.nlm.nih.gov/pubmed/21862626)
+2. [Luo, Y, et al. "Differences in DNA methylation signatures reveal multiple pathways of progression from adenoma to colorectal cancer." Gastroenterology 147.2 (2014): 418-429.](http://www.ncbi.nlm.nih.gov/pubmed/24793120)
+3. [Canadian Cancer Society’s Advisory Committee on Cancer Statistics. Canadian Cancer Statistics 2014. Toronto, ON: Canadian Cancer Society; 2014.](http://www.cancer.ca/~/media/cancer.ca/CW/cancer%20information/cancer%20101/Canadian%20cancer%20statistics/Canadian-Cancer-Statistics-2014-EN.pdf)
+4. [Shen, L, et al. "MGMT promoter methylation and field defect in sporadic colorectal cancer." Journal of the National Cancer Institute 97.18 (2005): 1330-1338.](http://www.ncbi.nlm.nih.gov/pubmed/16174854)
+5. [Johnson, WE, et al. "Adjusting batch effects in microarray expression data using empirical Bayes methods." Biostatistics 8.1 (2007): 118-127.](http://www.ncbi.nlm.nih.gov/pubmed/16632515)
+6. [Yasukochi, Y, et al. "X chromosome-wide analyses of genomic DNA methylation states and gene expression in male and female neutrophils." Proceedings of the National Academy of Sciences 107.8 (2010): 3704-3709.](http://www.ncbi.nlm.nih.gov/pubmed/20133578)
+7. [Sharp, AJ, et al. "DNA methylation profiles of human active and inactive X chromosomes." Genome Res. 2011 Oct; 21(10): 1592–1600.](http://www.ncbi.nlm.nih.gov/pubmed/21862626)
+8. [Smyth, GK. "Linear models and empirical bayes methods for assessing differential expression in microarray experiments." Statistical applications in genetics and molecular biology 3.1 (2004): 1-25.](http://www.ncbi.nlm.nih.gov/pubmed/16646809)
