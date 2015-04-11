@@ -18,7 +18,7 @@ chr16  1598952  1599157
 chr1  205038784  205039153 
 ```
 
-#### GREAT output: Gene name and upstream (+) and downstream (-) location of the CGi from the gene. 
+#### GREAT output: Gene name and upstream (+) and downstream (-) location of the CGI from the gene. 
 
 ```
 ALG10       (+320255)
