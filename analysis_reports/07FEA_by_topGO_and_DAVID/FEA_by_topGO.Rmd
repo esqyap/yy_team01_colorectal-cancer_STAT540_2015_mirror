@@ -1,0 +1,56 @@
+---
+title: "Functional enrichment analysis by topGO and DAVID"
+author: "Beryl"
+date: "2015-04-10"
+output: 
+  html_document:
+    keep_md: yes
+    toc: yes
+---
+Goal: identify relevant biological processes or molecular functions that are enriched With the 34 candidate CGIs. 
+
+
+
+```{r load_enrichment_table}
+if(file.exists("../../data/FEA/1e-04/enrichment_table.tsv")){
+	FEA_tb <- read.table("../../data/FEA/1e-04/enrichment_table.tsv", header = T)
+} else {
+	source("../../rscripts/FEA_topGO_analysis.R")
+	FEA_tb <- read.table("../../data/FEA/1e-04/enrichment_table.tsv", header = T)
+	}
+```
+
+The top 20 enriched terms:
+
+```{r}
+knitr::kable(FEA_tb)
+```
+
+There are a few very broad terms, such as molecular function, binding, protein binding, that are not informative.
+
+Among the other top terms, such as transmembrane receptor protein tyrosine phosphatase activity, SMAD binding, and MHC class I protein binding are related to tumour suppressor genes, which have been found to be involved in CRC progression and other cancer types too[1, 2, 3]. The enrichment results show that the candidate genes are relevant to CRC. However, there are no new discoveries among the top enriched terms.
+
+####The top 5 nodes from Fisher test
+![img](https://raw.githubusercontent.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/master/data/FEA/1e-04/Fisher_top5nodes.png?token=AIR6N8h1hFe2UbsotEXVJDbGtMlvAx9mks5VMezTwA%3D%3D)
+
+
+#### Top 15 nodes from K-S test
+![img](https://raw.githubusercontent.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/master/data/FEA/1e-04/KS_top15nodes.png?token=AIR6NwpTrEQAQUAoLVWqdhPYX7XZG_bnks5VMe0swA%3D%3D)
+
+
+### Enrichment analysis by DAVID
+See detail and results [here](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/data/DAVID)
+
+####DAVID results: Functional annotation clustering
+![img](https://raw.githubusercontent.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/master/data/DAVID/DAVID_anno_clustering_normal_adenoma_cancer.png?token=AIR6N1P2a5HlvA1RKG56rTar2i6eToeWks5VMfE-wA%3D%3D)
+
+
+####DAVID results: Functional annotation chart
+![img](https://raw.githubusercontent.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/master/data/DAVID/DAVID_anno_chart_normal_adenoma_cancer.png?token=AIR6N9vYuN6Bb-zUngobNfveriZMbKhuks5VMfGswA%3D%3D)
+
+
+References:
+
+1. [Ostman, A. et al. "Protein-tyrosine phosphatases and cancer." Nat Rev Cancer. 2006 Apr; 6(4):307-20.](http://www.ncbi.nlm.nih.gov/pubmed/16557282)
+2. [Derynck, R. et al. “ TGF-β signaling in tumor suppression and cancer progression.” Nat Genet. 2001 Oct; 29(2): 117-29.](http://www.ncbi.nlm.nih.gov/pubmed/11586292)
+3. [Garcia-Lora, A. et al. “MHC Class I Antigens, Immune Surveillance, and Tumour Immune Escape.” J Cell Physiol. 2003 Jun; 195(3): 346-55.](http://www.ncbi.nlm.nih.gov/pubmed/12704644)
