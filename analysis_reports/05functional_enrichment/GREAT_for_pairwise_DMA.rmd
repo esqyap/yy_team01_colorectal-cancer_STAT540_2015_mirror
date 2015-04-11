@@ -25,9 +25,15 @@ MSigDB [2] perturbation database shows the possible chemical and genetic perturb
 
 Details of statistics and results are given in the table;
 
+| DMR    | Number of CGIs | Number of genes associated | Pathways | MSigDB perturbations | 
+|:------:|:-----:|:---------:|:---------:|:------:|
+|    Normal Vs Cancer  |  8,247  |    7,725   |   Genes involved in p38MAPK events | 1. Genes up-regulated in NB4 cells (acute promyelocytic leukemia, APL) in response to tretinoin 2. Genes with high-CpG-density promoters bearing the H3K27me3 mark in brain.3. Genes within amplicon 7p15 identified in a copy number alterations in breast tumor|
+|  Normal Vs Adenoma  |  13,276 |   10,704   |   --  | Very similar terms as Normal Vs Cancer | 
+| Adenoma Vs Cancer  |    1,011 |   1,414   |   Genes involved in Generic Transcription Pathway  | 1. genes within amplicon 5p15 identified in a copy number alterations in breast tumor. 2. Genes with high-CpG-density promoters bearing H327me3 in embryonic stem cells (ES).3. Genes within amplicon 7p22 identified in a copy number alterations study in breast tumor.  |
 
 
-**Reference:**  1.
+
+**Reference:**
 
 1. Cory Y McLean, Dave Bristor, Michael Hiller, Shoa L Clarke, Bruce T Schaar, Craig B Lowe, Aaron M Wenger, and Gill Bejerano. "GREAT improves functional interpretation of cis-regulatory regions". Nat. Biotechnol. 28(5):495-501, 2010. [PMID 20436461](http://www.ncbi.nlm.nih.gov/pubmed/20436461).
 2. Tamayo, et al. [2005, PNAS 102, 15545-15550](http://www.pnas.org/cgi/content/abstract/102/43/15545) and Mootha, Lindgren, et al. [2003, Nat Genet 34, 267-273](http://www.nature.com/ng/journal/v34/n3/abs/ng1180.html).
