@@ -23,7 +23,8 @@ if(file.exists("../../data/FEA/1e-04/enrichment_table.tsv")){
 The top 20 enriched terms:
 
 ```{r}
-knitr::kable(FEA_tb)
+library(knitr)
+kable(FEA_tb, format = "markdown", align ="l")
 ```
 
 There are a few very broad terms, such as molecular function, binding, protein binding, that are not informative.

@@ -19,33 +19,34 @@ The top 20 enriched terms:
 
 
 ```r
-knitr::kable(FEA_tb)
+library(knitr)
+kable(FEA_tb, format = "markdown", align ="l")
 ```
 
 
 
-GO.ID        Term                                           Annotated   Significant   Expected   Rank.in.classicFisher   classicFisher  classicKS   elimKS 
------------  --------------------------------------------  ----------  ------------  ---------  ----------------------  --------------  ----------  -------
-GO:0003674   molecular_function                                 15366            11       9.33                     106           0.330  < 1e-30     <1e-30 
-GO:0005488   binding                                            13091            10       7.95                     100           0.272  < 1e-30     <1e-30 
-GO:0005515   protein binding                                     9229             8       5.60                      94           0.199  < 1e-30     <1e-30 
-GO:0046872   metal ion binding                                   4485             3       2.72                     113           0.514  2.3e-19     <1e-30 
-GO:0003824   catalytic activity                                  5310             4       3.22                     109           0.404  3.0e-21     <1e-30 
-GO:0097159   organic cyclic compound binding                     6239             7       3.79                      69           0.086  2.0e-28     <1e-30 
-GO:0042605   peptide antigen binding                               18             0       0.01                     122           1.000  7.7e-05     <1e-30 
-GO:1901363   heterocyclic compound binding                       6182             7       3.75                      66           0.083  7.7e-28     <1e-30 
-GO:0005001   transmembrane receptor protein tyrosine ...           98             0       0.06                     123           1.000  1.1e-11     <1e-30 
-GO:0003677   DNA binding                                         2833             1       1.72                     121           0.823  2.4e-14     <1e-30 
-GO:0046332   SMAD binding                                         128             0       0.08                     124           1.000  1.8e-10     <1e-30 
-GO:0003676   nucleic acid binding                                4144             2       2.52                     120           0.720  4.9e-19     <1e-30 
-GO:0043565   sequence-specific DNA binding                       1162             0       0.71                     125           1.000  8.9e-08     <1e-30 
-GO:0042288   MHC class I protein binding                           10             0       0.01                     126           1.000  0.0094      <1e-30 
-GO:0046978   TAP1 binding                                           4             0       0.00                     127           1.000  0.0239      <1e-30 
-GO:0005005   transmembrane-ephrin receptor activity                15             0       0.01                     128           1.000  4.6e-07     <1e-30 
-GO:0032395   MHC class II receptor activity                         4             0       0.00                     129           1.000  0.0249      <1e-30 
-GO:0001106   RNA polymerase II transcription corepres...           45             0       0.03                     130           1.000  1.1e-07     <1e-30 
-GO:0032041   NAD-dependent histone deacetylase activi...           24             0       0.01                     131           1.000  2.5e-07     <1e-30 
-GO:0046970   NAD-dependent histone deacetylase activi...           24             0       0.01                     132           1.000  2.5e-07     <1e-30 
+|GO.ID      |Term                                        |Annotated |Significant |Expected |Rank.in.classicFisher |classicFisher |classicKS |elimKS |
+|:----------|:-------------------------------------------|:---------|:-----------|:--------|:---------------------|:-------------|:---------|:------|
+|GO:0003674 |molecular_function                          |15366     |11          |9.33     |106                   |0.330         |< 1e-30   |<1e-30 |
+|GO:0005488 |binding                                     |13091     |10          |7.95     |100                   |0.272         |< 1e-30   |<1e-30 |
+|GO:0005515 |protein binding                             |9229      |8           |5.60     |94                    |0.199         |< 1e-30   |<1e-30 |
+|GO:0046872 |metal ion binding                           |4485      |3           |2.72     |113                   |0.514         |2.3e-19   |<1e-30 |
+|GO:0003824 |catalytic activity                          |5310      |4           |3.22     |109                   |0.404         |3.0e-21   |<1e-30 |
+|GO:0097159 |organic cyclic compound binding             |6239      |7           |3.79     |69                    |0.086         |2.0e-28   |<1e-30 |
+|GO:0042605 |peptide antigen binding                     |18        |0           |0.01     |122                   |1.000         |7.7e-05   |<1e-30 |
+|GO:1901363 |heterocyclic compound binding               |6182      |7           |3.75     |66                    |0.083         |7.7e-28   |<1e-30 |
+|GO:0005001 |transmembrane receptor protein tyrosine ... |98        |0           |0.06     |123                   |1.000         |1.1e-11   |<1e-30 |
+|GO:0003677 |DNA binding                                 |2833      |1           |1.72     |121                   |0.823         |2.4e-14   |<1e-30 |
+|GO:0046332 |SMAD binding                                |128       |0           |0.08     |124                   |1.000         |1.8e-10   |<1e-30 |
+|GO:0003676 |nucleic acid binding                        |4144      |2           |2.52     |120                   |0.720         |4.9e-19   |<1e-30 |
+|GO:0043565 |sequence-specific DNA binding               |1162      |0           |0.71     |125                   |1.000         |8.9e-08   |<1e-30 |
+|GO:0042288 |MHC class I protein binding                 |10        |0           |0.01     |126                   |1.000         |0.0094    |<1e-30 |
+|GO:0046978 |TAP1 binding                                |4         |0           |0.00     |127                   |1.000         |0.0239    |<1e-30 |
+|GO:0005005 |transmembrane-ephrin receptor activity      |15        |0           |0.01     |128                   |1.000         |4.6e-07   |<1e-30 |
+|GO:0032395 |MHC class II receptor activity              |4         |0           |0.00     |129                   |1.000         |0.0249    |<1e-30 |
+|GO:0001106 |RNA polymerase II transcription corepres... |45        |0           |0.03     |130                   |1.000         |1.1e-07   |<1e-30 |
+|GO:0032041 |NAD-dependent histone deacetylase activi... |24        |0           |0.01     |131                   |1.000         |2.5e-07   |<1e-30 |
+|GO:0046970 |NAD-dependent histone deacetylase activi... |24        |0           |0.01     |132                   |1.000         |2.5e-07   |<1e-30 |
 
 There are a few very broad terms, such as molecular function, binding, protein binding, that are not informative.
 
