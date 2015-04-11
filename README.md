@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ## Project title
 Identifying aberrant methylation patterns underlying colorectal cancer progression
+=======
+# Identifying aberrant methylation patterns underlying colorectal cancer progression
+>>>>>>> 5abf56f8338a85c094da795e8ee94b5b4af5bb8b
 
 ## Project Summary 
 Aberrant DNA methylation can lead to malignancy by hyper-methylation of CpG islands (CGIs) resulting in transcriptional silencing of tumor suppressor genes. CGIs are sequences with high CpG fractions (>50%) located within gene promoters and methylation at these sites promotes association of methyl-binding proteins and subsequent recruitment of transcriptional repressors **(1,2)**. Colorectal cancer (CRC) accounts for the second highest cancer-related mortality among men and third among women in Canada, and it progresses from precursor lesions such as adenomas **(1,3)**. For our project, we compared methylation patterns between normal mucosa, adenoma, and colorectal tumour. By identifying differentially methylated (DM) CGIs between these three groups, we hope to determine aberrant methylation underlying CRC progression.
@@ -28,9 +32,13 @@ Beryl Zhuang @BerylZhuang	|Bioinformatics Training Program| Dr. William Hsiao (B
 - BCCDC = BC Centre for Disease Control
 
 ## Table of contents
-- [initial proposal](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/initial_project_summary.md)
-- [final proposal](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/blob/master/Group_proposal.md)
-- [work flow]
-- [analysis scripts and results]
-- [Wiki Page](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/wiki) for references and resources.
+- [initial proposal](initial_project_summary.md)
+- [final proposal](Group_proposal.md)
+- [poster](poster/poster.pdf)
+- [analysis workflow](figures/workflow.png)
+- tables
+  - [r-scripts](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/rscripts)
+  - [analysis and results](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/analysis_reports)
+  - [data](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/tree/master/data)
+- [wiki page](https://github.com/STAT540-UBC/yy_team01_colorectal-cancer_STAT540_2015/wiki) for references and resources.
 

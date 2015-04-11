@@ -1,5 +1,5 @@
 
-# Density plot, CPA, and heatmap 
+# Density plot, PCA, and heatmap 
 
 This folder contains some exploratory analysis and quality check on the methylation data: 
 - raw filtered data

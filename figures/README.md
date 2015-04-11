@@ -6,9 +6,9 @@
 
 ## Data Normalization
 
-[dataQC_beta_density.png](dataQC_beta_density.png) - density plot of beta values before quantile normalization
+[dataQC_beta_density.png](dataQC_beta_density.png) - density plot of beta values before and after quantile normalization
 
-[dataQC_boxplot.png](dataQC_boxplot.png) - density plot of beta values after quantile normalization
+[dataQC_boxplot.png](dataQC_boxplot.png) - density plot of aggregated CGI M values after quantile normalization
 
 ## Exploratory Analysis
 
