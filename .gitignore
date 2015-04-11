@@ -1,5 +1,4 @@
 *.Rproj
-*.html
 .Rproj.user
 .Rhistory
 .RData
